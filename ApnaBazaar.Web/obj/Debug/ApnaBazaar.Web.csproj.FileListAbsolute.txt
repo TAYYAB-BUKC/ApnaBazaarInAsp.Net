@@ -102,3 +102,12 @@ C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.csproj.CopyComplete
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.dll
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Entities.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Entities.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Entities.dll.config
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Services.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Database.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Services.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Services.dll.config
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Database.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\bin\ApnaBazaar.Database.dll.config
