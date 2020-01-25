@@ -1,0 +1,6 @@
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\obj\Debug\ApnaBazaar.Entities.csprojAssemblyReference.cache
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\bin\Debug\ApnaBazaar.Entities.dll.config
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\bin\Debug\ApnaBazaar.Entities.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\bin\Debug\ApnaBazaar.Entities.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\obj\Debug\ApnaBazaar.Entities.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\obj\Debug\ApnaBazaar.Entities.pdb
