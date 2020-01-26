@@ -1,0 +1,76 @@
+﻿@model List<Product>	
+@{
+    ViewBag.Title = "ProductTable";
+}
+
+<h4>ProductTable</h4>
+
+<div>
+	<form method="post">
+		<input id="searchText" name="Search" />
+		<button type="button" id="searchBtn"> Search</button>
+	</form>
+</div>
+
+<button id="newBtn">New</button>
+
+<table>
+	<thead>
+		<tr>
+			<td>ProductName</td>
+			<td>Category</td>
+			<td>Price</td>
+			<td>Actions</td>
+		</tr>
+	</thead>	
+	<tbody>
+		@foreach (var product in Model)
+		{
+		<tr>
+			<td>@product.Name</td>
+			<td>@product.Category</td>
+			<td>@product.Price</td>
+			<td>
+				<button>Edit</button>
+				<button>Delete</button>
+			</td>
+
+		</tr>
+		}
+	</tbody>
+	
+</table>
+
+
+<script>
+	$("#searchBtn").click(function myfunction(){
+		var searchvalue = $("#searchText").val();
+		$.ajax({
+			url: '/Product/ProductTable',
+			data:
+			{
+				search: searchvalue
+			},
+		})
+        .done(function (response) {
+        	$("#tableContainer").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+        });
+	});
+
+
+	$("#newBtn").click(function myfunction(){
+		$.ajax({
+			url: '/Product/Create'
+		})
+        .done(function (response) {
+        	$("#createProduct").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+        });
+	});
+
+</script>
