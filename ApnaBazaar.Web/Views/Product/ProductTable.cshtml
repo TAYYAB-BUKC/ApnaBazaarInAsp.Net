@@ -31,8 +31,8 @@
 			<td>@product.Category</td>
 			<td>@product.Price</td>
 			<td>
-				<button>Edit</button>
-				<button>Delete</button>
+				<button class="EditBtn" data-id="@product.ID">Edit</button>
+				<button class="DeleteBtn" data-id="@product.ID">Delete</button>
 			</td>
 
 		</tr>
@@ -73,4 +73,42 @@
         });
 	});
 
+	$(".EditBtn").click(function myfunction() {
+		$.ajax({
+			url: '/Product/Edit',
+			data:
+			{
+					Id: $(this).attr("data-id")
+			}
+		})
+			.done(function (response) {
+				$("#createProduct").html(response);
+
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
+	});
+
+	$(".DeleteBtn").click(function myfunction() {
+
+		var confirmDelete = confirm("Are you sure you want to delete this category?");
+		if (confirmDelete) {
+		$.ajax({
+			type: 'Post',
+			url: '/Product/Delete',
+			data:
+			{
+					Id: $(this).attr("data-id")
+			}
+		})
+			.done(function (response) {
+				$("#tableContainer").html(response);
+
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
+		}
+		});
 </script>

@@ -31,12 +31,33 @@ namespace ApnaBazaar.Web.Controllers
 		[HttpGet]
 		public ActionResult Create()
 		{
-			return View();
+			return PartialView();
 		}
 		[HttpPost]
 		public ActionResult Create(Product product)
 		{
 			productService.SaveProduct(product);
+			return RedirectToAction("ProductTable");
+		}
+
+
+		[HttpGet]
+		public ActionResult Edit(int Id)
+		{
+			var product = productService.GetSpecificProduct(Id);
+			return PartialView(product);
+		}
+		[HttpPost]
+		public ActionResult Edit(Product product)
+		{
+			productService.UpdateProduct(product);
+			return RedirectToAction("ProductTable");
+		}
+
+		[HttpPost]
+		public ActionResult Delete(int Id)
+		{
+			productService.DeleteProduct(Id);
 			return RedirectToAction("ProductTable");
 		}
 

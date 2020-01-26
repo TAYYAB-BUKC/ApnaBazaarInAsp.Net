@@ -42,7 +42,7 @@ namespace ApnaBazaar.Services
 			}
 		}
 
-		public void DeleteCategory(int Id)
+		public void DeleteProduct(int Id)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
