@@ -13,8 +13,6 @@ namespace ApnaBazaar.Web.Controllers
 		CategoriesService categoriesService = new CategoriesService();
 
 		// GET: Category
-
-
 		[HttpGet]
 		public ActionResult Index()
 		{

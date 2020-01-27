@@ -7,12 +7,54 @@
 
 <form method="post">
 	<label>Name</label>
-	<input name="Name"/>
+	<input name="Name" />
 	<br />
 	<label>Description</label>
-	<input name="Description"/>
+	<input name="Description" />
 	<br />
+	<label>Select Image</label>
+	<input id="Imagepath" name="Imagepath" type="hidden" />
+	<input id="imageUpload" name="Image" type="file" />
+	<br />
+
+	<img id="image" />
+	<br />
+
 	<button type="submit">Save</button>
 
 </form>
+
+<script>
+	$("#imageUpload").change(function () {
+		var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+		}
+
+		$.ajax({
+			type: 'POST',
+			url: '/Shared/UploadImage',
+			dataType: 'json',
+			data: formData,
+			contentType: false,
+			processData: false
+		})
+        .done(function (response) {
+			if (response.Success) {
+				$("#image").attr("src", response.ImageURL);
+				$("#Imagepath").val(response.ImageURL);
+			}
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+        });
+	});
+
+</script>
 

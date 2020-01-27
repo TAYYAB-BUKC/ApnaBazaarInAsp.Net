@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ApnaBazaar.Services;
+using ApnaBazaar.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,13 @@ namespace ApnaBazaar.Web.Controllers
 {
 	public class HomeController : Controller
 	{
+		HomeViewModel homeViewModel = new HomeViewModel();
+		CategoriesService categoriesService = new CategoriesService();
 		public ActionResult Index()
 		{
-			return View();
+			homeViewModel.categories = categoriesService.GetCategories();
+
+			return View(homeViewModel);
 		}
 
 		public ActionResult About()

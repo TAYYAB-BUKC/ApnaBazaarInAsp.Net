@@ -14,3 +14,4 @@ C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaB
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.pdb
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.Initialized.resources
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.csproj.GenerateResource.cache
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.ImagePAthAdded.resources
