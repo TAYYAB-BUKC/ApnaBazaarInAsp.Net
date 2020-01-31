@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace ApnaBazaar.Services
 {
@@ -12,22 +13,30 @@ namespace ApnaBazaar.Services
 	{
 		public Product GetSpecificProduct(int Id)
 		{
-			using (var context = new ApnaBazaarContext())
-			{
-				return context.Products.Find(Id);
-			}
+			/*			using (var context = new ApnaBazaarContext())
+						{		
+							return context.Products.Find(Id);
+						}
+			*/
+			var context = new ApnaBazaarContext();
+			return context.Products.Find(Id);
 		}
 		public List<Product> GetProducts()
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				return context.Products.ToList();
+				return context.Products.Include(x => x.Category).ToList();
 			}
+
+			/*var context = new ApnaBazaarContext();
+			return context.Products.ToList();*/
+
 		}
 		public void SaveProduct(Product product)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
+				context.Entry(product.Category).State = System.Data.Entity.EntityState.Unchanged;
 				context.Products.Add(product);
 				context.SaveChanges();
 			}
@@ -38,6 +47,8 @@ namespace ApnaBazaar.Services
 			using (var context = new ApnaBazaarContext())
 			{
 				context.Entry(product).State = System.Data.Entity.EntityState.Modified;
+				//var pro = context.Products.Find(product.ID);
+				//context.Entry(pro).State = System.Data.Entity.EntityState.Modified;
 				context.SaveChanges();
 			}
 		}

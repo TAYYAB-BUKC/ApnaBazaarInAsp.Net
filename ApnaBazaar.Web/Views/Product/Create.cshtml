@@ -1,24 +1,58 @@
-﻿
+﻿@model List<Category>	
 @{
 	ViewBag.Title = "Create";
 }
 
 <h2>Create Product</h2>
 
+
 <form id="createProductForm">
+	<div class="form-group">
+		<input class="form-control" name="Name" placeholder="Enter name"/>
+	</div>
+	<div class="form-group">
+		<select class="form-control" name="Category">
+			<option value="No">Select Category name</option>
+			@foreach (var category in Model)
+			{
+				<option value="@category.ID">@category.Name</option>
+			}
+		</select>
+	</div>
+	<div class="form-group">
+		<input class="form-control" name="Description" placeholder="Enter Description"/>
+	</div>
+	<div class="form-group">
+		<input class="form-control" name="Price" placeholder="Enter Price"/>
+	</div>
+	<button class="btn btn-primary" id="SaveBtn" type="button">Save</button>
+
+</form>
+
+@*<form id="createProductForm">
+	
 	<label>Name</label>
 	<input name="Name" />
 	<br />
+	<label>Category</label>
+	<select class="form-control" name="Category">
+		@foreach (var category in Model)
+		{
+			<option value="@category.ID">@category.Name</option>
+		}
+	</select>
+	<br />
+
 	<label>Description</label>
-	<input name="Description" />
+	<input class="form-control" name="Description" />
 	<br />
 	<label>Price</label>
-	<input name="Price" />
+	<input class="form-control" name="Price" />
 	<br />
 
-	<button id="SaveBtn" type="button">Save</button>
+	<button class="btn btn-primary" id="SaveBtn" type="button">Save</button>
 
-</form>
+</form>*@
 
 
 <script>

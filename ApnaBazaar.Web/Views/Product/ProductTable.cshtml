@@ -5,16 +5,27 @@
 
 <h4>ProductTable</h4>
 
-<div>
-	<form method="post">
-		<input id="searchText" name="Search" />
-		<button type="button" id="searchBtn"> Search</button>
-	</form>
-</div>
 
-<button id="newBtn">New</button>
+	<form>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<input class="form-control" id="searchText" name="Search" placeholder="Search anything here...." />
+				</div>
+				<div class="col-md-4">
+					<button type="button" id="searchBtn"> Search</button>
+					<button type="button" id="newBtn">New</button>
+				</div>
 
-<table>
+			</div>
+
+		</div>
+		
+</form>
+
+
+
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<td>ProductName</td>
@@ -28,7 +39,17 @@
 		{
 		<tr>
 			<td>@product.Name</td>
-			<td>@product.Category</td>
+			<td>
+				@if (@product.Category != null)
+				{
+					<text>@product.Category.Name</text>
+				}
+				else
+				{
+					<text>-</text>
+				}
+
+			</td>
 			<td>@product.Price</td>
 			<td>
 				<button class="EditBtn" data-id="@product.ID">Edit</button>

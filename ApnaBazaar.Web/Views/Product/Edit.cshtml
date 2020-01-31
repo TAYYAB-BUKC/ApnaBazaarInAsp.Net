@@ -1,23 +1,30 @@
 ﻿@model Product
 @{
 	ViewBag.Title = "Create";
+
+	var category = @Model.Category.ID;
 }
-<form id="editProductForm">
-	<input type="hidden" name="Id" value="@Model.ID"/>
+	<form id="editProductForm">
+		<input type="hidden" name="Id" value="@Model.ID" />
+		<div class="form-group">
+			<select id="categories" class="form-control" name="Category">
+					<option value="@Model.Category.ID">@Model.Category.Name</option>
+				
+			</select>
+		</div>
+		<label>Name</label>
+		<input name="Name" value="@Model.Name" />
+		<br />
+		<label>Description</label>
+		<input name="Description" value="@Model.Description" />
+		<br />
+		<label>Price</label>
+		<input name="Price" value="@Model.Price" />
+		<br />
 
-	<label>Name</label>
-	<input name="Name" value="@Model.Name"/>
-	<br />
-	<label>Description</label>
-	<input name="Description" value="@Model.Description"/>
-	<br />
-	<label>Price</label>
-	<input name="Price" value="@Model.Price"/>
-	<br />
+		<button id="EditBtn" type="button">Update</button>
 
-	<button id="EditBtn" type="button">Update</button>
-
-</form>
+	</form>
 
 
 <script>
@@ -36,5 +43,36 @@
 				alert("Ajax Request Failed");
 			});
 	});
-
+	$(document).ready(function () {
+		$.ajax({
+			url: '/Product/ForEdit',
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			//data:	$("#editProductForm").serialize()
+		})
+			.done(function (response) {
+				$("#categories").empty();
+				for (i = 0; i < response.CategoryNames.length; i++) {
+					if (response.CategoryIds[i] == "@category") {
+						var ind = response.CategoryIds[i];
+						break;
+					}
+				}
+				var i;
+				for (i = 0; i < response.CategoryNames.length; i++) {
+					$("#categories").append(new Option(response.CategoryNames[i], response.CategoryIds[i]));
+				}
+				debugger;
+				//$("#categories").index = ind;
+				 $("#categories").val(ind);
+				 /*	var ddlCustomers = $("[id*=categories]");
+					ddlCustomers.empty();
+					$.each(response.d, function () {
+						ddlCustomers.append($("<option></option>").val(this['Value']).html(this['Text']));
+					});*/
+				})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
+	});
 </script>

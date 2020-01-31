@@ -52,5 +52,12 @@ namespace ApnaBazaar.Services
 				context.SaveChanges();
 			}
 		}
+		public List<Category> GetCategor()
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				return context.Categories.ToList();
+			}
+		}
 	}
 }
