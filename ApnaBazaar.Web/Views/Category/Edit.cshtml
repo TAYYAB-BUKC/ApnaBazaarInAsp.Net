@@ -1,6 +1,10 @@
 ﻿@model ApnaBazaar.Entities.Category
 @{
 	ViewBag.Title = "Create";
+
+	var trueChecked = Model.IsFeatured ? "checked" : String.Empty;
+	
+	var falseChecked = !Model.IsFeatured ? "checked" : String.Empty;
 }
 
 <h2>Edit Category</h2>
@@ -12,6 +16,11 @@
 	<br />
 	<label>Description</label>
 	<input name="Description" value="@Model.Description" />
+	<br />
+	<label>IsFeatured?</label>
+	<input name="IsFeatured" type="radio" value="True" @trueChecked/> True
+	<input name="IsFeatured" type="radio" value="False" @falseChecked/> False
+
 	<br />
 	<button type="submit">Save</button>
 

@@ -24,6 +24,14 @@ namespace ApnaBazaar.Services
 				return context.Categories.ToList();
 			}
 		}
+
+		public List<Category> GetFeaturedCategories()
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				return context.Categories.Where( x => x.IsFeatured).ToList();
+			}
+		}
 		public void SaveCategory(Category category)
 		{
 			using (var context = new ApnaBazaarContext())

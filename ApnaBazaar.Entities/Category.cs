@@ -11,6 +11,7 @@ namespace ApnaBazaar.Entities
 		//use Inheritance for similiar Properties
 		
 		public List<Product> Products { get; set; }
+		public bool IsFeatured { get; set; }
 
 
 

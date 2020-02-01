@@ -8,6 +8,8 @@ namespace ApnaBazaar.Web.ViewModels
 {
 	public class HomeViewModel
 	{
-		public List<Category> categories { get; set; }
+		public List<Category> FeaturedCategories { get; set; }
+		public List<Product> FeaturedProducts { get; set; }
+
 	}
 }

@@ -14,7 +14,7 @@ namespace ApnaBazaar.Web.Controllers
 		CategoriesService categoriesService = new CategoriesService();
 		public ActionResult Index()
 		{
-			homeViewModel.categories = categoriesService.GetCategories();
+			homeViewModel.FeaturedCategories = categoriesService.GetCategories();
 
 			return View(homeViewModel);
 		}

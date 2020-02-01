@@ -16,7 +16,7 @@ namespace ApnaBazaar.Web.Controllers
 		[HttpGet]
 		public ActionResult Index()
 		{
-			var categories = categoriesService.GetCategories();
+			var categories = categoriesService.GetFeaturedCategories();
 			return View(categories);
 		}
 

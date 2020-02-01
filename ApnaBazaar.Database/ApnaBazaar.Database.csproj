@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202001271344252_ImagePAthAdded.designer.cs">
       <DependentUpon>202001271344252_ImagePAthAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002011328562_IsFeaturedAddedToCategory.cs" />
+    <Compile Include="Migrations\202002011328562_IsFeaturedAddedToCategory.designer.cs">
+      <DependentUpon>202002011328562_IsFeaturedAddedToCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001271344252_ImagePAthAdded.resx">
       <DependentUpon>202001271344252_ImagePAthAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002011328562_IsFeaturedAddedToCategory.resx">
+      <DependentUpon>202002011328562_IsFeaturedAddedToCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
