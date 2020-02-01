@@ -20,42 +20,52 @@ namespace ApnaBazaar.Web.Controllers
 			return View(categories);
 		}
 
+		public ActionResult CategoriesTable(string search)
+		{
+			var categories = categoriesService.GetCategories();
+			if (!String.IsNullOrEmpty(search))
+			{
+				categories = categories.Where(category => category.Name.ToUpper().Contains(search.ToUpper())).ToList();
+			}
+			return PartialView(categories);
+		}
+
 		[HttpGet]
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 		[HttpPost]
 		public ActionResult Create(Category category)
 		{
 			categoriesService.SaveCategory(category);
-			return RedirectToAction("Index");
+			return RedirectToAction("CategoriesTable");
 		}
 
 		[HttpGet]
 		public ActionResult Edit(int Id)
 		{
 			var category = categoriesService.GetSpecificCategory(Id);
-			return View(category);
+			return PartialView(category);
 		}
 		[HttpPost]
 		public ActionResult Edit(Category category)
 		{
 			categoriesService.UpdateCategory(category);
-			return RedirectToAction("Index");
+			return RedirectToAction("CategoriesTable");
 		}
 
-		[HttpGet]
-		public ActionResult Delete(int Id)
-		{
-			var category = categoriesService.GetSpecificCategory(Id);
-			return View(category);
-		}
+		//[HttpGet]
+		//public ActionResult Delete(int Id)
+		//{
+		//	var category = categoriesService.GetSpecificCategory(Id);
+		//	return View(category);
+		//}
 		[HttpPost]
 		public ActionResult Delete(Category category)
 		{
 			categoriesService.DeleteCategory(category.ID);
-			return RedirectToAction("Index");
+			return RedirectToAction("CategoriesTable");
 		}
 	}
 }

@@ -1,31 +1,39 @@
 ﻿
 @{
-    ViewBag.Title = "Create";
+	ViewBag.Title = "Create";
 }
 
 <h2>Create Category</h2>
 
-<form method="post">
-	<label>Name</label>
-	<input name="Name" />
+<form id="createCategoryForm">
+	<div class="form-group">
+		<input class="form-control" name="Name" placeholder="Enter Category name here" />
+	</div>
 	<br />
-	<label>Description</label>
-	<input name="Description" />
+	<div class="form-group">
+		<input class="form-control" name="Description" placeholder="Enter Category Description here" />
+	</div>
+
 	<br />
 	<label>IsFeatured?</label>
-	<input name="IsFeatured" type="radio" value="True"/> True
+	<input name="IsFeatured" type="radio" value="True" /> True
 	<input name="IsFeatured" type="radio" value="False" /> False
 
 	<br />
-	<label>Select Image</label>
-	<input id="Imagepath" name="Imagepath" type="hidden" />
-	<input id="imageUpload" name="Image" type="file" />
+
+	<div class="form-group">
+		<label>Select Image</label>
+		<input class="form-control" id="Imagepath" name="Imagepath" type="hidden" />
+		<input class="form-control" id="imageUpload" name="Image" type="file" />
+	</div>
 	<br />
 
-	<img id="image" />
+	<div class="form-group">
+		<img class="form-control" id="image" />
+	</div>
 	<br />
 
-	<button type="submit">Save</button>
+	<button class="btn btn-primary" id="SaveBtn" type="button">Save</button>
 
 </form>
 
@@ -50,15 +58,30 @@
 			contentType: false,
 			processData: false
 		})
-        .done(function (response) {
-			if (response.Success) {
-				$("#image").attr("src", response.ImageURL);
-				$("#Imagepath").val(response.ImageURL);
-			}
-        })
-        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        	alert("Ajax Request Failed");
-        });
+			.done(function (response) {
+				if (response.Success) {
+					$("#image").attr("src", response.ImageURL);
+					$("#Imagepath").val(response.ImageURL);
+				}
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
+	});
+    $("#SaveBtn").click(function myfunction() {
+		$.ajax({
+			type: "Post",
+			url: '/Category/Create',
+			data: $("#createCategoryForm").serialize()
+
+		})
+			.done(function (response) {
+				$("#tableContainer").html(response);
+				$("#createCategory").html("");
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
 	});
 
 </script>
