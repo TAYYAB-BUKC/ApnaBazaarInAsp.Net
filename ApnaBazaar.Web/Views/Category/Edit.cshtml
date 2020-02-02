@@ -5,40 +5,48 @@
 	var trueChecked = Model.IsFeatured ? "checked" : String.Empty;
 
 	var falseChecked = !Model.IsFeatured ? "checked" : String.Empty;
+
+	var imageChecked = Model.Imagepath != null ? Model.Imagepath : @"C:\Users\TAYYAB DOST\Desktop\DefaultImage.png";
+
 }
 
 <h2>Edit Category</h2>
 
 <form id="editCategoryForm">
-	<input type="hidden" name="ID" value=@Model.ID />
-	<div class="form-group">
-		<input class="form-control" name="Name" value="@Model.Name" placeholder="Enter Category Name here" />
-	</div>
-	<br />
+	<div class="row">
+		<div class="col-md-8">
+			<input type="hidden" name="ID" value=@Model.ID />
+			<div class="form-group">
+				<input class="form-control" name="Name" value="@Model.Name" placeholder="Enter Category Name here" />
+			</div>
+			<br />
 
-	<div class="form-group">
-		<input class="form-control" name="Description" value="@Model.Description" placeholder="Enter Category Name here" />
-		<br />
-	</div>
-	<div class="form-group">
+			<div class="form-group">
+				<input class="form-control" name="Description" value="@Model.Description" placeholder="Enter Category Name here" />
+				<br />
+			</div>
+			<div class="form-group">
 
-		<label>IsFeatured?</label>
-		<input name="IsFeatured" type="radio" value="True" @trueChecked placeholder="IsFeatured?" /> True
-		<input name="IsFeatured" type="radio" value="False" @falseChecked /> False
+				<label>IsFeatured?</label>
+				<input name="IsFeatured" type="radio" value="True" @trueChecked placeholder="IsFeatured?" /> True
+				<input name="IsFeatured" type="radio" value="False" @falseChecked /> False
+			</div>
+			<br />
+			<div class="form-group">
+				<label>Select Image</label>
+				<input class="form-control" id="Imagepath" name="Imagepath" type="hidden" />
+				<input class="form-control" id="imageUpload" name="Image" type="file" />
+			</div>
+			<br />
+		</div>
+		<div class="col-md-4">
+			<div class="thumb">
+				<img src="@imageChecked" class="img-thumbnail img-fluid" id="image" />
+			</div>
+			<br />
+		</div>
+		<button id="EditBtn" type="button">Update</button>
 	</div>
-	<br />
-	<div class="form-group">
-		<label>Select Image</label>
-		<input class="form-control" id="Imagepath" name="Imagepath" type="hidden" />
-		<input class="form-control" id="imageUpload" name="Image" type="file" />
-	</div>
-	<br />
-
-	<div class="form-group">
-		<img src="@Model.Imagepath" class="form-control" id="image" />
-	</div>
-	<br />
-	<button id="EditBtn" type="button">Update</button>
 </form>
 
 <script>

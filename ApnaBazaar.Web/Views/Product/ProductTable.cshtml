@@ -54,6 +54,7 @@
 			<td>
 				<button class="EditBtn" data-id="@product.ID">Edit</button>
 				<button class="DeleteBtn" data-id="@product.ID">Delete</button>
+				<button class="AddToCart" data-id="@product.ID">AddToCart</button>
 			</td>
 
 		</tr>
@@ -94,6 +95,16 @@
         });
 	});
 
+	var products = [];
+	$(".AddToCart").click(function myfunction() {
+
+		var productID = $(this).attr("data-id");
+		products.push(productID);
+
+		$.cookie('CartProducts', products.join('-'), { path: '/' });
+		alert("Product Added to Cart.");
+
+	});
 	$(".EditBtn").click(function myfunction() {
 		$.ajax({
 			url: '/Product/Edit',
@@ -113,6 +124,43 @@
 
 	$(".DeleteBtn").click(function myfunction() {
 
+		swal({
+			title: "Confirm?",
+			text: "Are you sure you want to delete this product?",
+			icon: "warning",
+			 buttons: true,
+			 dangerMode: true,
+			})
+		.then((willDelete) => {
+			if (willDelete) {
+				$.ajax({
+					type: 'Post',
+					url: '/Product/Delete',
+					data:
+					{
+						Id: $(this).attr("data-id")
+					}
+				})
+					.done(function (response) {
+						swal("Poof! Your imaginary file has been deleted!", {
+							icon: "success",
+						});
+						$("#tableContainer").html(response);
+
+
+					})
+					.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+						alert("Ajax Request Failed");
+					});
+
+			}
+	});
+
+		});
+			  
+
+
+/*
 		var confirmDelete = confirm("Are you sure you want to delete this category?");
 		if (confirmDelete) {
 		$.ajax({
@@ -131,5 +179,7 @@
 				alert("Ajax Request Failed");
 			});
 		}
-		});
+	});*/
+
+
 </script>

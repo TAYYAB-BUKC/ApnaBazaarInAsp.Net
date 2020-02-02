@@ -21,6 +21,18 @@ namespace ApnaBazaar.Services
 			var context = new ApnaBazaarContext();
 			return context.Products.Find(Id);
 		}
+
+		public List<Product> GetListOfProduct(List<int> Ids)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				return context.Products.Where(product => Ids.Contains(product.ID)).ToList();
+
+			}
+
+
+		}
+
 		public List<Product> GetProducts()
 		{
 			using (var context = new ApnaBazaarContext())

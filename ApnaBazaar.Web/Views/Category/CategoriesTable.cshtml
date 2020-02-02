@@ -92,7 +92,8 @@
 			url: '/Category/Create'
 		})
 			.done(function (response) {
-             	$("#createCategory").html(response);
+				$("#createCategory").html(response);
+				focusAction();
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
@@ -109,6 +110,7 @@
 		})
 			.done(function (response) {
 				$("#createCategory").html(response);
+				focusAction();
 
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
@@ -136,5 +138,12 @@
 				alert("Ajax Request Failed");
 			});
 		}
-		});
+	});
+
+	function focusAction() {
+		$('html,body').animate({
+			scrollTop: $("#createCategory").offset().top - 100
+					}, 1000);
+				}
+
 </script>
