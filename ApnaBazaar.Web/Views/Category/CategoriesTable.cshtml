@@ -69,10 +69,12 @@
 </style>
 <script>
 
-	$("#searchBtn").click(function myfunction(){
+	$("#searchBtn").click(function myfunction() {
+		debugger;
 		var searchvalue = $("#searchText").val();
 		$.ajax({
-			url: '/Category/CategoriesTable',
+			//url: '/Category/CategoriesTable',
+			url: '@Url.Action("CategoriesTable", "Category")',
 			data:
 			{
 				search: searchvalue
@@ -89,7 +91,9 @@
 
 	$("#newBtn").click(function myfunction(){
 		$.ajax({
-			url: '/Category/Create'
+			//url: '/Category/Create'
+			url:'@Url.Action("Create","Category")',
+			
 		})
 			.done(function (response) {
 				$("#createCategory").html(response);
@@ -102,7 +106,8 @@
 
 	$(".EditBtn").click(function myfunction() {
 		$.ajax({
-			url: '/Category/Edit',
+			//url: '/Category/Edit',
+			url: '@Url.Action("Edit","Category")',
 			data:
 			{
 					Id: $(this).attr("data-id")
@@ -124,7 +129,8 @@
 		if (confirmDelete) {
 		$.ajax({
 			type: 'Post',
-			url: '/Category/Delete',
+			//url: '/Category/Delete',
+			url: '@Url.Action("Delete","Category")',
 			data:
 			{
 					Id: $(this).attr("data-id")

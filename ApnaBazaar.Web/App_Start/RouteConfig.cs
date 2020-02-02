@@ -14,6 +14,13 @@ namespace ApnaBazaar.Web
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
+				name: "SearchCategory",
+				url: "Search",
+				defaults: new { controller = "Category", action = "CategoriesTable" }
+			);
+
+
+			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
 				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

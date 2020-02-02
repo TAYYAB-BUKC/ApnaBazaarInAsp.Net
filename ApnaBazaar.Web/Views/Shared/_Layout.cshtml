@@ -115,8 +115,15 @@
 								</div>
 							</div>
 						</form>
+						@{
+							var FacebookURL = ConfigurationService.GetConfiguration("facebookURL");
+							var CompanyAddress = ConfigurationService.GetConfiguration("CompanyAddress");
+							var CompanyNumber = ConfigurationService.GetConfiguration("CompanyNumber");
+							var CompanyEmail = ConfigurationService.GetConfiguration("CompanyEmail");
+
+						}
 						<ul class="flat-social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="@FacebookURL.Value"><i class="fa fa-facebook"></i></a></li>
 							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 							<li><a href="#"><i class="fa fa-google"></i></a></li>
 							<li><a href="#"><i class="fa fa-behance"></i></a></li>
@@ -167,9 +174,10 @@
 							<a href="index.html"><img src="~/Content/images/logo@2x.png" alt="image" width="107" height="24"></a>
 						</div>
 						<ul class="flat-contact">
-							<li class="address">112 Kingdom, NA 12, New York</li>
-							<li class="phone">0340-9292923</li>
-							<li class="email">infor.deercreative@gmail.com</li>
+						
+							<li class="address">@CompanyAddress.Value</li>
+							<li class="phone">@CompanyNumber.Value</li>
+							<li class="email">@CompanyEmail.Value</li>
 						</ul><!-- /.flat-contact -->
 					</div><!-- /.widget -->
 				</div><!-- /.col-md-3 -->
