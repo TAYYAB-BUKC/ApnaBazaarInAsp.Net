@@ -10,7 +10,26 @@ namespace ApnaBazaar.Services
 {
 	public class ConfigurationService
 	{
-		public static Configuration GetConfiguration(string key)
+		#region Singleton
+		public static ConfigurationService Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new ConfigurationService();
+				}
+				return instance;
+			}
+		}
+		private static ConfigurationService instance { get; set; }
+
+		private ConfigurationService()
+		{
+
+		}
+		#endregion
+		public Configuration GetConfiguration(string key)
 		{
 			using (var context = new ApnaBazaarContext())
 			{

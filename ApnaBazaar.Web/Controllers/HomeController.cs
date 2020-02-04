@@ -11,10 +11,10 @@ namespace ApnaBazaar.Web.Controllers
 	public class HomeController : Controller
 	{
 		HomeViewModel homeViewModel = new HomeViewModel();
-		CategoriesService categoriesService = new CategoriesService();
+		//CategoriesService categoriesService = new CategoriesService();
 		public ActionResult Index()
 		{
-			homeViewModel.FeaturedCategories = categoriesService.GetCategories();
+			homeViewModel.FeaturedCategories = CategoriesService.Instance.GetCategories();
 
 			return View(homeViewModel);
 		}

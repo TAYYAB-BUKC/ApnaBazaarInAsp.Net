@@ -10,7 +10,7 @@ namespace ApnaBazaar.Web.Controllers
 {
     public class ShopController : Controller
     {
-		ProductService productService = new ProductService();
+		//ProductService productService = new ProductService();
 		CheckoutViewModel checkoutViewModel = new CheckoutViewModel();
 		// GET: Shop
 		public ActionResult Checkout()
@@ -28,7 +28,7 @@ namespace ApnaBazaar.Web.Controllers
 				checkoutViewModel.CartProductIds = cartProductCookoies.Value.Split('-').Select(x => int.Parse(x)).ToList();
 
 				//GetListOfProduct
-				checkoutViewModel.CartProducts = productService.GetListOfProduct(checkoutViewModel.CartProductIds);
+				checkoutViewModel.CartProducts = ProductService.Instance.GetListOfProduct(checkoutViewModel.CartProductIds);
 			}
 			return View(checkoutViewModel);
         }

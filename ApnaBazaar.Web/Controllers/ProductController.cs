@@ -11,29 +11,52 @@ namespace ApnaBazaar.Web.Controllers
 {
     public class ProductController : Controller
     {
-		ProductService productService = new ProductService();
-		CategoriesService categoriesService = new CategoriesService();
+		//ProductService productService = new ProductService();
+		//CategoriesService categoriesService = new CategoriesService();
         // GET: Product
         public ActionResult Index()
         {
             return View();
         }
 
-		public ActionResult ProductTable(string search)
+		public ActionResult ProductTable(string search,int? pageNo)
 		{
-			var products = productService.GetProducts();
-			if (!String.IsNullOrEmpty(search))
+			ProductSearchViewModel model = new ProductSearchViewModel();
+			
+            model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 :1;
+
+			//if (pageNo.HasValue)
+			//{
+			//	if (pageNo.Value > 0)
+			//	{
+			//		model.PageNo = pageNo.Value;
+			//	}
+			//	else
+			//	{
+			//		model.PageNo = pageNo.Value;
+			//	}
+			//}
+			//else
+			//{
+			//	model.PageNo = pageNo.Value;
+			//}
+
+
+			model.Products = ProductService.Instance.GetProducts(model.PageNo);
+
+			model.SearchTerm = search;
+			if (!String.IsNullOrEmpty(model.SearchTerm))
 			{
-			    products = products.Where(product => product.Name.Contains(search)).ToList();
+				model.Products = model.Products.Where(product => product.Name.ToLower().Contains(model.SearchTerm.ToLower())).ToList();
 			}
-			return PartialView(products);
+			return PartialView(model);
 		}
 
 
 		[HttpGet]
 		public ActionResult Create()
 		{
-			var categories = categoriesService.GetCategories();
+			var categories = CategoriesService.Instance.GetCategories();
 
 			return PartialView(categories);
 		}
@@ -42,8 +65,8 @@ namespace ApnaBazaar.Web.Controllers
 		{
 			var newProduct = new Product{ Name = categoryViewModel.Name,Description=categoryViewModel.Description,Price=categoryViewModel.Price };
 			//newProduct.ID = categoryViewModel.Category;	
-			newProduct.Category = categoriesService.GetSpecificCategory(categoryViewModel.Category);
-			productService.SaveProduct(newProduct);
+			newProduct.Category = CategoriesService.Instance.GetSpecificCategory(categoryViewModel.Category);
+			ProductService.Instance.SaveProduct(newProduct);
 			return RedirectToAction("ProductTable");
 		}
 
@@ -51,7 +74,7 @@ namespace ApnaBazaar.Web.Controllers
 		[HttpGet]
 		public ActionResult Edit(int Id)
 		{
-			var product = productService.GetSpecificProduct(Id);
+			var product = ProductService.Instance.GetSpecificProduct(Id);
 
 			return PartialView(product);
 		}
@@ -60,9 +83,9 @@ namespace ApnaBazaar.Web.Controllers
 		{
 			var newProduct = new Product { ID = model.Id, Name = model.Name, Description = model.Description, Price = model.Price };
 			//newProduct.ID = categoryViewModel.Category;	
-			newProduct.Category = categoriesService.GetSpecificCategory(model.Category);
+			newProduct.Category = CategoriesService.Instance.GetSpecificCategory(model.Category);
 
-			productService.UpdateProduct(newProduct);
+			ProductService.Instance.UpdateProduct(newProduct);
 			return RedirectToAction("ProductTable");
 		}
 
@@ -71,7 +94,7 @@ namespace ApnaBazaar.Web.Controllers
 			JsonResult jsonResult = new JsonResult();
 			jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
-			var categories = categoriesService.GetCategories();
+			var categories = CategoriesService.Instance.GetCategories();
 			try
 			{
 				List<string> categoriesNames= new List<string>();
@@ -96,7 +119,7 @@ namespace ApnaBazaar.Web.Controllers
 		[HttpPost]
 		public ActionResult Delete(int Id)
 		{
-			productService.DeleteProduct(Id);
+			ProductService.Instance.DeleteProduct(Id);
 			return RedirectToAction("ProductTable");
 		}
 

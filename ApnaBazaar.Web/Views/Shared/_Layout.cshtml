@@ -116,10 +116,10 @@
 							</div>
 						</form>
 						@{
-							var FacebookURL = ConfigurationService.GetConfiguration("facebookURL");
-							var CompanyAddress = ConfigurationService.GetConfiguration("CompanyAddress");
-							var CompanyNumber = ConfigurationService.GetConfiguration("CompanyNumber");
-							var CompanyEmail = ConfigurationService.GetConfiguration("CompanyEmail");
+							var FacebookURL = ConfigurationService.Instance.GetConfiguration("facebookURL");
+							var CompanyAddress = ConfigurationService.Instance.GetConfiguration("CompanyAddress");
+							var CompanyNumber = ConfigurationService.Instance.GetConfiguration("CompanyNumber");
+							var CompanyEmail = ConfigurationService.Instance.GetConfiguration("CompanyEmail");
 
 						}
 						<ul class="flat-social">

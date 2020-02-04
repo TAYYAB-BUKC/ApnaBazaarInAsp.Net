@@ -3,12 +3,19 @@
 	ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<section class="flat-row flat-iconbox">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="title-section">
+				<h1 class="title">Categories</h1>
+			</div><!-- /.page-title-heading -->
+		</div><!-- /.col-md-12 -->
+	</div>
+	<div id="tableContainer">
+		@{
+			Html.RenderAction("CategoriesTable");
+		}
+	</div>
 
-<div id="tableContainer">
-	@{
-		Html.RenderAction("CategoriesTable");
-	}
-</div>
-
-<div id="createCategory"></div>
+	<div id="createCategory"></div>
+</section>

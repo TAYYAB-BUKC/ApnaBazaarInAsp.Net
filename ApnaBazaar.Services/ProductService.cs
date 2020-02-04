@@ -11,6 +11,25 @@ namespace ApnaBazaar.Services
 {
 	public class ProductService
 	{
+		#region Singleton
+		public static ProductService Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new ProductService();
+				}
+				return instance;
+			}
+		}
+		private static ProductService instance { get; set; }
+
+		private ProductService()
+		{
+
+		}
+		#endregion
 		public Product GetSpecificProduct(int Id)
 		{
 			/*			using (var context = new ApnaBazaarContext())
@@ -33,11 +52,12 @@ namespace ApnaBazaar.Services
 
 		}
 
-		public List<Product> GetProducts()
+		public List<Product> GetProducts(int pageNo)
 		{
+			int pageSize = 5;
 			using (var context = new ApnaBazaarContext())
 			{
-				return context.Products.Include(x => x.Category).ToList();
+				return context.Products.OrderBy(product => product.Name).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
 			}
 
 			/*var context = new ApnaBazaarContext();
