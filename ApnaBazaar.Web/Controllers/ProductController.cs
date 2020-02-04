@@ -81,7 +81,7 @@ namespace ApnaBazaar.Web.Controllers
 		[HttpPost]
 		public ActionResult Edit(ForProductUpdateViewModel model)
 		{
-			var newProduct = new Product { ID = model.Id, Name = model.Name, Description = model.Description, Price = model.Price };
+			var newProduct = new Product { ID = model.Id, Name = model.Name, Description = model.Description, Price = model.Price, Imagepath = model.Imagepath};
 			//newProduct.ID = categoryViewModel.Category;	
 			newProduct.Category = CategoriesService.Instance.GetSpecificCategory(model.Category);
 

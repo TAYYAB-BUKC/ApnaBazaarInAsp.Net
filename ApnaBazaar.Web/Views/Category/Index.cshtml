@@ -19,3 +19,12 @@
 
 	<div id="createCategory"></div>
 </section>
+
+<script>
+	
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+					}, 1000);
+				}
+</script>

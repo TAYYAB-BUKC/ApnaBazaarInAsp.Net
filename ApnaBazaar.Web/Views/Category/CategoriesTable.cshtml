@@ -14,8 +14,15 @@
 			<div class="col-md-8">
 				<input class="form-control" id="searchText" name="Search" placeholder="Search any Category here...." />
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-4 pr-0">
 				<button type="button" id="searchBtn"> Search</button>
+			</div>
+
+			<div class="col-md-4 pr-0">
+				<button type="button" id="resetBtn"> Reset</button>
+			</div>
+
+			<div class="col-md-4 pr-0">
 				<button type="button" id="newBtn">New</button>
 			</div>
 
@@ -30,11 +37,11 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<td>CategoryName</td>
-			<td>Description</td>
-			<td>Image</td>
-			<td>IsFeatured</td>
-			<td>Actions</td>
+			<th class="font-weight-bold">CategoryName</th>
+			<th class="font-weight-bold">Description</th>
+			<th class="font-weight-bold">Image</th>
+			<th class="font-weight-bold">IsFeatured</th>
+			<th class="font-weight-bold">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -88,6 +95,23 @@
         });
 	});
 
+	$("#resetBtn").click(function myfunction(){
+		var searchvalue = '';
+		$.ajax({
+			url: '@Url.Action("CategoriesTable","Category")', // '/Category/CategoriesTable',
+			data:
+			{
+				search: searchvalue
+			},
+		})
+        .done(function (response) {
+        	$("#tableContainer").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+        });
+	});
+
 
 	$("#newBtn").click(function myfunction(){
 		$.ajax({
@@ -97,7 +121,7 @@
 		})
 			.done(function (response) {
 				$("#createCategory").html(response);
-				focusAction();
+				focusAction("createCategory");
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
@@ -115,7 +139,7 @@
 		})
 			.done(function (response) {
 				$("#createCategory").html(response);
-				focusAction();
+				focusAction("createCategory");
 
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
@@ -146,10 +170,5 @@
 		}
 	});
 
-	function focusAction() {
-		$('html,body').animate({
-			scrollTop: $("#createCategory").offset().top - 100
-					}, 1000);
-				}
 
 </script>

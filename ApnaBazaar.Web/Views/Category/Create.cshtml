@@ -1,40 +1,52 @@
 ﻿
 @{
 	ViewBag.Title = "Create";
+
+	var image = "/Content/images/Default/DefaultImage.png";
+
 }
 
 <h2>Create Category</h2>
 
 <form id="createCategoryForm">
-	<div class="form-group">
-		<input class="form-control" name="Name" placeholder="Enter Category name here" />
+
+	<div class="row">
+		<div class="col-md-8">
+			<div class="form-group">
+				<input class="form-control" name="Name" placeholder="Enter Category name here" />
+			</div>
+			<br />
+			<div class="form-group">
+				<input class="form-control" name="Description" placeholder="Enter Category Description here" />
+			</div>
+
+			<br />
+			<label>IsFeatured?</label>
+			<input name="IsFeatured" type="radio" value="True" /> True
+			<input name="IsFeatured" type="radio" value="False" /> False
+
+			<br />
+
+			<div class="form-group">
+				<label>Select Image</label>
+				<input class="form-control" id="Imagepath" name="Imagepath" type="hidden" />
+				<input class="form-control" id="imageUpload" name="Image" type="file" />
+			</div>
+			<br />
+			<button class="btn btn-primary" id="SaveBtn" type="button">Save</button>
+
+			<button class="btn btn-primary" id="CancelBtn" type="button">Cancel</button>
+
+		</div>
+		<div class="col-md-4">
+			<div class="thumb">
+				<img src="@image" class="img-thumbnail img-fluid" id="image" />
+			</div>
+		</div>
 	</div>
-	<br />
-	<div class="form-group">
-		<input class="form-control" name="Description" placeholder="Enter Category Description here" />
-	</div>
 
-	<br />
-	<label>IsFeatured?</label>
-	<input name="IsFeatured" type="radio" value="True" /> True
-	<input name="IsFeatured" type="radio" value="False" /> False
 
-	<br />
-
-	<div class="form-group">
-		<label>Select Image</label>
-		<input class="form-control" id="Imagepath" name="Imagepath" type="hidden" />
-		<input class="form-control" id="imageUpload" name="Image" type="file" />
-	</div>
-	<br />
-
-	<div class="form-group">
-		<img class="form-control" id="image" />
-	</div>
-	<br />
-
-	<button class="btn btn-primary" id="SaveBtn" type="button">Save</button>
-
+    
 </form>
 
 <script>
@@ -52,7 +64,7 @@
 
 		$.ajax({
 			type: 'POST',
-			url: '/Shared/UploadImage',
+			url: '@Url.Action("UploadImage","Shared")', //'/Shared/UploadImage',
 			dataType: 'json',
 			data: formData,
 			contentType: false,
@@ -71,18 +83,28 @@
     $("#SaveBtn").click(function myfunction() {
 		$.ajax({
 			type: "Post",
-			url: '/Category/Create',
+			url: '@Url.Action("Create","Category")',   // '/Category/Create',
 			data: $("#createCategoryForm").serialize()
 
 		})
 			.done(function (response) {
 				$("#tableContainer").html(response);
 				$("#createCategory").html("");
+				focusAction("tableContainer");
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
 			});
 	});
 
+	$("#CancelBtn").click(function myfunction() {
+		$("#createCategory").html("");
+		focusAction("tableContainer");
+			
+	});
+
+
+
+	
 </script>
 

@@ -46,6 +46,8 @@
 			<br />
 		</div>
 		<button id="EditBtn" type="button">Update</button>
+
+		<button id="CancelBtn" type="button">Cancel</button>
 	</div>
 </form>
 
@@ -64,7 +66,7 @@
 
 		$.ajax({
 			type: 'POST',
-			url: '/Shared/UploadImage',
+			url: '@Url.Action("UploadImage","Shared")', //'/Shared/UploadImage',
 			dataType: 'json',
 			data: formData,
 			contentType: false,
@@ -80,6 +82,7 @@
 				alert("Ajax Request Failed");
 			});
 	});
+
 	$("#EditBtn").click(function myfunction() {
 		debugger;
 		var x = $("#imageUpload").val();
@@ -89,17 +92,24 @@
 			}
 		$.ajax({
 			type: 'Post',
-			url: '/Category/Edit',
+			url: '@Url.Action("Edit","Category")', //'/Category/Edit',
 			data:	$("#editCategoryForm").serialize()
 
 		})
 			.done(function (response) {
 				$("#tableContainer").html(response);
 				$("#editCategoryForm").html("");
+				focusAction("tableContainer");
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
 			});
+	});
+
+	$("#CancelBtn").click(function myfunction() {
+		$("#editCategoryForm").html("");
+		focusAction("tableContainer");
+			
 	});
 
 </script>

@@ -11,11 +11,17 @@
 				<div class="col-md-8">
 					<input class="form-control" id="searchText" name="Search" placeholder="Search anything here...." />
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 pr-0">
 					<button type="button" id="searchBtn"> Search</button>
-					<button type="button" id="newBtn">New</button>
 				</div>
 
+				<div class="col-md-4 pr-0">
+					<button type="button" id="resetBtn"> Reset</button>
+				</div>
+
+				<div class="col-md-4 pr-0">
+					<button type="button" id="newBtn">New</button>
+				</div>
 			</div>
 
 		</div>
@@ -27,10 +33,10 @@
 <table id="ProductsTable" class="table table-striped">
 	<thead>
 		<tr>
-			<td>ProductName</td>
-			<td>Category</td>
-			<td>Price</td>
-			<td>Actions</td>
+			<th class="font-weight-bold">ProductName</th>
+			<th class="font-weight-bold">Category</th>
+			<th class="font-weight-bold">Price</th>
+			<th class="font-weight-bold">Actions</th>
 		</tr>
 	</thead>	
 	<tbody>
@@ -75,7 +81,7 @@
 	$("#ProductsTable").DataTable();
 		$(".PageRecords").click(function myfunction(){
 			$.ajax({
-				url: '/Product/ProductTable',
+				url: '@Url.Action("ProductTable","Product")', //'/Product/ProductTable',
 				data: { pageNo: $(this).attr("data-pageNo") }
 			
 		})
@@ -90,7 +96,25 @@
 	$("#searchBtn").click(function myfunction(){
 		var searchvalue = $("#searchText").val();
 		$.ajax({
-			url: '/Product/ProductTable',
+			url: '@Url.Action("ProductTable","Product")', // '/Product/ProductTable',
+			data:
+			{
+				search: searchvalue
+			},
+		})
+        .done(function (response) {
+        	$("#tableContainer").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+        });
+	});
+
+
+	$("#resetBtn").click(function myfunction(){
+		var searchvalue = '';
+		$.ajax({
+			url: '@Url.Action("ProductTable","Product")', //'/Product/ProductTable',
 			data:
 			{
 				search: searchvalue
@@ -107,10 +131,11 @@
 
 	$("#newBtn").click(function myfunction(){
 		$.ajax({
-			url: '/Product/Create'
+			url: '@Url.Action("Create","Product")'//'/Product/Create'
 		})
         .done(function (response) {
-        	$("#createProduct").html(response);
+			$("#createProduct").html(response);
+			focusAction("createProduct");
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
@@ -129,7 +154,7 @@
 	});
 	$(".EditBtn").click(function myfunction() {
 		$.ajax({
-			url: '/Product/Edit',
+			url: '@Url.Action("Edit","Product")', //'/Product/Edit',
 			data:
 			{
 					Id: $(this).attr("data-id")
@@ -137,6 +162,7 @@
 		})
 			.done(function (response) {
 				$("#createProduct").html(response);
+				focusAction("createProduct");
 
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
@@ -157,7 +183,7 @@
 			if (willDelete) {
 				$.ajax({
 					type: 'Post',
-					url: '/Product/Delete',
+					url: '@Url.Action("Delete","Product")',//'/Product/Delete',
 					data:
 					{
 						Id: $(this).attr("data-id")
