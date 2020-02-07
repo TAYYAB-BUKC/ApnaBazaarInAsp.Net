@@ -1,5 +1,6 @@
 ﻿using ApnaBazaar.Entities;
 using ApnaBazaar.Services;
+using ApnaBazaar.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,30 @@ namespace ApnaBazaar.Web.Controllers
 			return View(categories);
 		}
 
-		public ActionResult CategoriesTable(string search)
+		public ActionResult CategoriesTable(string search, int? pageNo)
 		{
-			var categories = CategoriesService.Instance.GetCategories();
-			if (!String.IsNullOrEmpty(search))
+			int pageSize = 3;
+
+			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			CategorySearchViewModel model = new CategorySearchViewModel();
+
+			model.SearchTerm = search;
+
+			var totalRecords = CategoriesService.Instance.GetCategoriesCount(search);
+			
+            model.Categories = CategoriesService.Instance.GetCategories(search,pageNo.Value);
+
+			if (model.Categories != null)
 			{
-				categories = categories.Where(category => category.Name.ToUpper().Contains(search.ToUpper())).ToList();
+				model.Pager = new Pager(totalRecords, pageNo, pageSize);
+
+				return PartialView(model);
 			}
-			return PartialView(categories);
+			else
+			{
+				return HttpNotFound();
+			}
 		}
 
 		[HttpGet]

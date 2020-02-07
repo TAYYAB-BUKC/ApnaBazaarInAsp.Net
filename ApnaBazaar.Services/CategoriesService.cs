@@ -2,6 +2,7 @@
 using ApnaBazaar.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,62 @@ namespace ApnaBazaar.Services
 				return context.Categories.Find(Id);
 			}
 		}
+
+
+		public int GetCategoriesCount(string search)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				if (!String.IsNullOrEmpty(search))
+				{
+					return context.Categories
+						.Where(category => category.Name != null && category.Name.ToUpper().Contains(search.ToUpper()))
+						.OrderBy(category => category.Name)
+						.Count();
+
+				}
+				else
+				{
+					return context.Categories.Count();
+				}
+				
+			}
+		}
+
+		public List<Category> GetCategories(string search,int pageNo)
+		{
+			int pageSize = 3; // will done by using configuration
+			using (var context = new ApnaBazaarContext())
+			{
+				if (!String.IsNullOrEmpty(search))
+				{
+					return context.Categories
+						.Where(category => category.Name != null && category.Name.ToUpper().Contains(search.ToUpper()))
+						.OrderBy(category => category.Name)
+						.Skip((pageNo - 1) * pageSize)
+						.Take(pageSize)
+						.Include(x => x.Products)
+						.ToList();
+
+				}
+				else
+				{
+					return context.Categories
+						.OrderBy(category => category.Name)
+						.Skip((pageNo - 1) * pageSize)
+						.Take(pageSize)
+						.Include(x => x.Products)
+						.ToList();
+
+				}
+
+			}
+
+			/*var context = new ApnaBazaarContext();
+			return context.Products.ToList();*/
+
+		}
+
 		public List<Category> GetCategories()
 		{
 			using (var context = new ApnaBazaarContext())

@@ -5,7 +5,7 @@
 
 <h2>CategoryTable</h2>
 
-@model List<Category>
+@model CategorySearchViewModel
 
 
 <form>
@@ -45,7 +45,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var category in Model)
+		@foreach (var category in Model.Categories)
 		{
 		<tr>
 			<td>@category.Name</td>
@@ -68,6 +68,35 @@
 
 </table>
 
+<div class="col-md-4">
+
+	@if (Model.Pager != null)
+	{
+		if (Model.Pager.CurrentPage > 1)
+		{
+			<button type="button" class="PageRecords" data-pageNo="1">First</button>
+			<button type="button" class="PageRecords" data-pageNo="@Model.Pager.CurrentPage - 1">Previous</button>
+		}
+
+		for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+		{
+			string activeClass = Model.Pager.CurrentPage == page ? "bg-info" : string.Empty;
+
+			<button type="button" class="@activeClass PageRecords" data-pageNo="@page">@page</button>
+		}
+
+		if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+		{
+			<button type="button" class="PageRecords" data-pageNo="@Model.Pager.CurrentPage + 1">Next</button>
+			<button type="button" class="PageRecords" data-pageNo="@Model.Pager.EndPage">Last</button>
+		}
+	}
+
+
+
+
+</div>
+
 
 <style>
 	table, th, td {
@@ -75,6 +104,22 @@
 	}
 </style>
 <script>
+
+	$(".PageRecords").click(function myfunction(){
+			$.ajax({
+				url: '@Url.Action("CategoriesTable","Category")', //'/Product/ProductTable',
+				data: {
+					pageNo: $(this).attr("data-pageNo"),
+					search: '@Model.SearchTerm'
+				}
+		})
+        .done(function (response) {
+        	$("#tableContainer").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+        });
+		});
 
 	$("#searchBtn").click(function myfunction() {
 		debugger;

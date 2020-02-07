@@ -104,6 +104,7 @@
 				alert("Ajax Request Failed");
 			});
 	});
+
 	$(document).ready(function () {
 		$.ajax({
 			url: '@Url.Action("ForEdit","Product")', //'/Product/ForEdit',
@@ -123,7 +124,6 @@
 				for (i = 0; i < response.CategoryNames.length; i++) {
 					$("#categories").append(new Option(response.CategoryNames[i], response.CategoryIds[i]));
 				}
-				debugger;
 				//$("#categories").index = ind;
 				 $("#categories").val(ind);
 				 /*	var ddlCustomers = $("[id*=categories]");
