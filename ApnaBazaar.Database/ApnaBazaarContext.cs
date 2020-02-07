@@ -14,6 +14,14 @@ namespace ApnaBazaar.Database
 		{
 
 		}
+		/*protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Category>()
+				.Property(p => p.Name)
+				.HasMaxLength(50)
+				.IsRequired();
+		}*/
+
 		public DbSet<Category> Categories { get; set; }
 
 		public DbSet<Product> Products { get; set; }

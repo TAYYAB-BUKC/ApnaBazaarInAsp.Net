@@ -6,6 +6,8 @@
 
 }
 
+
+
 <h2>Create Category</h2>
 
 <form id="createCategoryForm">
@@ -46,10 +48,36 @@
 	</div>
 
 
-    
+
 </form>
 
 <script>
+
+
+	$("#createCategoryForm").validate({
+		rules: {
+			Name: {
+				required: true,
+				minlength: 2,
+				maxlength: 50
+			},
+			Description: {
+				maxlength: 150	
+			}
+		},
+		messages: {
+			Name: {
+				required: 'Name Field is required',
+				minlength: 'Minimum Length is 2',
+				maxlength: 'Maximum Length is 50'
+			},
+			Description: {
+				maxlength: 'Maximum Length is 150'	
+			}
+	}
+	})
+
+
 	$("#imageUpload").change(function () {
 		var element = this;
 
@@ -80,8 +108,9 @@
 				alert("Ajax Request Failed");
 			});
 	});
-    $("#SaveBtn").click(function myfunction() {
-		$.ajax({
+	$("#SaveBtn").click(function myfunction() {
+		if ($("#createCategoryForm").valid()) {
+			$.ajax({
 			type: "Post",
 			url: '@Url.Action("Create","Category")',   // '/Category/Create',
 			data: $("#createCategoryForm").serialize()
@@ -93,18 +122,35 @@
 				focusAction("tableContainer");
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
-				alert("Ajax Request Failed");
+				swal({
+			title: "Warning",
+			text: "Please fill the required fields",
+			icon: "warning",
+			 buttons: true,
+			 dangerMode: true,
+			})
 			});
-	});
+		}
+		else {
+	        swal({
+			title: "JS Warning",
+			text: "Please fill the required fields",
+			icon: "warning",
+			 buttons: true,
+			 dangerMode: true,
+			})
+		}
+		});
+		
 
 	$("#CancelBtn").click(function myfunction() {
 		$("#createCategory").html("");
 		focusAction("tableContainer");
-			
+
 	});
 
 
 
-	
+
 </script>
 
