@@ -123,5 +123,15 @@ namespace ApnaBazaar.Web.Controllers
 			return RedirectToAction("ProductTable");
 		}
 
+		[HttpGet]
+		public ActionResult Details(int Id)
+		{
+			ProductDetailViewModel model = new ProductDetailViewModel { product = ProductService.Instance.GetSpecificProduct(Id) };
+
+			return View(model);
+		}
+
+
+
 	}
 }

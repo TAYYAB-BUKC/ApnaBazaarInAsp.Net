@@ -41,6 +41,22 @@ namespace ApnaBazaar.Services
 			return context.Products.Find(Id);
 		}
 
+		public List<Product> GetProductsByCategory(int categoryID, int pageSize)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var products = context.Products.Where(p => p.Category.ID == categoryID).OrderBy(product => product.Name).Take(pageSize).Include(x => x.Category).ToList();
+				/*foreach (var product in products)
+				{
+					if (product.ID == productID)
+					{
+						products.Remove(product);
+					}
+				}*/
+				return products;
+			}
+		}
+
 		public List<Product> GetListOfProduct(List<int> Ids)
 		{
 			using (var context = new ApnaBazaarContext())
@@ -59,11 +75,44 @@ namespace ApnaBazaar.Services
 			{
 				return context.Products.OrderBy(product => product.Name).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
 			}
+		}
+
+		public List<Product> GetProducts(int pageNo, int pageSize)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var products = context.Products.OrderBy(product => product.Name).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
+				foreach (var product in products)
+				{
+					var newname = product.Category.Name.Replace(" ", string.Empty);
+					product.Category.Name = newname;
+				}
+				return products;
+			}
+		}
+
+
+		public List<Product> GetLatestProducts(int numberOfProducts)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var products = context.Products.OrderByDescending(product => product.ID).Take(numberOfProducts).Include(x => x.Category).ToList();
+
+				foreach (var product in products)
+				{
+					var newname = product.Category.Name.Replace(" ", string.Empty);
+					product.Category.Name = newname;
+				}
+
+				return products;
+
+		   }
 
 			/*var context = new ApnaBazaarContext();
 			return context.Products.ToList();*/
 
 		}
+
 		public void SaveProduct(Product product)
 		{
 			using (var context = new ApnaBazaarContext())

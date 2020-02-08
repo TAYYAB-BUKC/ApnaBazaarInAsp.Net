@@ -15,6 +15,13 @@
   * quantityNumber
   * flatTabs
   * flatImagePopup
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
   * flatVideoPopup
   * flatEffectDir
   * flatIsotope
@@ -541,8 +548,8 @@
         };
     };
 
-    var flatIsotope = function() {
-        if($().isotope) {
+	var flatIsotope = function () {
+		if($().isotope) {
             var $container = $('.isotope-product');
             $container.imagesLoaded(function(){
                 $container.isotope({
@@ -552,7 +559,7 @@
                 });
             });
 
-            $('.flat-filter li').on('click',function() {                           
+			$('.flat-filter li').on('click', function () {
                 var selector = $(this).find("a").attr('data-filter');
                 $('.flat-filter li').removeClass('active');
                 $(this).addClass('active');
