@@ -133,51 +133,60 @@
 						Showing 1–12 of 56 Products
 					</p>
 				</div><!-- /.filte-shop -->
-				<div class="product-content product-threecolumn product-slidebar clearfix">
-					<ul class="product style2 sd1">
-						@foreach (var product in Model.Products)
-						{
-							var image = product.Imagepath != null ? product.Imagepath : @"/Content/images/Default/DefaultImage.png";
+			
+				<div id="filterProducts">
+				@{
+					var filterproducts = new FilterProductViewModel { Products = Model.Products };
 
-							<li class="product-item">
-								<div class="product-thumb clearfix">
-									<a href="#">
-										<img src="@image" alt="image">
-									</a>
-									<span class="new">New</span>
-								</div>
-								<div class="product-info clearfix">
-									<span class="product-title">
-									@product.Name
-									</span>
-									<div class="price">
-										<ins>
-											<span class="amount">
-												$ @product.Price
-											</span>
-										</ins>
-									</div>
-								</div>
-								<div class="add-to-cart text-center">
-									<a href="#">ADD TO CART</a>
-								</div>
-								<a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-							</li>
-						}
-					</ul><!-- /.product -->
-				</div><!-- /.product-content -->
-				<div class="product-pagination text-center clearfix">
-					<ul class="flat-pagination">
-						<li class="prev">
-							<a href="#"><i class="fa fa-angle-left"></i></a>
-						</li>
-						<li><a href="#">1</a></li>
-						<li class="active"><a href="#" title="">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-					</ul><!-- /.flat-pagination -->
-				</div>
+					Html.RenderPartial("_FilterProducts", filterproducts);
+
+
+				}</div>
+				<!-- Call Partial View -->
+
 			</div><!-- /.col-md-9 -->
 		</div><!-- /.row -->
 	</div><!-- /.container -->
 </section><!-- /.flat-row -->
+
+
+<script>
+
+	var CallTimeout;
+	var priceSlider = $("#slide-range").slider({
+		range: true,
+		min: 0,
+		max: @Model.MaximumPrice,
+		values: [0,@Model.MaximumPrice],
+		slide: function (event, ui) {
+			var minPrice = ui.values[0];
+			var maxPrice = ui.values[1];
+
+            $("#amount").val("$ " + minPrice + ".00" + " - " + "$ " + maxPrice + ".00");
+
+			clearTimeout(CallTimeout);
+			CallTimeout = setTimeout(GetData, 1000);
+
+		}
+		
+	});
+
+	function GetData() {
+		$.ajax({
+			//url: '/Category/Create'
+			url: '@Url.Action("FilterProducts","Shop")',
+			data: {
+				maximumPrice: priceSlider.slider("values",1),
+				minimumPrice: priceSlider.slider("values",0)
+			}
+		})
+			.done(function (response) {
+				$("#filterProducts").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+        });
+	}
+
+
+</script>

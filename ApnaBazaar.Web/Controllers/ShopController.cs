@@ -29,6 +29,14 @@ namespace ApnaBazaar.Web.Controllers
 			return View(model);
 		}
 
+		public ActionResult FilterProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+		{
+			FilterProductViewModel model = new FilterProductViewModel();
+
+			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
+
+			return PartialView("_FilterProducts", model);
+		}
 
 		public ActionResult Checkout()
         {

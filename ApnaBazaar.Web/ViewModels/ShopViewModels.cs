@@ -25,4 +25,10 @@ namespace ApnaBazaar.Web.ViewModels
 
 		public int? SortBy { get; set; }
 	}
+
+
+	public class FilterProductViewModel
+	{
+		public List<Product> Products { get; set; }
+	}
 }
