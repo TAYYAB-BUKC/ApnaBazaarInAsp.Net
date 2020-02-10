@@ -41,6 +41,69 @@ namespace ApnaBazaar.Services
 			return context.Products.Find(Id);
 		}
 
+		public List<Product> ShopProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var products = context.Products.ToList();
+
+				if (categoryID.HasValue)
+				{
+					products = products.Where(p => p.Category.ID == categoryID.Value).ToList();
+				}
+
+				if (!string.IsNullOrEmpty(searchTerm))
+				{
+					products = products.Where(p => p.Name.ToUpper().Contains(searchTerm.ToUpper())).ToList();
+				}
+
+				if (minimumPrice.HasValue)
+				{
+					products = products.Where(p => p.Price >= minimumPrice.Value).ToList();
+				}
+
+				if (maximumPrice.HasValue)
+				{
+					products = products.Where(p => p.Price >= minimumPrice.Value && p.Price <= maximumPrice.Value).ToList();
+				}
+
+				if (sortBy.HasValue)
+				{
+					var SortBy = (SortByEnum) sortBy.Value;
+
+					switch (SortBy)
+					{
+						case SortByEnum.Default:
+							products = products.OrderByDescending(p => p.ID).ToList();	
+							break;
+						case SortByEnum.Popularity:
+							
+							break;
+						case SortByEnum.LowToHighPrices:
+							products = products.OrderBy(p => p.Price).ToList();
+							break;
+						case SortByEnum.HighToLowPrices:
+							products = products.OrderByDescending(p => p.Price).ToList();
+							break;
+						default:
+							products = products.OrderByDescending(p => p.ID).ToList();
+							break;
+					}
+
+				}
+				return products;
+
+			}
+		}
+
+		public int GetMaximumPrice()
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				return (int)(context.Products.Max(p => p.Price));
+			}
+		}
+
 		public List<Product> GetProductsByCategory(int categoryID, int pageSize)
 		{
 			using (var context = new ApnaBazaarContext())
@@ -64,8 +127,6 @@ namespace ApnaBazaar.Services
 				return context.Products.Where(product => Ids.Contains(product.ID)).ToList();
 
 			}
-
-
 		}
 
 		public List<Product> GetProducts(int pageNo)

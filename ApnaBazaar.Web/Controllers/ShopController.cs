@@ -13,6 +13,23 @@ namespace ApnaBazaar.Web.Controllers
 		//ProductService productService = new ProductService();
 		CheckoutViewModel checkoutViewModel = new CheckoutViewModel();
 		// GET: Shop
+
+		public ActionResult Index(string searchTerm,int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+		{
+			ShopViewModel model = new ShopViewModel();
+
+			model.FeaturedCategories = CategoriesService.Instance.GetFeaturedCategories();
+
+			model.MaximumPrice = ProductService.Instance.GetMaximumPrice();
+
+			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
+
+			model.SortBy = sortBy;
+			
+			return View(model);
+		}
+
+
 		public ActionResult Checkout()
         {
 			var cartProductCookoies = Request.Cookies["CartProducts"];
