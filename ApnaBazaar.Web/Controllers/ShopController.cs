@@ -14,26 +14,45 @@ namespace ApnaBazaar.Web.Controllers
 		CheckoutViewModel checkoutViewModel = new CheckoutViewModel();
 		// GET: Shop
 
-		public ActionResult Index(string searchTerm,int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+		public ActionResult Index(string searchTerm,int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy, int? pageNo)
 		{
+			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			int pageSize = 10;
+
 			ShopViewModel model = new ShopViewModel();
 
 			model.FeaturedCategories = CategoriesService.Instance.GetFeaturedCategories();
 
 			model.MaximumPrice = ProductService.Instance.GetMaximumPrice();
 
-			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
+			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy,pageNo,pageSize);
 
 			model.SortBy = sortBy;
+
+			model.CategoryID = categoryID;
+
+			int totalShopRecords = ProductService.Instance.ShopProductsCount(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
+			
+            model.Pager = new Pager(totalShopRecords,pageNo);
 			
 			return View(model);
 		}
 
-		public ActionResult FilterProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+		public ActionResult FilterProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy, int? pageNo)
 		{
+			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			int pageSize = 10;
+
 			FilterProductViewModel model = new FilterProductViewModel();
 
-			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
+			int totalShopRecords = ProductService.Instance.ShopProductsCount(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
+
+			model.Pager = new Pager(totalShopRecords, pageNo);
+
+
+			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy, pageNo, pageSize);
 
 			return PartialView("_FilterProducts", model);
 		}

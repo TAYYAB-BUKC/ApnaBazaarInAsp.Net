@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ApnaBazaar.Web.Controllers
 {
+	[Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
 		//CategoriesService categoriesService = new CategoriesService();

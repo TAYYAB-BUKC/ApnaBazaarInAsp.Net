@@ -1,6 +1,6 @@
 ﻿@model ShopViewModel 
 @{
-	ViewBag.Title = "Index";
+	ViewBag.Title = "Shop";
 	
 }
 
@@ -14,8 +14,8 @@
 				</div><!-- /.page-title-heading -->
 				<div class="breadcrumbs">
 					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="shop-3col.html">Shop</a></li>
+						<li><a href="@Url.Action("Index","Home")">Home</a></li>
+						<li><a href="@Url.Action("Index","Shop")">Shop</a></li>
 					</ul>
 				</div><!-- /.breadcrumbs -->
 			</div><!-- /.col-md-12 -->
@@ -48,61 +48,61 @@
 						</ul>
 					</div><!-- /.widget-sort-by -->
 					<!--<div class="widget widget-color">
-		<h5 class="widget-title">
-			Colors
-		</h5>
-		<ul class="flat-color-list icon-left">
-			<li><a href="#" class="yellow"></a><span>Yellow</span> <span class="pull-right">25</span></li>
-			<li><a href="#" class="pink"> </a><span>White</span> <span class="pull-right">16</span></li>
-			<li><a href="#" class="red active"></a><span>Red</span> <span class="pull-right">28</span></li>
-			<li><a href="#" class="black"></a><span>Black</span> <span class="pull-right">12</span></li>
-			<li><a href="#" class="blue"></a><span>Green</span> <span class="pull-right">0</span></li>
-		</ul>
-	</div><!-- /.widget-color -->
+				<h5 class="widget-title">
+					Colors
+				</h5>
+				<ul class="flat-color-list icon-left">
+					<li><a href="#" class="yellow"></a><span>Yellow</span> <span class="pull-right">25</span></li>
+					<li><a href="#" class="pink"> </a><span>White</span> <span class="pull-right">16</span></li>
+					<li><a href="#" class="red active"></a><span>Red</span> <span class="pull-right">28</span></li>
+					<li><a href="#" class="black"></a><span>Black</span> <span class="pull-right">12</span></li>
+					<li><a href="#" class="blue"></a><span>Green</span> <span class="pull-right">0</span></li>
+				</ul>
+			</div><!-- /.widget-color -->
 					<!-- /.Colors -->
 					<!--<div class="widget widget-size">
-		<h5 class="widget-title">
-			Size
-		</h5>
-		<ul>
-			<li class="checkbox">
-				<input type="checkbox" name="checkbok1" id="checkbox1">
-				<label for="checkbox1">
-					<a href="#">L</a>
-				</label>
-			</li>
-			<li class="checkbox">
-				<input type="checkbox" name="checkbok2" id="checkbox2">
-				<label for="checkbox2">
-					<a href="#">M</a>
-				</label>
-			</li>
-			<li class="checkbox">
-				<input type="checkbox" name="checkbok3" id="checkbox3">
-				<label for="checkbox3">
-					<a href="#">S</a>
-				</label>
-			</li>
-			<li class="checkbox">
-				<input type="checkbox" name="checkbok4" id="checkbox4">
-				<label for="checkbox4">
-					<a href="#">X</a>
-				</label>
-			</li>
-			<li class="checkbox">
-				<input type="checkbox" name="checkbok5" id="checkbox5">
-				<label for="checkbox5">
-					<a href="#">XL</a>
-				</label>
-			</li>
-			<li class="checkbox">
-				<input type="checkbox" name="checkbok6" id="checkbox6">
-				<label for="checkbox6">
-					<a href="#">XXL</a>
-				</label>
-			</li>
-		</ul>
-	</div><!-- /.widget-size -->
+				<h5 class="widget-title">
+					Size
+				</h5>
+				<ul>
+					<li class="checkbox">
+						<input type="checkbox" name="checkbok1" id="checkbox1">
+						<label for="checkbox1">
+							<a href="#">L</a>
+						</label>
+					</li>
+					<li class="checkbox">
+						<input type="checkbox" name="checkbok2" id="checkbox2">
+						<label for="checkbox2">
+							<a href="#">M</a>
+						</label>
+					</li>
+					<li class="checkbox">
+						<input type="checkbox" name="checkbok3" id="checkbox3">
+						<label for="checkbox3">
+							<a href="#">S</a>
+						</label>
+					</li>
+					<li class="checkbox">
+						<input type="checkbox" name="checkbok4" id="checkbox4">
+						<label for="checkbox4">
+							<a href="#">X</a>
+						</label>
+					</li>
+					<li class="checkbox">
+						<input type="checkbox" name="checkbok5" id="checkbox5">
+						<label for="checkbox5">
+							<a href="#">XL</a>
+						</label>
+					</li>
+					<li class="checkbox">
+						<input type="checkbox" name="checkbok6" id="checkbox6">
+						<label for="checkbox6">
+							<a href="#">XXL</a>
+						</label>
+					</li>
+				</ul>
+			</div><!-- /.widget-size -->
 					<!-- /.Size -->
 					<div class="widget widget-price">
 						<h5 class="widget-title">Filter by price</h5>
@@ -120,33 +120,30 @@
 						<div class="tag-list">
 							@foreach (var category in Model.FeaturedCategories)
 							{
-								<a href="@Url.Action("Index","Shop",new { categoryID = category.ID})">@category.Name</a>
+								<a href="@Url.Action("Index","Shop",new { categoryID = category.ID, sortBy= Model.SortBy})" class="@(Model.CategoryID.HasValue && Model.CategoryID.Value == category.ID ? "active" : string.Empty)">@category.Name</a>
 							}
 
 						</div>
 					</div><!-- /.widget -->
+					<a href="@Url.Action("Index","Shop")" class="btn btn-danger">Reset</a>
 				</div><!-- /.sidebar -->
 			</div><!-- /.col-md-3 -->
+
+
 			<div class="col-md-9">
-				<div class="filter-shop clearfix">
-					<p class="showing-product float-right">
-						Showing 1–12 of 56 Products
-					</p>
-				</div><!-- /.filte-shop -->
-			
 				<div id="filterProducts">
-				@{
-					var filterproducts = new FilterProductViewModel { Products = Model.Products };
+					@{
+						var filterproducts = new FilterProductViewModel { Products = Model.Products, Pager = Model.Pager };
 
-					Html.RenderPartial("_FilterProducts", filterproducts);
-
-
-				}</div>
+						Html.RenderPartial("_FilterProducts", filterproducts);
+					}
+				</div>
 				<!-- Call Partial View -->
 
 			</div><!-- /.col-md-9 -->
+
 		</div><!-- /.row -->
-	</div><!-- /.container -->
+		</div><!-- /.container -->
 </section><!-- /.flat-row -->
 
 
@@ -176,6 +173,8 @@
 			//url: '/Category/Create'
 			url: '@Url.Action("FilterProducts","Shop")',
 			data: {
+				sortBy: '@Model.SortBy',
+				categoryID: '@Model.CategoryID',
 				maximumPrice: priceSlider.slider("values",1),
 				minimumPrice: priceSlider.slider("values",0)
 			}
