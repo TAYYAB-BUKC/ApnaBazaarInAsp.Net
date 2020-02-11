@@ -12,7 +12,7 @@ namespace ApnaBazaar.Web.ViewModels
 		public string Description { get; set; }
 		public decimal Price { get; set; }
 		public int Category { get; set; }
-
+		public string Imagepath { get; set; }
 	}
 
 	public class CategorySearchViewModel

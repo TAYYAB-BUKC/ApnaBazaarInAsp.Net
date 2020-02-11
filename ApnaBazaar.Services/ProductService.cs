@@ -96,6 +96,55 @@ namespace ApnaBazaar.Services
 			}
 		}
 
+		public int GetProductsCount(string search)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				if (!String.IsNullOrEmpty(search))
+				{
+					return context.Products
+						.Where(product => product.Name != null && product.Name.ToUpper().Contains(search.ToUpper()))
+						.OrderBy(product => product.Name)
+						.Count();
+				}
+				else
+				{
+					return context.Products.Count();
+				}
+			}
+		}
+
+		public List<Product> GetSearchProducts(string search, int pageNo)
+		{
+			//int pageSize = 3; // will done by using configuration
+
+			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
+			using (var context = new ApnaBazaarContext())
+			{
+				if (!String.IsNullOrEmpty(search))
+				{
+					return context.Products
+						.Where(product => product.Name != null && product.Name.ToUpper().Contains(search.ToUpper()))
+						.OrderBy(product => product.Name)
+						.Skip((pageNo - 1) * pageSize)
+						.Take(pageSize)
+						.ToList();
+
+				}
+				else
+				{
+					return context.Products
+						.OrderBy(product => product.Name)
+						.Skip((pageNo - 1) * pageSize)
+						.Take(pageSize)
+						.ToList();
+				}
+
+			}
+		}
+
+
+
 		public int ShopProductsCount(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
 		{
 			using (var context = new ApnaBazaarContext())
@@ -187,7 +236,9 @@ namespace ApnaBazaar.Services
 
 		public List<Product> GetProducts(int pageNo)
 		{
-			int pageSize = 5;
+			//int pageSize = 5;
+
+			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
 			using (var context = new ApnaBazaarContext())
 			{
 				return context.Products.OrderBy(product => product.Name).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
@@ -244,7 +295,18 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				context.Entry(product).State = System.Data.Entity.EntityState.Modified;
+				//var productInDB = context.Products.Where(p => p.ID == product.ID).Include(p => p.Category).FirstOrDefault();
+
+				//productInDB.ID = product.ID;
+				//productInDB.Name = product.Name;
+				//productInDB.Description = product.Description;
+				//productInDB.Imagepath = product.Imagepath;
+				//productInDB.Price = product.Price;
+				//productInDB.Category = product.Category;
+				
+
+
+				context.Entry(product).State = EntityState.Modified;
 				//var pro = context.Products.Find(product.ID);
 				//context.Entry(pro).State = System.Data.Entity.EntityState.Modified;
 				context.SaveChanges();

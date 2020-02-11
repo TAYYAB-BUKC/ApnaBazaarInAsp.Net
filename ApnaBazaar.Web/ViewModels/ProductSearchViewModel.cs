@@ -11,5 +11,6 @@ namespace ApnaBazaar.Web.ViewModels
 		public int PageNo { get; set; }
 		public List<Product> Products { get; set; }
 		public string SearchTerm { get; set; }
+		public Pager Pager { get; set; }
 	}
 }

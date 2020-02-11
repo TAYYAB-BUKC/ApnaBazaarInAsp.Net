@@ -41,7 +41,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="thumb">
-				<img src="@imageChecked" class="img-thumbnail img-fluid" id="image" />
+				<img src="@imageChecked" height="200" width="250" class="img-thumbnail img-fluid" id="image" />
 			</div>
 			<br />
 		</div>
@@ -52,6 +52,30 @@
 </form>
 
 <script>
+
+	$("#editCategoryForm").validate({
+		rules: {
+			Name: {
+				required: true,
+				minlength: 2,
+				maxlength: 50
+			},
+			Description: {
+				maxlength: 150	
+			}
+		},
+		messages: {
+			Name: {
+				required: 'Name Field is required',
+				minlength: 'Minimum Length is 2',
+				maxlength: 'Maximum Length is 50'
+			},
+			Description: {
+				maxlength: 'Maximum Length is 150'	
+			}
+	}
+	})
+
 	$("#imageUpload").change(function () {
 		var element = this;
 
@@ -84,7 +108,8 @@
 	});
 
 	$("#EditBtn").click(function myfunction() {
-		debugger;
+
+		if ($("#editCategoryForm").valid()) {
 		var x = $("#imageUpload").val();
 		if (x == "") {
 			var value = $("#image").attr("src");
@@ -104,12 +129,22 @@
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
 			});
+			
+		}
+		else {
+	        swal({
+			title: "Warning",
+			text: "Please fill the valid data in fields",
+			icon: "warning",
+			 buttons: true,
+			 dangerMode: true,
+			})
+		}
 	});
 
 	$("#CancelBtn").click(function myfunction() {
 		$("#editCategoryForm").html("");
-		focusAction("tableContainer");
-			
+		focusAction("tableContainer");			
 	});
 
 </script>

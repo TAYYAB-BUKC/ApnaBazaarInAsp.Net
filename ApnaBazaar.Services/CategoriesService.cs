@@ -60,7 +60,9 @@ namespace ApnaBazaar.Services
 
 		public List<Category> GetCategories(string search,int pageNo)
 		{
-			int pageSize = 3; // will done by using configuration
+			//int pageSize = 3; // will done by using configuration
+
+			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
 			using (var context = new ApnaBazaarContext())
 			{
 				if (!String.IsNullOrEmpty(search))
@@ -130,8 +132,13 @@ namespace ApnaBazaar.Services
 			using (var context = new ApnaBazaarContext())
 			{
 				//context.Entry(category).State = System.Data.Entity.EntityState.Modified;
-				var category = context.Categories.Find(Id);
-				context.Categories.Remove(category);
+				var category = context.Categories.Where(x=>x.ID == Id).Include(p=>p.Products).FirstOrDefault();
+
+				//First Delete All The Products in the Category
+				//then Delete the Category
+				context.Products.RemoveRange(category.Products);
+	            context.Categories.Remove(category);
+
 				context.SaveChanges();
 			}
 		}

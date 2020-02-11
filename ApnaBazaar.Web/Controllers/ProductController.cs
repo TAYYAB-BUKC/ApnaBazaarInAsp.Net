@@ -19,11 +19,14 @@ namespace ApnaBazaar.Web.Controllers
             return View();
         }
 
-		public ActionResult ProductTable(string search,int? pageNo)
+		public ActionResult ProductTable(string search, int? pageNo)
 		{
+
+			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
+
 			ProductSearchViewModel model = new ProductSearchViewModel();
-			
-            model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 :1;
+
+			model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
 			//if (pageNo.HasValue)
 			//{
@@ -41,17 +44,24 @@ namespace ApnaBazaar.Web.Controllers
 			//	model.PageNo = pageNo.Value;
 			//}
 
-
-			model.Products = ProductService.Instance.GetProducts(model.PageNo);
-
 			model.SearchTerm = search;
-			if (!String.IsNullOrEmpty(model.SearchTerm))
-			{
-				model.Products = model.Products.Where(product => product.Name.ToLower().Contains(model.SearchTerm.ToLower())).ToList();
-			}
-			return PartialView(model);
-		}
 
+			var totalRecords = ProductService.Instance.GetProductsCount(search);
+
+			model.Products = ProductService.Instance.GetSearchProducts(search, model.PageNo);
+
+			if (model.Products != null)
+			{
+				model.Pager = new Pager(totalRecords, pageNo, pageSize);
+
+				return PartialView(model);
+			}
+			else
+			{
+				return HttpNotFound();
+			}
+
+		}
 
 		[HttpGet]
 		public ActionResult Create()
@@ -59,11 +69,12 @@ namespace ApnaBazaar.Web.Controllers
 			var categories = CategoriesService.Instance.GetCategories();
 
 			return PartialView(categories);
+
 		}
 		[HttpPost]
 		public ActionResult Create(CategoryViewModel categoryViewModel)
 		{
-			var newProduct = new Product{ Name = categoryViewModel.Name,Description=categoryViewModel.Description,Price=categoryViewModel.Price };
+			var newProduct = new Product{ Name = categoryViewModel.Name,Description=categoryViewModel.Description,Price=categoryViewModel.Price , Imagepath = categoryViewModel.Imagepath};
 			//newProduct.ID = categoryViewModel.Category;	
 			newProduct.Category = CategoriesService.Instance.GetSpecificCategory(categoryViewModel.Category);
 			ProductService.Instance.SaveProduct(newProduct);
@@ -82,8 +93,8 @@ namespace ApnaBazaar.Web.Controllers
 		public ActionResult Edit(ForProductUpdateViewModel model)
 		{
 			var newProduct = new Product { ID = model.Id, Name = model.Name, Description = model.Description, Price = model.Price, Imagepath = model.Imagepath};
-			//newProduct.ID = categoryViewModel.Category;	
-			newProduct.Category = CategoriesService.Instance.GetSpecificCategory(model.Category);
+			newProduct.Category = null;	
+			newProduct.CategoryID = model.Category;
 
 			ProductService.Instance.UpdateProduct(newProduct);
 			return RedirectToAction("ProductTable");

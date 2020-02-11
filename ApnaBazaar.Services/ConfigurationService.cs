@@ -40,5 +40,26 @@ namespace ApnaBazaar.Services
 			}
 		}
 
+		public int GetNormalPageSizeConfiguration()
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var pageSize = context.Configurations.Find("ListingPageSize");
+				return pageSize != null ? int.Parse(pageSize.Value) : 5;
+			}
+		}
+
+		public int GetShopPageSizeConfiguration()
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var pageSize = context.Configurations.Find("ShopPageSize");
+				return pageSize != null ? int.Parse(pageSize.Value) : 12;
+			}
+		}
+
+
+
+
 	}
 }

@@ -6,8 +6,6 @@
 
 }
 
-
-
 <h2>Create Category</h2>
 
 <form id="createCategoryForm">
@@ -42,7 +40,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="thumb">
-				<img src="@image" class="img-thumbnail img-fluid" id="image" />
+				<img src="@image" height="200" width="250" class="img-thumbnail img-fluid" id="image" />
 			</div>
 		</div>
 	</div>
@@ -133,8 +131,8 @@
 		}
 		else {
 	        swal({
-			title: "JS Warning",
-			text: "Please fill the required fields",
+			title: "Warning",
+			text: "Please fill the valid data in fields",
 			icon: "warning",
 			 buttons: true,
 			 dangerMode: true,

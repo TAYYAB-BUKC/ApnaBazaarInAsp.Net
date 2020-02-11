@@ -12,10 +12,10 @@ namespace ApnaBazaar.Entities
 		public int ID { get; set; }
 
 		[Required]
-		[MinLength(2),MaxLength(50)]
+		[MinLength(2),MaxLength(100)]
 		public string Name { get; set; }
 
-		[MaxLength(150)]
+		[MaxLength(500)]
 		public string Description { get; set; }
 		public string Imagepath { get; set; }
 	}

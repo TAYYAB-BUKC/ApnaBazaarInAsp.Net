@@ -18,13 +18,18 @@ namespace ApnaBazaar.Web.Controllers
 		{
 			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
-			int pageSize = 10;
+			int pageSize = ConfigurationService.Instance.GetShopPageSizeConfiguration();
 
 			ShopViewModel model = new ShopViewModel();
+
+			model.SearchTerm = searchTerm;
 
 			model.FeaturedCategories = CategoriesService.Instance.GetFeaturedCategories();
 
 			model.MaximumPrice = ProductService.Instance.GetMaximumPrice();
+
+
+			int totalShopRecords = ProductService.Instance.ShopProductsCount(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
 
 			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy,pageNo,pageSize);
 
@@ -32,9 +37,7 @@ namespace ApnaBazaar.Web.Controllers
 
 			model.CategoryID = categoryID;
 
-			int totalShopRecords = ProductService.Instance.ShopProductsCount(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
-			
-            model.Pager = new Pager(totalShopRecords,pageNo);
+            model.Pager = new Pager(totalShopRecords,pageNo, pageSize);
 			
 			return View(model);
 		}
@@ -42,14 +45,22 @@ namespace ApnaBazaar.Web.Controllers
 		public ActionResult FilterProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy, int? pageNo)
 		{
 			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+			
+			int pageSize = ConfigurationService.Instance.GetShopPageSizeConfiguration();
 
-			int pageSize = 10;
 
 			FilterProductViewModel model = new FilterProductViewModel();
 
+			model.SearchTerm = searchTerm;
+
+			model.SortBy = sortBy;
+
+			model.CategoryID = categoryID;
+
+
 			int totalShopRecords = ProductService.Instance.ShopProductsCount(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
 
-			model.Pager = new Pager(totalShopRecords, pageNo);
+			model.Pager = new Pager(totalShopRecords, pageNo,pageSize);
 
 
 			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy, pageNo, pageSize);

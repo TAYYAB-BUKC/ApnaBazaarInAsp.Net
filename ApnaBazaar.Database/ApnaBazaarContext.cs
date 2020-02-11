@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ApnaBazaar.Database
 {
-	public class ApnaBazaarContext : DbContext
+	public class ApnaBazaarContext : DbContext, IDisposable
 	{
 		public ApnaBazaarContext() : base("ApnaBazaarConnectionString")
 		{

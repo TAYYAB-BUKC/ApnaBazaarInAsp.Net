@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace ApnaBazaar.Web.Controllers
 {
-	[Authorize(Roles ="Admin")]
+	//[Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
 		//CategoriesService categoriesService = new CategoriesService();
@@ -24,7 +24,7 @@ namespace ApnaBazaar.Web.Controllers
 
 		public ActionResult CategoriesTable(string search, int? pageNo)
 		{
-			int pageSize = 3;
+			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
 
 			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 

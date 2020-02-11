@@ -71,6 +71,14 @@
     <Compile Include="Migrations\202002071240304_ValidationAdded.Designer.cs">
       <DependentUpon>202002071240304_ValidationAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002111814007_ValidationsChanged.cs" />
+    <Compile Include="Migrations\202002111814007_ValidationsChanged.Designer.cs">
+      <DependentUpon>202002111814007_ValidationsChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002111859176_CategoryIdAddedInProduct.cs" />
+    <Compile Include="Migrations\202002111859176_CategoryIdAddedInProduct.Designer.cs">
+      <DependentUpon>202002111859176_CategoryIdAddedInProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -99,6 +107,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002071240304_ValidationAdded.resx">
       <DependentUpon>202002071240304_ValidationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002111814007_ValidationsChanged.resx">
+      <DependentUpon>202002111814007_ValidationsChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002111859176_CategoryIdAddedInProduct.resx">
+      <DependentUpon>202002111859176_CategoryIdAddedInProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

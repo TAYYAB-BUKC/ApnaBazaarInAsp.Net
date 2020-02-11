@@ -3,12 +3,11 @@
 	ViewBag.Title = "CategoryTable";
 }
 
+<link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <h2>CategoryTable</h2>
 
 @model CategorySearchViewModel
-
-
-
 
 <form>
 	<div class="container">
@@ -16,16 +15,22 @@
 			<div class="col-md-8">
 				<input class="form-control" id="searchText" name="Search" placeholder="Search any Category here...." />
 			</div>
-			<div class="col-md-4 pr-0">
-				<button type="button" id="searchBtn"> Search</button>
-			</div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="form-group"
+					<div class="col-md-4 pr-0">
+						<button type="button" id="searchBtn"> Search</button>
+					</div>
 
-			<div class="col-md-4 pr-0">
-				<button type="button" id="resetBtn"> Reset</button>
-			</div>
+					<div class="col-md-4 pr-0">
+						<button type="button" id="resetBtn"> Reset</button>
+					</div>
 
-			<div class="col-md-4 pr-0">
-				<button type="button" id="newBtn">New</button>
+					<div class="col-md-4 pr-0">
+						<button type="button" id="newBtn">New</button>
+					</div>
+				</div>
+				</div>
 			</div>
 
 		</div>
@@ -49,22 +54,22 @@
 	<tbody>
 		@foreach (var category in Model.Categories)
 		{
-		<tr>
-			<td>@category.Name</td>
-			
+			<tr>
+				<td>@category.Name</td>
 
-			<td>@category.Description</td>
 
-			<td><img height="200px" width="200px" src="@category.Imagepath" alt="Cateogory Image" /></td>
+				<td>@category.Description</td>
 
-			<td>@category.IsFeatured</td>
+				<td><img height="200px" width="200px" src="@category.Imagepath" alt="Cateogory Image" /></td>
 
-			<td>
-				<button class="EditBtn" data-id="@category.ID">Edit</button>
-				<button class="DeleteBtn" data-id="@category.ID">Delete</button>
-			</td>
+				<td>@category.IsFeatured</td>
 
-		</tr>
+				<td>
+					<button class="EditBtn" data-id="@category.ID">Edit</button>
+					<button class="DeleteBtn" data-id="@category.ID">Delete</button>
+				</td>
+
+			</tr>
 		}
 	</tbody>
 
@@ -72,7 +77,7 @@
 
 <div class="col-md-4">
 
-	@if (Model.Pager != null)
+	@if (Model.Pager != null && Model.Pager.TotalPages > 1)
 	{
 		if (Model.Pager.CurrentPage > 1)
 		{
@@ -124,7 +129,6 @@
 		});
 
 	$("#searchBtn").click(function myfunction() {
-		debugger;
 		var searchvalue = $("#searchText").val();
 		$.ajax({
 			//url: '/Category/CategoriesTable',
@@ -164,7 +168,7 @@
 		$.ajax({
 			//url: '/Category/Create'
 			url:'@Url.Action("Create","Category")',
-			
+
 		})
 			.done(function (response) {
 				$("#createCategory").html(response);
@@ -216,6 +220,4 @@
 			});
 		}
 	});
-
-
 </script>

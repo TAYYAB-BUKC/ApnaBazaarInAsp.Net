@@ -11,7 +11,7 @@ namespace ApnaBazaar.Web.ViewModels
 
 	public class Pager
 	{
-		public Pager(int totalItems, int? page, int pageSize = 10)
+		public Pager(int totalItems, int? page, int pageSize)
 		{
 			if (pageSize == 0) pageSize = 10;
 

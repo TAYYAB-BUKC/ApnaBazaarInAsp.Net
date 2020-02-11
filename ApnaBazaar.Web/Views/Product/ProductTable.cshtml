@@ -8,7 +8,7 @@
 	<form>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-4">
 					<input class="form-control" id="searchText" name="Search" placeholder="Search anything here...." />
 				</div>
 				<div class="col-md-4 pr-0">
@@ -68,21 +68,42 @@
 	
 </table>
 <div class="col-md-4">
-	@if (Model.PageNo != 1)
+
+	@if (Model.Pager != null && Model.Pager.TotalPages > 1)
 	{
-		<button type="button" class="PageRecords" data-pageNo="@(Model.PageNo - 1)">Previous</button>
+		if (Model.Pager.CurrentPage > 1)
+		{
+			<button type="button" class="PageRecords" data-pageNo="1">First</button>
+			<button type="button" class="PageRecords" data-pageNo="@Model.Pager.CurrentPage - 1">Previous</button>
+		}
 
+		for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+		{
+			string activeClass = Model.Pager.CurrentPage == page ? "bg-info" : string.Empty;
+
+			<button type="button" class="@activeClass PageRecords" data-pageNo="@page">@page</button>
+		}
+
+		if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+		{
+			<button type="button" class="PageRecords" data-pageNo="@Model.Pager.CurrentPage + 1">Next</button>
+			<button type="button" class="PageRecords" data-pageNo="@Model.Pager.EndPage">Last</button>
+		}
 	}
-	<button type="button" class="PageRecords" data-pageNo="@(Model.PageNo + 1)">Next</button>
-</div>
 
+
+
+
+</div>
 <script>
 
 	//$("#ProductsTable").DataTable();
 		$(".PageRecords").click(function myfunction(){
 			$.ajax({
 				url: '@Url.Action("ProductTable","Product")', //'/Product/ProductTable',
-				data: { pageNo: $(this).attr("data-pageNo") }
+				data: { pageNo: $(this).attr("data-pageNo"),
+					search: '@Model.SearchTerm'
+				}
 			
 		})
         .done(function (response) {
