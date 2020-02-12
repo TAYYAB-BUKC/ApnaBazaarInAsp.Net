@@ -62,40 +62,40 @@
 								<button type="submit" class="header-search-submit" title="Search">Search</button>
 							</form>
 						</li>
+
+
 						@if (User.Identity.IsAuthenticated)
 						{
-
 							<li class="box-login">
-								<a class="icon_login" href="#">@User.Identity.Name</a>
+								<a class="icon_login" href="#"></a>
 							</li>
 						}
-
-						<li class="box-login box-cart nav-top-cart-wrapper">
-							<a class="icon_login nav-cart-trigger active" href="#"></a>
+						<li class="box-cart nav-top-cart-wrapper">
+							<a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="NoOfCartProducts">0</span></a>
 							<div class="nav-shop-cart">
 								<div class="widget_shopping_cart_content">
 									<div class="woocommerce-min-cart-wrap">
-										<ul class="menu">
-											<li>
-												<a href="/">HOME</a>
+										<ul class="woocommerce-mini-cart cart_list product_list_widget ">
+											<li class="woocommerce-mini-cart-item mini_cart_item">
+												<span>No Items in Shopping Cart</span>
 											</li>
 										</ul>
 									</div><!-- /.widget_shopping_cart_content -->
 								</div>
 							</div><!-- /.nav-shop-cart -->
 						</li>
-
-					</ul><!-- /.menu-extra -->
-					<div class="nav-wrap">
-						<nav id="mainnav" class="mainnav">
-							<ul class="menu">
-								<li>@Html.ActionLink("Home", "Index", "Home")</li>
-								<li>@Html.ActionLink("Shop", "Index", "Shop")</li>
-								<li>@Html.ActionLink("Checkout", "Checkout", "Shop")</li>
-							</ul>
-						</nav><!-- /.mainnav -->
-					</div><!-- /.nav-wrap -->
-				</div><!-- /.container-fluid -->
+					</ul>	
+				
+						<div class="nav-wrap">
+							<nav id="mainnav" class="mainnav">
+								<ul class="menu">
+									<li>@Html.ActionLink("Home", "Index", "Home")</li>
+									<li>@Html.ActionLink("Shop", "Index", "Shop")</li>
+									<li>@Html.ActionLink("Checkout", "Checkout", "Shop")</li>
+								</ul>
+							</nav><!-- /.mainnav -->
+						</div><!-- /.nav-wrap -->
+</div><!-- /.container-fluid -->
 			</header><!-- /header -->
 		</div><!-- /.site-header-wrap -->
 

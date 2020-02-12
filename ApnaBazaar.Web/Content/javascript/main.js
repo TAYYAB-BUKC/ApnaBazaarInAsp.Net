@@ -873,5 +873,5 @@ function updateCartProducts() {
         cartProducts = [];
     }
 
-    $("#cartProductsCount").html(cartProducts.length);
+	$("#NoOfCartProducts").html(cartProducts.length);
 };

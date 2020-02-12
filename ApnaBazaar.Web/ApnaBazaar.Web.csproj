@@ -179,6 +179,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002101753276_InitialCreate.cs" />
+    <Compile Include="Migrations\202002101753276_InitialCreate.Designer.cs">
+      <DependentUpon>202002101753276_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002121907221_FieldsAddedToUser.cs" />
+    <Compile Include="Migrations\202002121907221_FieldsAddedToUser.Designer.cs">
+      <DependentUpon>202002121907221_FieldsAddedToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -609,7 +618,7 @@
     <Content Include="Views\Widget\_Products.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
-    <Content Include="Views\Shop\_FilterProducts.cshtml" />
+    <Content Include="Views\Shop\FilterProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -633,6 +642,14 @@
       <Project>{55150A8F-53E5-42BC-BDCD-8ACA167674EA}</Project>
       <Name>ApnaBazaar.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202002101753276_InitialCreate.resx">
+      <DependentUpon>202002101753276_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002121907221_FieldsAddedToUser.resx">
+      <DependentUpon>202002121907221_FieldsAddedToUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

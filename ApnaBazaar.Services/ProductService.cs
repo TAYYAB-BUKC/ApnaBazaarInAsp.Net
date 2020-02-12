@@ -125,6 +125,7 @@ namespace ApnaBazaar.Services
 				{
 					return context.Products
 						.Where(product => product.Name != null && product.Name.ToUpper().Contains(search.ToUpper()))
+						.Include(p=>p.Category)
 						.OrderBy(product => product.Name)
 						.Skip((pageNo - 1) * pageSize)
 						.Take(pageSize)
@@ -135,11 +136,11 @@ namespace ApnaBazaar.Services
 				{
 					return context.Products
 						.OrderBy(product => product.Name)
+						.Include(p => p.Category)
 						.Skip((pageNo - 1) * pageSize)
 						.Take(pageSize)
 						.ToList();
 				}
-
 			}
 		}
 

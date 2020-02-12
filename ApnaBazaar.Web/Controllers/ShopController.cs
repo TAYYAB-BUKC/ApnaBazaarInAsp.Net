@@ -1,5 +1,7 @@
 ﻿using ApnaBazaar.Services;
 using ApnaBazaar.Web.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,37 @@ namespace ApnaBazaar.Web.Controllers
 {
     public class ShopController : Controller
     {
+
+		private ApplicationSignInManager _signInManager;
+		private ApplicationUserManager _userManager;
+
+
+		public ApplicationSignInManager SignInManager
+		{
+			get
+			{
+				return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+			}
+			private set
+			{
+				_signInManager = value;
+			}
+		}
+
+		public ApplicationUserManager UserManager
+		{
+			get
+			{
+				return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+			}
+			private set
+			{
+				_userManager = value;
+			}
+		}
+
+
+
 		//ProductService productService = new ProductService();
 		CheckoutViewModel checkoutViewModel = new CheckoutViewModel();
 		// GET: Shop
@@ -65,9 +98,10 @@ namespace ApnaBazaar.Web.Controllers
 
 			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy, pageNo, pageSize);
 
-			return PartialView("_FilterProducts", model);
+			return PartialView(model);
 		}
 
+		[Authorize]
 		public ActionResult Checkout()
         {
 			var cartProductCookoies = Request.Cookies["CartProducts"];
@@ -84,6 +118,9 @@ namespace ApnaBazaar.Web.Controllers
 
 				//GetListOfProduct
 				checkoutViewModel.CartProducts = ProductService.Instance.GetListOfProduct(checkoutViewModel.CartProductIds);
+
+				checkoutViewModel.User = UserManager.FindById(User.Identity.GetUserId());
+
 			}
 			return View(checkoutViewModel);
         }

@@ -1,7 +1,7 @@
 ﻿@model ShopViewModel 
 @{
 	ViewBag.Title = "Shop";
-	
+
 }
 
 <!-- Page title -->
@@ -14,8 +14,8 @@
 				</div><!-- /.page-title-heading -->
 				<div class="breadcrumbs">
 					<ul>
-						<li><a href="@Url.Action("Index","Home")">Home</a></li>
-						<li><a data-href="@Url.Action("Index","Shop")">Shop</a></li>
+						<li><a href="@Url.Action("Index", "Home")">Home</a></li>
+						<li><a data-href="@Url.Action("Index", "Shop")">Shop</a></li>
 					</ul>
 				</div><!-- /.breadcrumbs -->
 			</div><!-- /.col-md-12 -->
@@ -29,7 +29,7 @@
 			<div class="col-md-3">
 				<div class="sidebar slidebar-shop">
 					<div class="widget widget-search">
-						<form role="search" method="get" class="search-form" action="@Url.Action("Index","Shop")">
+						<form role="search" method="get" class="search-form" action="@Url.Action("Index", "Shop")">
 							<label>
 								<input type="search" class="search-field" placeholder="Search …" value="@Model.SearchTerm" name="searchTerm">
 							</label>
@@ -41,10 +41,10 @@
 							Sort By
 						</h5>
 						<ul>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.Default})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.Popularity})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.LowToHighPrices})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.LowToHighPrices ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.HighToLowPrices})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.HighToLowPrices ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
+							<li><a data-href="@Url.Action("FilterProducts", "Shop", new { sortBy = (int)SortByEnum.Default , CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.Popularity,CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.LowToHighPrices,CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.LowToHighPrices ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.HighToLowPrices,CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.HighToLowPrices ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
 						</ul>
 					</div><!-- /.widget-sort-by -->
 					<!--<div class="widget widget-color">
@@ -135,7 +135,7 @@
 					@{
 						var filterproducts = new FilterProductViewModel { Products = Model.Products, Pager = Model.Pager, SortBy = Model.SortBy, CategoryID = Model.CategoryID };
 
-						Html.RenderPartial("_FilterProducts", filterproducts);
+						Html.RenderPartial("FilterProducts", filterproducts);
 					}
 				</div>
 				<!-- Call Partial View -->
@@ -192,6 +192,7 @@
 
 
 	function GetPriceRangeData() {
+		console.log("GetPriceRangeData");
 		debugger;
 		$.ajax({
 			url: '@Url.Action("FilterProducts", "Shop")',
@@ -199,16 +200,19 @@
 				searchTerm: $("#SearchTerm").val(),
 				sortBy: $("#SortBy").val(),
 				categoryID: $("#CategoryID").val(),
-				minimumPrice : priceSlider.slider("values", 0),
-				maximumPrice : priceSlider.slider("values", 1)
+				minimumPrice: priceSlider.slider("values", 0),
+				maximumPrice: priceSlider.slider("values", 1)
 			}
 		})
-        .done(function (response) {
-        	$("#filterProducts").html(response);
-        })
-        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        	alert("FAIL");
-        });
+			.done(function (response) {
+				$("#filterProducts").html(response);
+				console.log("GetPriceRangeData() response");
+				console.log(response);
+
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("FAIL");
+			});
 	}
 
 
@@ -230,6 +234,7 @@
 	});
 
 	function GetData(DUrl) {
+		console.log("getdata()");
 		$.ajax({
 			//url: '/Category/Create'
 			url: DUrl,

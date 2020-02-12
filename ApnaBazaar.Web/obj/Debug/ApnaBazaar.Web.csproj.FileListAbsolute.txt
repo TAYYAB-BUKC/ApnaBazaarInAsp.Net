@@ -111,3 +111,6 @@ C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.csproj.CopyComplete
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.dll
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.Migrations.InitialCreate.resources
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.csproj.GenerateResource.cache
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.Migrations.FieldsAddedToUser.resources
