@@ -201,7 +201,7 @@
 				</div>
 					*@
 				<hr class="mb-4">
-				<button class="btn btn-primary btn-lg btn-block" type="submit">Confirm Order</button>
+				<button id="placeOrder" class="btn btn-primary btn-lg btn-block" type="button">Place Order</button>
 			</form>
 		</div>
 	</div>
@@ -213,7 +213,50 @@ else
 	</div>
 }
 
+<script>
+	$("#placeOrder").click(function myfunction() {
 
+		$.ajax({
+			type: "Post",
+			url: '@Url.Action("Order","Shop")',   // '/Category/Create',
+			data: {
+				products: '@string.Join("-", Model.CartProductIds)'
+			}
+		})
+			.done(function (response) {
+				if (response.Success) {
+
+					$.cookie('CartProducts', '', { path: '/' });
+					updateCartProducts();
+					swal({
+						title: "Done",
+						text: "Order Placed Successfully",
+						icon: "Success",
+					}).then((willDelete) => {
+						window.location = '@Url.Action("Index","Shop")'
+					});
+				}
+				else {
+					swal({
+			title: "Warning",
+			text: "Sorry Unable to Place Your Order",
+			icon: "warning",
+			 buttons: true,
+			 dangerMode: true,
+			})
+				}
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				swal({
+			title: "Warning",
+			text: "Please fill the required fields",
+			icon: "warning",
+			 buttons: true,
+			 dangerMode: true,
+			})
+			});
+		});
+</script>
 
 
 
