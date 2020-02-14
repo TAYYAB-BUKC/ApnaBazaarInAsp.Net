@@ -1,12 +1,15 @@
-﻿using System;
+﻿using ApnaBazaar.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ApnaBazaar.Web.ViewModels
 {
-	public class SharedViewModels
+	public class UserProfileViewModel
 	{
+		public ApplicationUser User { get; set; }
+
 	}
 
 	public class Pager

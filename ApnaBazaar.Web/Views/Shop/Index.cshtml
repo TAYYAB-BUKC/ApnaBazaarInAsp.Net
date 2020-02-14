@@ -42,9 +42,9 @@
 						</h5>
 						<ul>
 							<li><a data-href="@Url.Action("FilterProducts", "Shop", new { sortBy = (int)SortByEnum.Default , CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.Popularity,CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.LowToHighPrices,CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.LowToHighPrices ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.HighToLowPrices,CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.HighToLowPrices ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.Popularity, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.LowToHighPrices, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.LowToHighPrices ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.HighToLowPrices, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.HighToLowPrices ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
 						</ul>
 					</div><!-- /.widget-sort-by -->
 					<!--<div class="widget widget-color">

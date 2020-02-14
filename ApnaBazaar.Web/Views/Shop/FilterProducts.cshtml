@@ -72,13 +72,14 @@
 			}
 		</ul><!-- /.flat-pagination -->
 	</div>
+
+	<input type="hidden" id="SortBy" value="@Model.SortBy" />
+
+	<input type="hidden" id="CategoryID" value="@Model.CategoryID" />
+
+	<input type="hidden" id="SearchTerm" value="@Model.SearchTerm" />
 }
 
-<input type="hidden" name="SortBy" value="@Model.SortBy" />
-
-<input type="hidden" name="CategoryID" value="@Model.CategoryID" />
-
-<input type="hidden" name="SearchTerm" value="@Model.SearchTerm" />
 
 <script>
 	$(".Pagedata-link").click(function myfunction() {
@@ -116,7 +117,7 @@
 		$.cookie('CartProducts', products.join('-'), { path: '/' });
 		updateCartProducts();
 		swal("Done", "Product Added to Cart.", "success");
-		
+
 
 	});
 

@@ -218,7 +218,7 @@ else
 
 		$.ajax({
 			type: "Post",
-			url: '@Url.Action("Order","Shop")',   // '/Category/Create',
+			url: '@Url.Action("PlaceOrder","Shop")',   // '/Category/Create',
 			data: {
 				products: '@string.Join("-", Model.CartProductIds)'
 			}
@@ -232,7 +232,7 @@ else
 						title: "Done",
 						text: "Order Placed Successfully",
 						icon: "Success",
-					}).then((willDelete) => {
+					}).then((value) => {
 						window.location = '@Url.Action("Index","Shop")'
 					});
 				}

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ApnaBazaar.Web.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +12,35 @@ namespace ApnaBazaar.Web.Controllers
 {
     public class SharedController : Controller
     {
+
+		private ApplicationSignInManager _signInManager;
+		private ApplicationUserManager _userManager;
+
+
+		public ApplicationSignInManager SignInManager
+		{
+			get
+			{
+				return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+			}
+			private set
+			{
+				_signInManager = value;
+			}
+		}
+
+		public ApplicationUserManager UserManager
+		{
+			get
+			{
+				return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+			}
+			private set
+			{
+				_userManager = value;
+			}
+		}
+
 		public JsonResult UploadImage()
 		{
 			JsonResult result = new JsonResult();
@@ -43,6 +75,17 @@ namespace ApnaBazaar.Web.Controllers
 			}
 
 			return result;
+		}
+
+		public ActionResult UserProfile()
+		{
+			UserProfileViewModel model = new UserProfileViewModel();
+
+			var loggedInUser = UserManager.FindById(User.Identity.GetUserId());
+
+			model.User = loggedInUser;
+
+			return View(model);
 		}
 	}
 }
