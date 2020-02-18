@@ -118,4 +118,23 @@ namespace ApnaBazaar.Web.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+	 public class ChangeUserPasswordViewModel
+	{
+		[Required(ErrorMessage = "Old Password is required.")]
+		[Display(Name = "Old Password")]
+		[DataType(DataType.Password)]
+		public string OldPassword { get; set; }
+
+		[Required(ErrorMessage = "New Password is required.")]
+		[Display(Name = "New Password")]
+		[DataType(DataType.Password)]
+		public string NewPassword { get; set; }
+
+		[Required(ErrorMessage = "Confirm New Password is required.")]
+		[Display(Name = "Confirm New Password")]
+		[Compare(otherProperty: "NewPassword", ErrorMessage = "New Paswword and Confirm New Paswword doesn't match.")]
+		[DataType(DataType.Password)]
+		public string ConfirmNewPassword { get; set; }
+	}
 }

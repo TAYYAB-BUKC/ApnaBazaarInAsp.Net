@@ -624,6 +624,7 @@
     <Content Include="Views\Order\Search.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Shared\UserProfile.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -639,6 +640,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApnaBazaar.Database\ApnaBazaar.Database.csproj">
+      <Project>{C6007B00-114C-40CB-9DC7-54E788F10AFD}</Project>
+      <Name>ApnaBazaar.Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApnaBazaar.Entities\ApnaBazaar.Entities.csproj">
       <Project>{B04A06E1-4AD9-48D7-B3C3-287FF170C160}</Project>
       <Name>ApnaBazaar.Entities</Name>

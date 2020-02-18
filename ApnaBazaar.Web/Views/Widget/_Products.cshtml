@@ -13,9 +13,9 @@
 		{
 		<ul class="flat-filter style-1 text-center max-width-682 clearfix">
 			<li class="active"><a href="#" data-filter="*">All Product</a></li>
-			@foreach (var product in Model.LatestProducts.Distinct().ToList())
+			@foreach (var product in Model.LatestProducts.Select(c=>c.Category).ToList().Distinct())
 			{
-				var name = product.Category.Name;
+				var name = product.Name;
 				<li><a href="#" data-filter=".@name">For @name</a></li>
 			}
 		</ul>

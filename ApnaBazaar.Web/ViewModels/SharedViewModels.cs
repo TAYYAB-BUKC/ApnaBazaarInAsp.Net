@@ -12,6 +12,13 @@ namespace ApnaBazaar.Web.ViewModels
 
 	}
 
+	public class UserUpdateViewModel
+	{
+		public string Name { get; set; }
+		public string Email { get; set; }
+		public string Address { get; set; }
+	}
+
 	public class Pager
 	{
 		public Pager(int totalItems, int? page, int pageSize)

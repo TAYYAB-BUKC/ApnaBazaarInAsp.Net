@@ -75,6 +75,12 @@
 										<li class="woocommerce-mini-cart-item mini_cart_item">
 											<a href="@Url.Action("UserProfile","Shared")">Profile</a>
 										</li>
+										<li class="woocommerce-mini-cart-item mini_cart_item">
+											<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+										</li>
+										<li class="woocommerce-mini-cart-item mini_cart_item">
+											<a href="@Url.Action("LogOff","Account")">LogOut</a>
+										</li>
 									</ul>
 								</div><!-- /.widget_shopping_cart_content -->
 							</div>
@@ -103,7 +109,11 @@
 									<li>@Html.ActionLink("Home", "Index", "Home")</li>
 									<li>@Html.ActionLink("Shop", "Index", "Shop")</li>
 									<li>@Html.ActionLink("Checkout", "Checkout", "Shop")</li>
-								</ul>
+									@if (!User.Identity.IsAuthenticated)
+									{
+										<li>@Html.ActionLink("Login", "Login", "Account")</li>
+									}
+									</ul>
 							</nav><!-- /.mainnav -->
 						</div><!-- /.nav-wrap -->
 </div><!-- /.container-fluid -->

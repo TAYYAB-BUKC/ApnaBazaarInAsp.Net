@@ -1,4 +1,6 @@
-﻿using ApnaBazaar.Web.ViewModels;
+﻿using ApnaBazaar.Database;
+using ApnaBazaar.Web.Models;
+using ApnaBazaar.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -12,6 +14,7 @@ namespace ApnaBazaar.Web.Controllers
 {
     public class SharedController : Controller
     {
+		ApplicationDbContext context = new ApplicationDbContext();
 
 		private ApplicationSignInManager _signInManager;
 		private ApplicationUserManager _userManager;
@@ -77,6 +80,7 @@ namespace ApnaBazaar.Web.Controllers
 			return result;
 		}
 
+		[HttpGet]
 		public ActionResult UserProfile()
 		{
 			UserProfileViewModel model = new UserProfileViewModel();
@@ -87,5 +91,25 @@ namespace ApnaBazaar.Web.Controllers
 
 			return View(model);
 		}
+		
+		public JsonResult UserProfile(UserUpdateViewModel model)
+		{
+			JsonResult result = new JsonResult { JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+			var loggedInUser = UserManager.FindById(User.Identity.GetUserId());
+
+				loggedInUser.Name = model.Name;
+				loggedInUser.Email = model.Email;
+				loggedInUser.Address = model.Address;
+
+				IdentityResult isUpdated = UserManager.Update(loggedInUser);
+
+				result.Data = isUpdated.Succeeded ? new { Success = true } : new { Success = false };
+			
+			return result;
+
+
+		}
+
 	}
 }

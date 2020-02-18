@@ -17,9 +17,9 @@
 	</div>
 </section>
 
-<form>
+<form id="userForm">
 	<div class="row">
-		<div class="col-md-6" style="margin-left:auto;margin-right:auto" >
+		<div class="col-md-6" style="margin-left:auto;margin-right:auto">
 			<div class="form-group">
 				<label>Name</label>
 				<input class="form-control" name="Name" placeholder="Enter name" value="@Model.User.Name" />
@@ -29,10 +29,42 @@
 				<input class="form-control" name="Email" placeholder="Enter Email" value="@Model.User.Email" />
 			</div>
 			<div class="form-group">
-			<label>Address</label>
-			<input class="form-control" name="Address" placeholder="Enter Address" value="@Model.User.Address" />
+				<label>Address</label>
+				<input class="form-control" name="Address" placeholder="Enter Address" value="@Model.User.Address" />
+			</div>
+			<div class="form-group">
+				<button class="btn btn-danger" type="button" id="UpdateDetails">Update</button>
 			</div>
 		</div>
 	</div>
 </form>
 
+<script>
+	$("#UpdateDetails").click(function myfunction() {
+		$.ajax({
+			type: 'post',	
+			url: '@Url.Action("UserProfile","Shared")', //'/Product/Edit',
+			data: $("#userForm").serialize()
+		})
+			.done(function (response) {
+				if (response.Success) {
+					swal("Done", "Details Updated Successfully.", "success");
+					$.ajax({
+			url: '@Url.Action("UserProfile","Shared")', //'/Product/Edit',
+			})
+			.done(function (response) {
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
+
+				}
+				else {
+					swal("warning", "Sorry for inconvenience. Please try again later.", "warning");
+				}
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
+	});
+</script>
