@@ -200,7 +200,7 @@
 									<div class="thumb">
 										<img height="375" width="500" src="@firstCategory.Imagepath" alt="Image">
 										<div class="elm-btn">
-											<a href="#" class="themesflat-button bg-white width-150">@firstCategory.Name</a>
+											<a href="@Url.Action("Index","Shop",new { categoryID = firstCategory.ID })" class="themesflat-button bg-white width-150">@firstCategory.Name</a>
 										</div>
 										<div class="overlay-effect bg-color-1" style="display: block; left: 100%; top: 0px; transition: all 300ms ease 0s;"></div>
 									</div>
@@ -219,7 +219,7 @@
 									<div class="thumb">
 										<img src="@secondCategory.Imagepath" alt="Image">
 										<div class="elm-btn">
-											<a href="#" class="themesflat-button bg-white width-150">@secondCategory.Name</a>
+											<a href="@Url.Action("Index","Shop",new { categoryID = secondCategory.ID })" class="themesflat-button bg-white width-150">@secondCategory.Name</a>
 										</div>
 										<div class="overlay-effect bg-color-1"></div>
 									</div>
@@ -234,7 +234,7 @@
 									<div class="thumb">
 										<img src="@thirdCategory.Imagepath" alt="Image">
 										<div class="elm-btn">
-											<a href="#" class="themesflat-button bg-white width-150">@thirdCategory.Name</a>
+											<a href="@Url.Action("Index","Shop",new { categoryID = thirdCategory.ID })" class="themesflat-button bg-white width-150">@thirdCategory.Name</a>
 										</div>
 										<div class="overlay-effect bg-color-1"></div>
 									</div>
@@ -252,7 +252,7 @@
 									<div class="thumb">
 										<img height="375" width="500" src="@fourthCategory.Imagepath" alt="Image">
 										<div class="elm-btn">
-											<a href="#" class="themesflat-button bg-white width-150">@fourthCategory.Name</a>
+											<a href="@Url.Action("Index","Shop",new { categoryID = fourthCategory.ID })" class="themesflat-button bg-white width-150">@fourthCategory.Name</a>
 										</div>
 										<div class="overlay-effect bg-color-1"></div>
 									</div>

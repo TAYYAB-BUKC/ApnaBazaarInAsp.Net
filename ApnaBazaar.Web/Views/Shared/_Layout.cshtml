@@ -24,11 +24,10 @@
 
 
 	<!-- Favicon and touch icons  -->
-	<link href="favicon.ico" rel="shortcut icon">
+	<link href="~/Content/images/apnabazaar.png" rel="shortcut icon">
 
 	<script src="~/Content/javascript/jquery.min.js"></script>
 	<script src="~/Content/javascript/jquery-ui.js"></script>
-
 
 	<!--[if lt IE 9]>
 		<script src="~/Content/javascript/html5shiv.js"></script>
@@ -171,17 +170,17 @@
 								<li><a href="#">About Us</a></li>
 								<li><a href="#">Online Store</a></li>
 								<li><a href="blog-list.html">Blog</a></li>
-								<li><a href="contact.html">Contact Us</a></li>
+								<li><a href="@Url.Action("Contact","Shared")">Contact Us</a></li>
 							</ul>
 						</div><!-- /.widget -->
 					</div><!-- /.col-md-3 -->
 					<div class="col-md-3">
 						<div class="widget widget-link link-login">
 							<ul>
-								<li><a href="#">Login/ Register</a></li>
-								<li><a href="#">Your Cart</a></li>
+								<li><a href="@Url.Action("Login","Account")">Login/ Register</a></li>
+								<li><a href="@Url.Action("Checkout","Shop")">Your Cart</a></li>
 								<li><a href="#">Wishlist items</a></li>
-								<li><a href="#">Your checkout</a></li>
+								<li><a href="@Url.Action("Checkout","Shop")">Your checkout</a></li>
 							</ul>
 						</div><!-- /.widget -->
 					</div><!-- /.col-md-3 -->
@@ -198,7 +197,7 @@
 					<div class="col-md-3">
 						<div class="widget widget-brand">
 							<div class="logo logo-footer">
-								<a href="index.html"><img src="~/Content/images/logo@2x.png" alt="image" width="107" height="24"></a>
+								<a href="@Url.Action("Index","Home")"><img src="~/Content/images/apnabazaar.png" alt="image" width="107" height="24"></a>
 							</div>
 							<ul class="flat-contact">
 
@@ -216,7 +215,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<p class="copyright text-center">Copyright 2018 <a href="#">Modaz</a></p>
+						<p class="copyright text-center"><a href="@Url.Action("Index","Home")"><strong>Apna</strong><strong style="color:#f63440">Bazaar</strong> </a><strong> - Copyright © 2020</strong></p>				
 					</div>
 				</div>
 			</div>

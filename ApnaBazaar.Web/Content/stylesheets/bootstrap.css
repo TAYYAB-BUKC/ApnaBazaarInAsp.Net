@@ -2819,9 +2819,9 @@ fieldset[disabled] a.btn {
 }
 
 .btn-danger {
-  color: #fff;
-  background-color: #d9534f;
-  border-color: #d9534f;
+	color: #fff;
+	background-color: #f63440;
+	border-color: #eceeef;
 }
 
 .btn-danger:hover {
