@@ -2,6 +2,7 @@
 using ApnaBazaar.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace ApnaBazaar.Services
 
 		}
 		#endregion
-		public Configuration GetConfiguration(string key)
+		public ApnaBazaarConfiguration GetConfiguration(string key)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
@@ -37,6 +38,79 @@ namespace ApnaBazaar.Services
 				return context.Configurations.FirstOrDefault(configuration => configuration.Key == key);
 				return context.Configurations.Find(key);
 
+			}
+		}
+
+		public List<ApnaBazaarConfiguration> GetSearchConfigurations(string search, int pageNo)
+		{
+			int pageSize = GetNormalPageSizeConfiguration();
+			using (var context = new ApnaBazaarContext())
+			{
+				if (!String.IsNullOrEmpty(search))
+				{
+					return context.Configurations
+						.Where(configuration => configuration.Key != null && configuration.Key.ToUpper().Contains(search.ToUpper()))
+						.OrderBy(configuration => configuration.Key)
+						.Skip((pageNo - 1) * pageSize)
+						.Take(pageSize)
+						.ToList();
+
+				}
+				else
+				{
+					return context.Configurations
+						.OrderBy(configuration => configuration.Key)
+						.Skip((pageNo - 1) * pageSize)
+						.Take(pageSize)
+						.ToList();
+				}
+			}
+		}
+
+		public void SaveConfiguration(ApnaBazaarConfiguration configuration)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				context.Configurations.Add(configuration);
+				context.SaveChanges();
+			}
+		}
+
+		public int GetConfigurationsCount(string search)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				if (!String.IsNullOrEmpty(search))
+				{
+					return context.Configurations
+						.Where(configuration => configuration.Key != null && configuration.Key.ToUpper().Contains(search.ToUpper()))
+						.OrderBy(product => product.Key)
+						.Count();
+				}
+				else
+				{
+					return context.Configurations.Count();
+				}
+			}
+		}
+
+		public void DeleteConfiguration(string key)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				//context.Entry(category).State = System.Data.Entity.EntityState.Modified;
+				var configuration = context.Configurations.Find(key);
+				context.Configurations.Remove(configuration);
+				context.SaveChanges();
+			}
+		}
+
+		public void UpdateConfiguration(ApnaBazaarConfiguration configuration)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				context.Entry(configuration).State = EntityState.Modified;
+				context.SaveChanges();
 			}
 		}
 

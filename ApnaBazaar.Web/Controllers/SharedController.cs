@@ -107,9 +107,24 @@ namespace ApnaBazaar.Web.Controllers
 				result.Data = isUpdated.Succeeded ? new { Success = true } : new { Success = false };
 			
 			return result;
-
-
 		}
+
+		public ActionResult Contact()
+		{
+			return View();
+		}
+
+
+		public ActionResult FAQ()
+		{
+			return View();
+		}
+
+		public ActionResult ComingSoon()
+		{
+			return View();
+		}
+
 
 	}
 }

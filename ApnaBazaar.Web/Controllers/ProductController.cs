@@ -71,6 +71,7 @@ namespace ApnaBazaar.Web.Controllers
 			return PartialView(categories);
 
 		}
+		
 		[HttpPost]
 		public ActionResult Create(CategoryViewModel categoryViewModel)
 		{
@@ -89,6 +90,8 @@ namespace ApnaBazaar.Web.Controllers
 
 			return PartialView(product);
 		}
+
+
 		[HttpPost]
 		public ActionResult Edit(ForProductUpdateViewModel model)
 		{

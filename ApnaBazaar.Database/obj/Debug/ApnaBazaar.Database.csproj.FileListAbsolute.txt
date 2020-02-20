@@ -22,3 +22,4 @@ C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaB
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.CategoryIdAddedInProduct.resources
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.OrderAndOderItemsTableAdded.resources
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.QuantityAddedToOderItems.resources
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.ConfigurationEntityNameChanged.resources

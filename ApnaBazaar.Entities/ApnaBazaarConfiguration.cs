@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApnaBazaar.Entities
 {
-	public class Configuration
+	public class ApnaBazaarConfiguration
 	{
 		[Key]
 		public string Key { get; set; }

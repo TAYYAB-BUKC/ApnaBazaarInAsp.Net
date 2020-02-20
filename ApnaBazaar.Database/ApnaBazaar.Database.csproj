@@ -87,6 +87,10 @@
     <Compile Include="Migrations\202002131346231_QuantityAddedToOderItems.Designer.cs">
       <DependentUpon>202002131346231_QuantityAddedToOderItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002201042175_ConfigurationEntityNameChanged.cs" />
+    <Compile Include="Migrations\202002201042175_ConfigurationEntityNameChanged.Designer.cs">
+      <DependentUpon>202002201042175_ConfigurationEntityNameChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -127,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002131346231_QuantityAddedToOderItems.resx">
       <DependentUpon>202002131346231_QuantityAddedToOderItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002201042175_ConfigurationEntityNameChanged.resx">
+      <DependentUpon>202002201042175_ConfigurationEntityNameChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

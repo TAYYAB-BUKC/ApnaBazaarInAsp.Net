@@ -10,6 +10,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<!-- Bootstrap  -->
+	<script src="~/Content/javascript/jquery.min.js"></script>
+	<script src="~/Content/javascript/jquery-ui.js"></script>
 	<link rel="stylesheet" type="text/css" href="~/Content/stylesheets/bootstrap.css">
 
 	<!-- Theme Style -->
@@ -22,12 +24,8 @@
 	<!-- Animation Style -->
 	<link rel="stylesheet" type="text/css" href="~/Content/stylesheets/animate.css">
 
-
 	<!-- Favicon and touch icons  -->
 	<link href="~/Content/images/apnabazaar.png" rel="shortcut icon">
-
-	<script src="~/Content/javascript/jquery.min.js"></script>
-	<script src="~/Content/javascript/jquery-ui.js"></script>
 
 	<!--[if lt IE 9]>
 		<script src="~/Content/javascript/html5shiv.js"></script>
@@ -65,9 +63,8 @@
 
 						@if (User.Identity.IsAuthenticated)
 						{
-					<li class="box-login  nav-top-cart-wrapper">
-						<a class="icon_login" href="#"></a>
-						<div class=" nav-shop-cart">
+					
+						@*<div class=" nav-shop-cart">
 							<div class="widget_shopping_cart_content">
 								<div class="woocommerce-min-cart-wrap">
 									<ul class="woocommerce-mini-cart cart_list product_list_widget ">
@@ -83,40 +80,64 @@
 									</ul>
 								</div><!-- /.widget_shopping_cart_content -->
 							</div>
-						</div><!-- /.nav-shop-cart -->
-					</li>
-						}
-						<li class="box-cart nav-top-cart-wrapper">
-							<a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="NoOfCartProducts">0</span></a>
-							<div class="nav-shop-cart">
-								<div class="widget_shopping_cart_content">
-									<div class="woocommerce-min-cart-wrap">
-										<ul class="woocommerce-mini-cart cart_list product_list_widget ">
-											<li class="woocommerce-mini-cart-item mini_cart_item">
-												<span>No Items in Shopping Cart</span>
-											</li>
-										</ul>
-									</div><!-- /.widget_shopping_cart_content -->
-								</div>
-							</div><!-- /.nav-shop-cart -->
-						</li>
-					</ul>	
-				
+						</div><!-- /.nav-shop-cart -->*@
+								
+					<li class="box-login">
+						<a class="icon_login" href="#"></a>
 						<div class="nav-wrap">
 							<nav id="mainnav" class="mainnav">
 								<ul class="menu">
-									<li>@Html.ActionLink("Home", "Index", "Home")</li>
-									<li>@Html.ActionLink("Shop", "Index", "Shop")</li>
-									<li>@Html.ActionLink("Checkout", "Checkout", "Shop")</li>
-									@if (!User.Identity.IsAuthenticated)
-									{
-										<li>@Html.ActionLink("Login", "Login", "Account")</li>
-									}
-									</ul>
+									<li>
+										<a class="icon_login" href="#"></a>
+										<ul class="submenu">
+											<li>
+												<a href="@Url.Action("UserProfile","Shared")">Profile</a>
+											</li>
+											<li>
+												<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+											</li>
+											<li>
+												<a href="@Url.Action("LogOff","Account")">LogOut</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
 							</nav><!-- /.mainnav -->
 						</div><!-- /.nav-wrap -->
-</div><!-- /.container-fluid -->
-			</header><!-- /header -->
+					</li>
+							
+	}
+										<li class="box-cart nav-top-cart-wrapper">
+											<a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="NoOfCartProducts">0</span></a>
+											<div class="nav-shop-cart">
+												<div class="widget_shopping_cart_content">
+													<div class="woocommerce-min-cart-wrap">
+														<ul class="woocommerce-mini-cart cart_list product_list_widget ">
+															<li class="woocommerce-mini-cart-item mini_cart_item">
+																<span>No Items in Shopping Cart</span>
+															</li>
+														</ul>
+													</div><!-- /.widget_shopping_cart_content -->
+												</div>
+											</div><!-- /.nav-shop-cart -->
+										</li>
+									</ul>
+
+									<div class="nav-wrap">
+										<nav id="mainnav" class="mainnav">
+											<ul class="menu">
+												<li>@Html.ActionLink("Home", "Index", "Home")</li>
+												<li>@Html.ActionLink("Shop", "Index", "Shop")</li>
+												<li>@Html.ActionLink("Checkout", "Checkout", "Shop")</li>
+												@if (!User.Identity.IsAuthenticated)
+												{
+													<li>@Html.ActionLink("Login", "Login", "Account")</li>
+												}
+											</ul>
+										</nav><!-- /.mainnav -->
+									</div><!-- /.nav-wrap -->
+							</div><!-- /.container-fluid -->
+</header><!-- /header -->
 		</div><!-- /.site-header-wrap -->
 
 		@RenderBody()
@@ -167,9 +188,9 @@
 					<div class="col-md-3">
 						<div class="widget widget-link">
 							<ul>
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Online Store</a></li>
-								<li><a href="blog-list.html">Blog</a></li>
+								<li><a href="@Url.Action("Contact","Shared")">About Us</a></li>
+								<li><a href="@Url.Action("ComingSoon","Shared")">Online Store</a></li>
+								<li><a href="@Url.Action("ComingSoon","Shared")">Blog</a></li>
 								<li><a href="@Url.Action("Contact","Shared")">Contact Us</a></li>
 							</ul>
 						</div><!-- /.widget -->
@@ -187,10 +208,10 @@
 					<div class="col-md-3">
 						<div class="widget widget-link link-faq">
 							<ul>
-								<li><a href="faqs.html">FAQs</a></li>
-								<li><a href="#">Term of service</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-								<li><a href="#">Returns</a></li>
+								<li><a href="@Url.Action("UserProfile","FAQ")">FAQs</a></li>
+								<li><a href="@Url.Action("ComingSoon","Shared")">Term of service</a></li>
+								<li><a href="@Url.Action("ComingSoon","Shared")">Privacy Policy</a></li>
+								<li><a href="@Url.Action("ComingSoon","Shared")">Returns</a></li>
 							</ul>
 						</div><!-- /.widget -->
 					</div><!-- /.col-md-3 -->
@@ -228,9 +249,6 @@
 	</div>
 
 
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
-
 	<!-- Javascript -->
 	<script src="~/Content/javascript/tether.min.js"></script>
 	<script src="~/Content/javascript/bootstrap.min.js"></script>
@@ -247,7 +265,6 @@
 	<script src="~/Content/javascript/owl.carousel.min.js"></script>
 	<script src="~/Content/javascript/equalize.min.js"></script>
 	<script src="~/Content/javascript/gmap3.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
 	
 	<script src="~/Content/javascript/jquery.cookie.js"></script>
 	<script src="~/Content/javascript/main.js"></script>
@@ -257,7 +274,7 @@
 	<script src="~/Content/rev-slider/js/jquery.themepunch.revolution.min.js"></script>
 	<script src="~/Content/javascript/rev-slider.js"></script>
 	<!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+	<script src="~/Content/javascript/jquery.validate.min.js"></script>
 	<script src="~/Content/rev-slider/js/extensions/revolution.extension.actions.min.js"></script>
 	<script src="~/Content/rev-slider/js/extensions/revolution.extension.carousel.min.js"></script>
 	<script src="~/Content/rev-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
@@ -267,6 +284,6 @@
 	<script src="~/Content/rev-slider/js/extensions/revolution.extension.parallax.min.js"></script>
 	<script src="~/Content/rev-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
 	<script src="~/Content/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="~/Content/javascript/sweetalert.min.js"></script>
 </body>
 </html>

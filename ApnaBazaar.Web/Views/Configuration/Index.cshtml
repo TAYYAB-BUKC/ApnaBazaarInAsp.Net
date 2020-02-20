@@ -1,0 +1,29 @@
+﻿
+@{
+	ViewBag.Title = "Index";
+}
+
+
+	<section class="flat-row flat-iconbox">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title-section">
+					<h1 class="title">Configurations</h1>
+				</div><!-- /.page-title-heading -->
+			</div><!-- /.col-md-12 -->
+		</div>
+		<div id="tableContainer">
+			@{
+				Html.RenderAction("ConfigurationTable");
+			}
+		</div>
+
+	</section>
+	<script>
+
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+					}, 1000);
+				}
+	</script>

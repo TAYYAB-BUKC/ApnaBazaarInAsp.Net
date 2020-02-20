@@ -26,7 +26,7 @@ namespace ApnaBazaar.Database
 
 		public DbSet<Product> Products { get; set; }
 
-		public DbSet<Configuration> Configurations { get; set; }
+		public DbSet<ApnaBazaarConfiguration> Configurations { get; set; }
 
 		public DbSet<Order> Orders { get; set; }
 
