@@ -1,4 +1,6 @@
 ﻿using ApnaBazaar.Database;
+using ApnaBazaar.Entities;
+using ApnaBazaar.Services;
 using ApnaBazaar.Web.Models;
 using ApnaBazaar.Web.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -14,7 +16,9 @@ namespace ApnaBazaar.Web.Controllers
 {
     public class SharedController : Controller
     {
-		ApplicationDbContext context = new ApplicationDbContext();
+
+
+		
 
 		private ApplicationSignInManager _signInManager;
 		private ApplicationUserManager _userManager;
@@ -101,6 +105,7 @@ namespace ApnaBazaar.Web.Controllers
 				loggedInUser.Name = model.Name;
 				loggedInUser.Email = model.Email;
 				loggedInUser.Address = model.Address;
+			    loggedInUser.ProfileImage = model.Image;
 
 				IdentityResult isUpdated = UserManager.Update(loggedInUser);
 
@@ -125,6 +130,26 @@ namespace ApnaBazaar.Web.Controllers
 			return View();
 		}
 
+		public JsonResult AddReview(ReviewViewModel model)
+		{
+			JsonResult result = new JsonResult { JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+
+			var loggedInUser = UserManager.FindById(User.Identity.GetUserId());
+
+
+			Review newReview = new Review { UserId = loggedInUser.Id, Name = loggedInUser.Name, Image = loggedInUser.ProfileImage,  Comment = model.Comment, Rating = model.Rating, ProductId = model.ProductID };
+
+			result.Data = ProductService.Instance.SaveReview(newReview) > 0 ? new { Success = true } : new { Success = false };
+
+			return result;
+		}
+
+		public MvcHtmlString ReturnUser(string Email)
+		{
+			var reviewBy = UserManager.FindByEmail(Email);
+
+			return new MvcHtmlString(reviewBy.Name);
+		}
 	}
 }

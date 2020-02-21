@@ -114,3 +114,4 @@ C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.Migrations.InitialCreate.resources
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.csproj.GenerateResource.cache
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.Migrations.FieldsAddedToUser.resources
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Web\obj\Debug\ApnaBazaar.Web.Migrations.ImageAddedToUser.resources

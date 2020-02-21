@@ -41,6 +41,15 @@ namespace ApnaBazaar.Services
 			return context.Products.Find(Id);
 		}
 
+
+		public Product GetProductWithReviews(int Id)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				return context.Products.Where(product => product.ID == Id).Include(p => p.Category).Include(p=>p.Reviews).FirstOrDefault();
+			}
+		}
+
 		public List<Product> ShopProducts(string searchTerm, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy, int? pageNo, int pageSize)
 		{
 			using (var context = new ApnaBazaarContext())
@@ -324,5 +333,21 @@ namespace ApnaBazaar.Services
 				context.SaveChanges();
 			}
 		}
+
+		public int SaveReview(Review review)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				context.Reviews.Add(review);
+				return context.SaveChanges();
+			}
+		}
+
+
+
+
+
+
+
 	}
 }

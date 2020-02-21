@@ -91,6 +91,18 @@
     <Compile Include="Migrations\202002201042175_ConfigurationEntityNameChanged.Designer.cs">
       <DependentUpon>202002201042175_ConfigurationEntityNameChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002211214226_ReviewsAdded.cs" />
+    <Compile Include="Migrations\202002211214226_ReviewsAdded.Designer.cs">
+      <DependentUpon>202002211214226_ReviewsAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002211235179_ProductIDAddedToReview.cs" />
+    <Compile Include="Migrations\202002211235179_ProductIDAddedToReview.Designer.cs">
+      <DependentUpon>202002211235179_ProductIDAddedToReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002211931263_NameAndImageFieldAddedToReview.cs" />
+    <Compile Include="Migrations\202002211931263_NameAndImageFieldAddedToReview.Designer.cs">
+      <DependentUpon>202002211931263_NameAndImageFieldAddedToReview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -134,6 +146,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002201042175_ConfigurationEntityNameChanged.resx">
       <DependentUpon>202002201042175_ConfigurationEntityNameChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002211214226_ReviewsAdded.resx">
+      <DependentUpon>202002211214226_ReviewsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002211235179_ProductIDAddedToReview.resx">
+      <DependentUpon>202002211235179_ProductIDAddedToReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002211931263_NameAndImageFieldAddedToReview.resx">
+      <DependentUpon>202002211931263_NameAndImageFieldAddedToReview.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

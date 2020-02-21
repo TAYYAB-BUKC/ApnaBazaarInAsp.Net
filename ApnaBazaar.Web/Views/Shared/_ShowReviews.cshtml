@@ -1,0 +1,28 @@
+﻿
+@model ShowReviewViewModel
+@{
+	
+ }
+
+	<ol class="review-list">
+		<li class="review">
+			<div class="thumb">
+				<img src="@Image" alt="Image">
+			</div>
+			<div class="text-wrap">
+				<div class="review-meta">
+					<h5 class="name">@Model.ReviewBy.Name</h5>
+					<div class="flat-star style-1">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-half-o"></i>
+					</div>
+				</div>
+				<div class="review-text">
+					<p>@Model.Comment</p>
+				</div>
+			</div>
+		</li><!--  /.review    -->
+	</ol>

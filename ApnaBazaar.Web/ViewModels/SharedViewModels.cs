@@ -17,7 +17,37 @@ namespace ApnaBazaar.Web.ViewModels
 		public string Name { get; set; }
 		public string Email { get; set; }
 		public string Address { get; set; }
+
+		public string Image { get; set; }
+
 	}
+
+	public class ReviewViewModel
+	{
+		public string UserId { get; set; }
+
+		public string Comment { get; set; }
+
+		public float Rating { get; set; }
+
+		public int ProductID { get; set; }
+	}
+
+
+	public class ShowReviewViewModel
+	{
+		public ApplicationUser ReviewBy { get; set; }
+
+		public string Comment { get; set; }
+
+		public float Rating { get; set; }
+
+	}
+
+
+
+
+
 
 	public class Pager
 	{

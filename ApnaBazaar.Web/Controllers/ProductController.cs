@@ -140,12 +140,9 @@ namespace ApnaBazaar.Web.Controllers
 		[HttpGet]
 		public ActionResult Details(int Id)
 		{
-			ProductDetailViewModel model = new ProductDetailViewModel { product = ProductService.Instance.GetSpecificProduct(Id) };
+			ProductDetailViewModel model = new ProductDetailViewModel { product = ProductService.Instance.GetProductWithReviews(Id) };
 
 			return View(model);
 		}
-
-
-
 	}
 }

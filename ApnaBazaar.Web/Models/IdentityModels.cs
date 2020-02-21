@@ -12,6 +12,8 @@ namespace ApnaBazaar.Web.Models
 
 		public string Name { get; set; }
 		public string Address { get; set; }
+		public string ProfileImage { get; set; }
+
 
 		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
 		{

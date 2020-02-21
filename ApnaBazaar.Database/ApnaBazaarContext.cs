@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,5 +33,8 @@ namespace ApnaBazaar.Database
 
 		public DbSet<OrderItem> OrderItems { get; set; }
 
+		public DbSet<Review> Reviews { get; set; }
+
 	}
+
 }

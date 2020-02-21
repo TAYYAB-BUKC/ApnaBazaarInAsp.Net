@@ -52,7 +52,6 @@ namespace ApnaBazaar.Web
 			smtpClient.Send(msg);
 		}
 
-
 	}
 
     public class SmsService : IIdentityMessageService
