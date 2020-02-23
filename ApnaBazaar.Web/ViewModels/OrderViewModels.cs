@@ -15,6 +15,15 @@ namespace ApnaBazaar.Web.ViewModels
 		public string Status { get; set; }
 		public Pager Pager { get; set; }
 	}
+	public class ShowUserOrderViewModel
+	{
+		public List<Order> Orders { get; set; }
+		public int? PageNo { get; set; }
+		public ApplicationUser User { get; set; }
+		public string Status { get; set; }
+		public Pager Pager { get; set; }
+		public string SearchTerm { get; set; }
+	}
 
 	public class OrderDetailViewModel
 	{

@@ -126,6 +126,77 @@ namespace ApnaBazaar.Web.Controllers
 			return View(checkoutViewModel);
 		}
 
+		[Authorize]
+		public ActionResult YourCart(string searchTerm, int? pageNo)
+		{
+			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			int pageSize = ConfigurationService.Instance.GetShopPageSizeConfiguration();
+
+
+			CartViewModel model = new CartViewModel();
+
+			model.SearchTerm = searchTerm;
+
+			var cartProductCookoies = Request.Cookies["CartProducts"];
+
+			if (cartProductCookoies != null && !string.IsNullOrEmpty(cartProductCookoies.Value))
+			{
+
+				model.CartProductIds = cartProductCookoies.Value.Split('-').Select(x => int.Parse(x)).ToList();
+
+				int totalShopRecords = ProductService.Instance.GetListOfProductCount(model.CartProductIds, model.SearchTerm);
+
+				model.Pager = new Pager(totalShopRecords, pageNo, pageSize);
+				//GetListOfProduct
+				model.CartProducts = ProductService.Instance.GetListOfProduct(model.CartProductIds, model.SearchTerm,pageNo,pageSize);
+
+				return View(model);
+			}
+			else
+			{
+				return View("Error");
+			}
+		}
+
+		public ActionResult ResponseOfCart(string searchTerm, int? pageNo)
+		{
+			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			int pageSize = ConfigurationService.Instance.GetShopPageSizeConfiguration();
+
+
+			CartViewModel model = new CartViewModel();
+
+			model.SearchTerm = searchTerm;
+
+			var cartProductCookoies = Request.Cookies["CartProducts"];
+
+			if (cartProductCookoies != null && !string.IsNullOrEmpty(cartProductCookoies.Value))
+			{
+
+				model.CartProductIds = cartProductCookoies.Value.Split('-').Select(x => int.Parse(x)).ToList();
+
+				int totalShopRecords = ProductService.Instance.GetListOfProductCount(model.CartProductIds, model.SearchTerm);
+
+				model.Pager = new Pager(totalShopRecords, pageNo, pageSize);
+				//GetListOfProduct
+				model.CartProducts = ProductService.Instance.GetListOfProduct(model.CartProductIds, model.SearchTerm, pageNo, pageSize);
+
+				return PartialView("_ResponseOfCart", model);
+			}
+			else
+			{
+				return View("Error");
+			}
+		}
+
+
+
+
+
+
+
 		public JsonResult PlaceOrder(string products)
 		{
 			JsonResult result = new JsonResult();

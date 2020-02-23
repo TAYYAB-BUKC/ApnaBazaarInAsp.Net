@@ -1,0 +1,91 @@
+﻿@model CartViewModel
+
+@{
+	var defaultImageURL = @"/Content/images/Default/DefaultImage.png";
+}
+
+@if (Model.CartProducts.Count > 0)
+{
+	<div class="product-content product-threecolumn clearfix">
+		<ul class="product style2">
+			@foreach (var product in Model.CartProducts)
+			{
+				var productQuantity = Model.CartProductIds.Where(productId => productId == product.ID).Count();
+
+				var Image = product.Imagepath != null ? product.Imagepath : defaultImageURL;
+				<li class="product-item">
+					<div class="product-thumb clearfix">
+						<a href="#">
+							<img src="@Image" alt="image">
+						</a>
+					</div>
+					<div class="product-info clearfix">
+						<span class="product-title">@product.Name</span>
+						<div class="price">
+							<ins>
+								<span class="amount">$ @product.Price</span>
+							</ins>
+						</div>
+						<span color="#f63440"><b>Qty - @productQuantity</b></span>
+					</div>
+
+					<div class="add-to-cart text-center">
+						<button type="button" data-id="@product.ID" class="removeFromCart">Remove From Cart</button>
+					</div>
+
+
+					<a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+
+
+				</li>
+			}
+		</ul><!-- /.product -->
+	</div>
+	<!-- /.product-content -->
+}
+else
+{
+	<div class="text-danger">No Products Found in the Cart.</div>
+}
+<br />
+
+<div class="row">
+	<div class="col-md-24 text-center" style="margin:auto">
+
+
+		@if (Model.Pager != null)
+		{
+
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+
+					@if (Model.Pager.CurrentPage > 1)
+					{
+						<li class="page-item">
+							<a class="page-link Pagedata-link" data-href="@Url.Action("ResponseOfCart", "Shop", new { pageNo = Model.Pager.CurrentPage - 1, SearchTerm = Model.SearchTerm })" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					}
+
+					@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+					{
+						string activeStyle = Model.Pager.CurrentPage == page ? "background-color: #f63440; color: #fff" : string.Empty;
+
+						<li class="page-item"><a style="@activeStyle" class="Pagedata-link page-link" data-href="@Url.Action("ResponseOfCart", "Shop", new { pageNo = page, SearchTerm = Model.SearchTerm })">@page</a></li>
+
+					}
+
+					@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+					{
+						<li class="page-item">
+							<a class="page-link Pagedata-link" data-href="@Url.Action("ResponseOfCart", "Shop", new { pageNo = Model.Pager.CurrentPage + 1, SearchTerm = Model.SearchTerm })" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					}
+				</ul>
+			</nav> <!-- /.flat-pagination -->
+		}
+		</div>
+</div>

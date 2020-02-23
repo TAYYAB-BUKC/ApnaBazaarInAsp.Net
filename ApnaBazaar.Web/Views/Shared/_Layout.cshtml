@@ -63,81 +63,107 @@
 								<button type="submit" class="header-search-submit" title="Search">Search</button>
 							</form>
 						</li>
+						@*
 
+					@if (User.Identity.IsAuthenticated)
+					{
 
-						@if (User.Identity.IsAuthenticated)
-						{
-					
-						@*<div class=" nav-shop-cart">
-							<div class="widget_shopping_cart_content">
-								<div class="woocommerce-min-cart-wrap">
-									<ul class="woocommerce-mini-cart cart_list product_list_widget ">
-										<li class="woocommerce-mini-cart-item mini_cart_item">
-											<a href="@Url.Action("UserProfile","Shared")">Profile</a>
-										</li>
-										<li class="woocommerce-mini-cart-item mini_cart_item">
-											<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
-										</li>
-										<li class="woocommerce-mini-cart-item mini_cart_item">
-											<a href="@Url.Action("LogOff","Account")">LogOut</a>
-										</li>
-									</ul>
-								</div><!-- /.widget_shopping_cart_content -->
-							</div>
-						</div><!-- /.nav-shop-cart -->*@
-								
-					<li class="box-login">
-						<a class="icon_login" href="#"></a>
-						<div class="nav-wrap">
-							<nav id="mainnav" class="mainnav">
-								<ul class="menu">
-									<li>
-										<a class="icon_login" href="#"></a>
-										<ul class="submenu">
-											<li>
-												<a href="@Url.Action("UserProfile","Shared")">Profile</a>
-											</li>
-											<li>
-												<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
-											</li>
-											<li>
-												<a href="@Url.Action("LogOff","Account")">LogOut</a>
+						<div class=" nav-shop-cart">
+			<div class="widget_shopping_cart_content">
+				<div class="woocommerce-min-cart-wrap">
+					<ul class="woocommerce-mini-cart cart_list product_list_widget ">
+						<li class="woocommerce-mini-cart-item mini_cart_item">
+							<a href="@Url.Action("UserProfile","Shared")">Profile</a>
+						</li>
+						<li class="woocommerce-mini-cart-item mini_cart_item">
+							<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+						</li>
+						<li class="woocommerce-mini-cart-item mini_cart_item">
+							<a href="@Url.Action("LogOff","Account")">LogOut</a>
+						</li>
+					</ul>
+				</div><!-- /.widget_shopping_cart_content -->
+			</div>
+		</div><!-- /.nav-shop-cart -->*@
+
+						@*<li class="box-login">
+			<a class="icon_login" href="#"></a>
+			<div class="nav-wrap">
+				<nav id="mainnav" class="mainnav">
+					<ul class="menu">
+						<li>
+							<a class="icon_login" href="#"></a>
+							<ul class="submenu">
+								<li>
+									<a href="@Url.Action("UserProfile","Shared")">Profile</a>
+								</li>
+								<li>
+									<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+								</li>
+								<li>
+									<a href="@Url.Action("LogOff","Account")">LogOut</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</nav><!-- /.mainnav -->
+			</div><!-- /.nav-wrap -->
+		</li>
+
+						}
+							*@
+						<li class="box-cart nav-top-cart-wrapper">
+							<a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="NoOfCartProducts">0</span></a>
+							<div class="nav-shop-cart">
+								<div class="widget_shopping_cart_content">
+									<div class="woocommerce-min-cart-wrap">
+										<ul class="woocommerce-mini-cart cart_list product_list_widget ">
+											<li class="woocommerce-mini-cart-item mini_cart_item">
+												<span>No Items in Shopping Cart</span>
 											</li>
 										</ul>
-									</li>
-								</ul>
-							</nav><!-- /.mainnav -->
-						</div><!-- /.nav-wrap -->
-					</li>
-							
-	}
-										<li class="box-cart nav-top-cart-wrapper">
-											<a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="NoOfCartProducts">0</span></a>
-											<div class="nav-shop-cart">
-												<div class="widget_shopping_cart_content">
-													<div class="woocommerce-min-cart-wrap">
-														<ul class="woocommerce-mini-cart cart_list product_list_widget ">
-															<li class="woocommerce-mini-cart-item mini_cart_item">
-																<span>No Items in Shopping Cart</span>
-															</li>
-														</ul>
-													</div><!-- /.widget_shopping_cart_content -->
-												</div>
-											</div><!-- /.nav-shop-cart -->
-										</li>
-									</ul>
+									</div><!-- /.widget_shopping_cart_content -->
+								</div>
+							</div><!-- /.nav-shop-cart -->
+						</li>
+					</ul>
 
 									<div class="nav-wrap">
 										<nav id="mainnav" class="mainnav">
 											<ul class="menu">
 												<li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+												@if (User.Identity.IsAuthenticated)
+												{
+													<li>
+														<a href="@Url.Action("Index", "Home")">ManageAccount</a>
+
+														<ul class="submenu">
+															<li>
+																<a href="@Url.Action("UserProfile","Shared")">Profile</a>
+															</li>
+															<li>
+																<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+															</li>
+															<li>
+																<a href="@Url.Action("LogOff","Account")">LogOut</a>
+															</li>
+														</ul>
+													</li>
+												}
+
 												<li>@Html.ActionLink("Shop", "Index", "Shop")</li>
 												<li>@Html.ActionLink("Checkout", "Checkout", "Shop")</li>
+												<li>@Html.ActionLink("YourCart", "YourCart", "Shop")</li>
 												@if (!User.Identity.IsAuthenticated)
 												{
 													<li>@Html.ActionLink("Login", "Login", "Account")</li>
 												}
-											</ul>
+												@if (User.Identity.IsAuthenticated)
+												{
+													<li>@Html.ActionLink("Orders", "ShowUserOrders", "Order")</li>
+												}
+												</ul>
 										</nav><!-- /.mainnav -->
 									</div><!-- /.nav-wrap -->
 							</div><!-- /.container-fluid -->

@@ -1,0 +1,105 @@
+﻿@model ShowUserOrderViewModel
+@{
+    ViewBag.Title = "ShowUserOrders";
+}
+
+
+<section class="flat-row flat-iconbox">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="title-section">
+				<h1 class="title">Your Orders</h1>
+			</div><!-- /.page-title-heading -->
+		</div><!-- /.col-md-12 -->
+	</div>
+	<div id="tableContainer">
+		<form method="post">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="form-group">
+						<label>Search</label>
+						<input class="form-control" name="SearchTerm" value="@Model.SearchTerm" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label>Action</label>
+						<div class="row">
+							<div class="col-md-5 pr-0">
+								<button class="btn btn-primary form-control" type="submit">Search</button>
+							</div>
+							<div class="col-md-5 pr-0">
+								<button class="btn btn-primary form-control" id="resetBtn" onclick="window.location.href='@Url.Action("ShowUserOrders", "Order")'">Reset</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+
+		<table id="OrdersTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th class="font-weight-bold">UserID</th>
+					<th class="font-weight-bold">Total Price</th>
+					<th class="font-weight-bold">Status</th>
+					<th class="font-weight-bold">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model.Orders != null && Model.Orders.Count > 0)
+				{
+					foreach (var order in Model.Orders)
+					{
+				<tr>
+					<td>@order.UserId</td>
+					<td>
+						@order.TotalAmount
+					</td>
+					<td>@order.Status</td>
+					<td>
+						<a class="btn btn-primary" href="@Url.Action("UserDetails","Order", new { orderID = order.Id })">Details</a>
+					</td>
+
+				</tr>
+					}
+				}
+				else
+				{
+					<tr>
+						<td class="text-danger" colspan="4">No Orders Found.</td>
+					</tr>
+				}
+			</tbody>
+
+		</table>
+		<div class="col-md-4">
+
+			@if (Model.Pager != null && Model.Pager.TotalPages > 1)
+			{
+				if (Model.Pager.CurrentPage > 1)
+				{
+					<a class="PageRecords" data-pageNo="1" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = 1 })">First</a>
+					<a class="PageRecords" data-pageNo="@Model.Pager.CurrentPage - 1" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = @Model.Pager.CurrentPage - 1 })">Previous</a>
+				}
+
+				for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+				{
+					string activeClass = Model.Pager.CurrentPage == page ? "bg-info" : string.Empty;
+
+					<a class="@activeClass PageRecords" data-pageNo="@page" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = page })">@page</a>
+				}
+
+				if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+				{
+					<a class="PageRecords" data-pageNo="@Model.Pager.CurrentPage + 1" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = @Model.Pager.CurrentPage + 1 })">Next</a>
+					<a class="PageRecords" data-pageNo="@Model.Pager.EndPage" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = @Model.Pager.EndPage })">Last</a>
+				}
+			}
+
+		</div>
+	</div>
+
+</section>

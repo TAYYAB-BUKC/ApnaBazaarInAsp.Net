@@ -210,10 +210,6 @@
 
 										@if (User.Identity.IsAuthenticated)
 										{
-											<div class="comment-respond review-respond" id="respond">
-												<div class="comment-reply-title margin-bottom-14">
-													<h5>Write a review</h5>
-												</div>
 												<div class="comment-respond review-respond" id="respond">
 													<div class="comment-reply-title margin-bottom-14">
 														<h5>Write a review</h5>
@@ -233,7 +229,6 @@
 													</form>
 
 												</div><!-- /.comment-respond -->
-											</div>
 										}
 									</div><!-- /.content-inner -->
 							</div>
@@ -285,19 +280,29 @@
 			url: '@Url.Action("AddReview","Shared")', // '/Product/ProductTable',
 			data: $("#reviewForm").serialize()
 		})
-        .done(function (response) {
+			.done(function (response) {
 
-			if (response.Success) {
-				swal("Done", "Review Added Successfully.", "success");
-			}
-			else {
-				swal("warning", "Oops Something went wrong!", "warning");
-			}
-        })
+				if (response.Success) {
+					swal({
+						title: "Done",
+						text: "Review Added Successfully.",
+						icon: "success",
+					})
+						.then((willDelete) => {
+							if (willDelete) {
+								location.reload(true);
+							}
+						});
+				}
+			})
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
         });
 	});
+
+
+
+
 
 
 //	$(function () {

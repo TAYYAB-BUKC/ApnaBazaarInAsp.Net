@@ -39,7 +39,7 @@ namespace ApnaBazaar.Services
 
 				if (!string.IsNullOrEmpty(searchUserId))
 				{
-					orders = orders.Where(o => o.UserId.ToUpper().Contains(searchUserId.ToUpper())).ToList();
+					orders = orders.Where(o => o.UserId.ToUpper().Contains(searchUserId.ToUpper()) || o.Status.Contains(searchUserId.ToUpper())).ToList();
 				}
 
 				if (!string.IsNullOrEmpty(status))
@@ -60,7 +60,7 @@ namespace ApnaBazaar.Services
 
 				if (!string.IsNullOrEmpty(searchUserId))
 				{
-					orders = orders.Where(o => o.UserId.ToUpper().Contains(searchUserId.ToUpper())).ToList();
+					orders = orders.Where(o => o.UserId.ToUpper().Contains(searchUserId.ToUpper()) || o.Status.Contains(searchUserId.ToUpper())).ToList();
 				}
 
 				if (!string.IsNullOrEmpty(status))
@@ -73,11 +73,46 @@ namespace ApnaBazaar.Services
 			}
 		}
 
+		public int ShowUserOrderCount(string SearchTerm)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var orders = context.Orders.ToList();
+
+				if (!string.IsNullOrEmpty(SearchTerm))
+				{
+					orders = orders.Where(o => o.UserId.ToUpper().Contains(SearchTerm.ToUpper()) || o.Status.ToLower().Contains(SearchTerm.ToLower())).ToList();
+				}
+
+				return orders.Count;
+
+			}
+		}
+
+
+
+
 		public Order GetOrderByID(int orderID)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
 				return context.Orders.Where(o=>o.Id == orderID).Include(o=>o.OrderItems).Include("OrderItems.Product").FirstOrDefault();
+			}
+		}
+
+		public List<Order> ShowUserOrder(string SearchTerm, int? pageNo, int pageSize)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var orders = context.Orders.ToList();
+
+				if (!string.IsNullOrEmpty(SearchTerm))
+				{
+					orders = orders.Where(o => o.UserId.ToUpper().Contains(SearchTerm.ToUpper()) || o.Status.ToLower().Contains(SearchTerm.ToLower())).ToList();
+				}
+
+				return orders.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
+
 			}
 		}
 

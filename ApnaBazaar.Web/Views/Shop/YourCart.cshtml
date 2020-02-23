@@ -1,0 +1,131 @@
+﻿@model CartViewModel
+
+@{
+	ViewBag.Title = "YourCart";
+}
+<!-- Page title -->
+<div class="page-title parallax parallax1">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-title-heading">
+					<h1 class="title">Your Cart</h1>
+				</div><!-- /.page-title-heading -->
+				<div class="breadcrumbs">
+					<ul>
+						<li><a href="@Url.Action("Index","Home")">Home</a></li>
+						<li><a href="@Url.Action("YourCart","Shared")">YourCart</a></li>
+					</ul>
+				</div><!-- /.breadcrumbs -->
+			</div><!-- /.col-md-12 -->
+		</div><!-- /.row -->
+	</div><!-- /.container -->
+</div><!-- /.page-title -->
+
+<section class="flat-row main-shop shop-4col">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="filter-shop bottom_68 clearfix">
+					<p class="showing-product float-right">
+						Showing  @(((Model.Pager.CurrentPage - 1) * Model.Pager.PageSize) + 1) – @(((Model.Pager.CurrentPage - 1) * Model.Pager.PageSize) + (Model.CartProducts.Count < Model.Pager.PageSize ? Model.CartProducts.Count : Model.Pager.PageSize)) of @Model.Pager.TotalItems Products
+					</p>
+
+					<div>
+						<form role="search" method="get" class="search-form" action="#">
+							<label>
+								<input type="search" class="search-field" placeholder="Searching …" value="@Model.SearchTerm" name="searchTerm">
+							</label>
+						</form>
+					</div><!-- /.top-serach -->
+				</div><!-- /.filte-shop -->
+
+				<div id="tableContainer">
+					@{
+						Html.RenderPartial("_ResponseOfCart", Model);
+					}
+
+				</div>
+
+
+			</div><!-- /.col-md-12 -->
+		</div><!-- /.row -->
+	</div><!-- /.container -->
+</section><!-- /.flat-row -->
+
+
+<script>
+
+
+	$(".Pagedata-link").click(function myfunction() {
+		var url = $(this).attr("data-href");
+		if (url != "" || url != undefined) {
+			$.ajax({
+			url: url
+		})
+				.done(function (response) {
+				console.log(response);
+				$("#tableContainer").html(response);
+				focusAction("tableContainer");
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+		});
+		}
+		else {
+			swal({
+				title: "Warning",
+				text: "Please click the page number correctly",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+		}
+
+
+
+
+	});
+
+
+
+
+
+	var products;
+	$(".removeFromCart").click(function myfunction() {
+
+		var existingCartProducts = $.cookie('CartProducts');
+
+		if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+			products = existingCartProducts.split('-');
+		}
+		else {
+			products = [];
+		}
+
+		var productID = $(this).attr("data-id");
+		products.pop(productID);
+
+		$.cookie('CartProducts', products.join('-'), { path: '/' });
+		updateCartProducts();
+		swal({
+						title: "Done",
+						text: "Product Removed from Cart Successfully.",
+						icon: "success",
+					})
+						.then((willDelete) => {
+							if (willDelete) {
+								location.reload(true);
+							}
+						});
+
+
+	});
+
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+
+	}
+</script>

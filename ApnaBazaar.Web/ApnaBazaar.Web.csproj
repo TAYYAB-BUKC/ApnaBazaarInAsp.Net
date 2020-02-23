@@ -638,6 +638,10 @@
     <Content Include="Views\Configuration\_ConfigurationTable.cshtml" />
     <Content Include="Views\Configuration\_Edit.cshtml" />
     <Content Include="Views\Shared\_ShowReviews.cshtml" />
+    <Content Include="Views\Shop\YourCart.cshtml" />
+    <Content Include="Views\Shop\_ResponseOfCart.cshtml" />
+    <Content Include="Views\Order\ShowUserOrders.cshtml" />
+    <Content Include="Views\Order\UserDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

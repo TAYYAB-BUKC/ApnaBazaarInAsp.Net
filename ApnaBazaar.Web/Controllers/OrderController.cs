@@ -62,6 +62,31 @@ namespace ApnaBazaar.Web.Controllers
 			return View(model);
         }
 
+		public ActionResult ShowUserOrders(string SearchTerm, int? pageNo)
+		{
+			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
+
+			ShowUserOrderViewModel model = new ShowUserOrderViewModel();
+
+			model.User = UserManager.FindById(User.Identity.GetUserId());
+
+			model.SearchTerm = SearchTerm;
+			
+			var totalRecords = OrderService.Instance.ShowUserOrderCount(model.SearchTerm);
+
+			model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			model.Pager = new Pager(totalRecords, pageNo, pageSize);
+
+
+			model.Orders = OrderService.Instance.ShowUserOrder(model.SearchTerm, model.PageNo.Value, pageSize);
+
+			return View(model);
+		}
+
+
+
+
 		public ActionResult Details(int orderID)
 		{
 			
@@ -78,6 +103,25 @@ namespace ApnaBazaar.Web.Controllers
 
 			return View(model);
 		}
+
+		public ActionResult UserDetails(int orderID)
+		{
+
+			OrderDetailViewModel model = new OrderDetailViewModel();
+
+			model.Order = OrderService.Instance.GetOrderByID(orderID);
+
+			if (model.Order != null)
+			{
+				model.OrderBy = UserManager.FindById(model.Order.UserId);
+			}
+
+
+
+			return View(model);
+		}
+
+
 
 		public JsonResult UpdateStatus(string status,int orderID)
 		{

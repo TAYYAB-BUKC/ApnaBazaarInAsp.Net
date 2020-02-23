@@ -105,6 +105,7 @@ namespace ApnaBazaar.Services
 			}
 		}
 
+
 		public int GetProductsCount(string search)
 		{
 			using (var context = new ApnaBazaarContext())
@@ -243,6 +244,60 @@ namespace ApnaBazaar.Services
 
 			}
 		}
+
+		public List<Product> GetListOfProduct(List<int> Ids, string searchTerm, int? pageNo, int pageSize)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var products = context.Products.ToList();
+
+
+				if (Ids != null && Ids.Count > 0)
+				{
+					products = products.Where(product => Ids.Contains(product.ID)).ToList();
+				}
+
+				if (!string.IsNullOrEmpty(searchTerm))
+				{
+					products = products.Where(p => p.Name.ToUpper().Contains(searchTerm.ToUpper())).ToList();
+				}
+
+				return products.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
+
+			}
+
+
+
+
+
+
+
+		}
+
+
+		public int GetListOfProductCount(List<int> Ids, string searchTerm)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var products = context.Products.ToList();
+
+
+				if (Ids != null && Ids.Count > 0)
+				{
+					products = products.Where(product => Ids.Contains(product.ID)).ToList();
+				}
+
+				if (!string.IsNullOrEmpty(searchTerm))
+				{
+					products = products.Where(p => p.Name.ToUpper().Contains(searchTerm.ToUpper())).ToList();
+				}
+
+				return products.Count;
+
+			}
+		}
+
+
 
 		public List<Product> GetProducts(int pageNo)
 		{

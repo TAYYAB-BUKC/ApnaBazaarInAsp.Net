@@ -17,6 +17,23 @@ namespace ApnaBazaar.Web.ViewModels
 
 	}
 
+	public class CartViewModel
+	{
+		public List<Product> CartProducts { get; set; }
+
+		public List<int> CartProductIds { get; set; }
+		
+		public Pager Pager { get; set; }
+		
+		public string SearchTerm { get; set; }
+
+
+	}
+
+
+
+
+
 
 	public class ShopViewModel
 	{

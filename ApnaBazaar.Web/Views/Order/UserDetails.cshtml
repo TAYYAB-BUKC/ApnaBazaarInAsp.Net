@@ -1,6 +1,6 @@
 ﻿@model OrderDetailViewModel
 @{
-	ViewBag.Title = "OrderDetails";
+	ViewBag.Title = "UserOrderDetails";
 }
 
 <style type="text/css">
@@ -77,13 +77,7 @@
 				</div>
 				<div class="mb-3">
 					<label for="status">Status</label>
-					<select name="statuses" id="changeStatus">
-						@foreach (var AvailableStatuses in Model.AvailableStatuses)
-						{
-							var isSelectedStatus = AvailableStatuses == Model.Order.Status;
-							<option @(isSelectedStatus ? "selected" : string.Empty)>@AvailableStatuses</option>
-						}
-					</select>
+					<input type="text" disabled class="form-control" id="Status" value="@Model.Order.Status" />
 				</div>
 				@*<div class="mb-3">
 						<label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
@@ -255,55 +249,14 @@
 		</div>
 
 	</div>
-
-<script>
-		$("#changeStatus").change(function myfunction() {
-			debugger;
-		$.ajax({
-			type: "Post",
-			url: '@Url.Action("UpdateStatus","Order")',   // '/Category/Create',
-			data: {
-				status: $(this).val(),
-				orderID: '@Model.Order.Id'
-			}
-		})
-			.done(function (response) {
-				if (response.Success) {
-				swal("Done", "Order Status Updated Successfully", "success");
-				}
-				else {
-					swal({
-			title: "Error",
-			text: "Sorry for inconvenience please try again later.",
-			icon: "warning",
-			 buttons: true,
-			 dangerMode: true,
-			})
-				}
-			})
-			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
-				swal({
-			title: "Error",
-			text: "Sorry for inconvenience please try again later.",
-			icon: "warning",
-			 buttons: true,
-			 dangerMode: true,
-			})
-			});
-		});
-</script>
-
-
 }
+
 else
 {
-<div>
-	<b>Order Details Not Available.</b>
-</div>
+	<div>
+		<b>Order Details Not Available.</b>
+	</div>
 }
-
-
-
 
 
 
