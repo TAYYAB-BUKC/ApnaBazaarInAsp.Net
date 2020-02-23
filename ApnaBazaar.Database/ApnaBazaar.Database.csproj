@@ -103,6 +103,14 @@
     <Compile Include="Migrations\202002211931263_NameAndImageFieldAddedToReview.Designer.cs">
       <DependentUpon>202002211931263_NameAndImageFieldAddedToReview.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002231447483_WishlistAdded.cs" />
+    <Compile Include="Migrations\202002231447483_WishlistAdded.Designer.cs">
+      <DependentUpon>202002231447483_WishlistAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002231625276_FixOfModelBacking.cs" />
+    <Compile Include="Migrations\202002231625276_FixOfModelBacking.Designer.cs">
+      <DependentUpon>202002231625276_FixOfModelBacking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -155,6 +163,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002211931263_NameAndImageFieldAddedToReview.resx">
       <DependentUpon>202002211931263_NameAndImageFieldAddedToReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231447483_WishlistAdded.resx">
+      <DependentUpon>202002231447483_WishlistAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231625276_FixOfModelBacking.resx">
+      <DependentUpon>202002231625276_FixOfModelBacking.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

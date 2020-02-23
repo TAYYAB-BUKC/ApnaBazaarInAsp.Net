@@ -35,6 +35,8 @@ namespace ApnaBazaar.Database
 
 		public DbSet<Review> Reviews { get; set; }
 
+		public DbSet<Wishlist> Wishlists { get; set; }
+
 	}
 
 }

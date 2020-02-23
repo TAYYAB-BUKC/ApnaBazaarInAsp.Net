@@ -4,6 +4,7 @@
 @{
 	ViewBag.Title = "Details";
 	int counter = 1;
+	int counter1 ;
 }
 
 @if (Model != null && Model.product != null)
@@ -163,21 +164,22 @@
 
 									<ol class="review-list">
 
-
-
 										@foreach (var review in Model.product.Reviews)
 										{
 											//var name =helper.ReturnUserName(review.UserId);
 
-											var Image = review.Image != null ? review.Image : @"/Content/images/Default/DefaultImage.png";
-
 											<li class="review">
 												<div class="thumb">
-													<img src="@Image" alt="User Image">
+													@for (counter1 = 0; counter1 < 1; counter1++)
+													{
+														var Image = Model.ReviewByImage.GetValue(counter1) != null ? Model.ReviewByImage.GetValue(counter1) : @"/Content/images/Default/DefaultImage.png";
+
+														<img src="@Image" alt="User Image">
+													}
 												</div>
 												<div class="text-wrap">
 													<div class="review-meta">
-														<h5 class="name">@review.Name</h5>
+														<h5 class="name">@Model.ReviewBy.GetValue(counter1-1)</h5>
 
 													</div>
 													<div id="@("review" + counter)" style="float: right;">

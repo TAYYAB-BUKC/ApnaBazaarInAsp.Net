@@ -231,5 +231,68 @@ namespace ApnaBazaar.Web.Controllers
 
 			return result;
 		}
+
+
+		public ActionResult Wishlist(string SearchTerm, int? pageNo)
+		{
+			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			int pageSize = ConfigurationService.Instance.GetShopPageSizeConfiguration();
+
+			ShowWishlistViewModel model = new ShowWishlistViewModel();
+
+			model.SearchTerm = SearchTerm;
+
+
+			int totalWishlistRecords = WishlistService.Instance.GetWishlistProductCount(User.Identity.GetUserId(), model.SearchTerm);
+
+			model.Pager = new Pager(totalWishlistRecords, pageNo, pageSize);
+
+			model.Wishlists = WishlistService.Instance.GetWishlistProduct(User.Identity.GetUserId(),model.SearchTerm,pageNo,pageSize);
+
+			return View(model);
+
+  
+
+
+
+
+		}
+
+
+		public ActionResult ResponseOfWishlist(string SearchTerm, int? pageNo)
+		{
+			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			int pageSize = ConfigurationService.Instance.GetShopPageSizeConfiguration();
+
+			ShowWishlistViewModel model = new ShowWishlistViewModel();
+
+			model.SearchTerm = SearchTerm;
+
+
+			int totalWishlistRecords = WishlistService.Instance.GetWishlistProductCount(User.Identity.GetUserId(), model.SearchTerm);
+
+			model.Pager = new Pager(totalWishlistRecords, pageNo, pageSize);
+
+			model.Wishlists = WishlistService.Instance.GetWishlistProduct(User.Identity.GetUserId(), model.SearchTerm, pageNo, pageSize);
+
+			return PartialView("_ResponseOfWishlist", model);
+
+		}
+
+
+		public JsonResult SaveWishlist(int productID)
+		{
+
+			JsonResult result = new JsonResult { JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+			Wishlist wishlist = new Wishlist { ProductId = productID, UserID = User.Identity.GetUserId() }; 
+
+			result.Data = new { Success = WishlistService.Instance.SaveWishlist(wishlist) };
+
+			return result;
+		}
+
 	}
 }

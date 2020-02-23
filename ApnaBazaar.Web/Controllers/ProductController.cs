@@ -1,6 +1,8 @@
 ﻿using ApnaBazaar.Entities;
 using ApnaBazaar.Services;
 using ApnaBazaar.Web.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +13,40 @@ namespace ApnaBazaar.Web.Controllers
 {
     public class ProductController : Controller
     {
+
+		private ApplicationSignInManager _signInManager;
+		private ApplicationUserManager _userManager;
+
+
+		public ApplicationSignInManager SignInManager
+		{
+			get
+			{
+				return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+			}
+			private set
+			{
+				_signInManager = value;
+			}
+		}
+
+		public ApplicationUserManager UserManager
+		{
+			get
+			{
+				return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+			}
+			private set
+			{
+				_userManager = value;
+			}
+		}
+
+
 		//ProductService productService = new ProductService();
 		//CategoriesService categoriesService = new CategoriesService();
-        // GET: Product
-        public ActionResult Index()
+		// GET: Product
+		public ActionResult Index()
         {
             return View();
         }
@@ -141,6 +173,21 @@ namespace ApnaBazaar.Web.Controllers
 		public ActionResult Details(int Id)
 		{
 			ProductDetailViewModel model = new ProductDetailViewModel { product = ProductService.Instance.GetProductWithReviews(Id) };
+
+			int counter = 0;
+			string[] names = new string[model.product.Reviews.Count];
+			string[] ImagePaths = new string[model.product.Reviews.Count];
+
+
+			foreach (var user in model.product.Reviews)
+			{
+				var UserIDs = UserManager.FindById(user.UserId);
+				names[counter] = UserIDs.Name;
+				ImagePaths[counter] = UserIDs.ProfileImage;
+			}
+
+			model.ReviewBy = names;
+			model.ReviewByImage = ImagePaths;
 
 			return View(model);
 		}

@@ -40,13 +40,13 @@ namespace ApnaBazaar.Web.Controllers
 			}
 		}
 		// GET: Order
-		public ActionResult Search(string searchUserId, string status, int? pageNo)
+		public ActionResult Search(string searchUserId, int? pageNo)
         {
 			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
 			
 			SearchOrderViewModel model = new SearchOrderViewModel();
 
-			var totalRecords = OrderService.Instance.SearchOrderCount(searchUserId, status);
+			var totalRecords = OrderService.Instance.SearchOrderCount(searchUserId);
 
 			model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
@@ -54,9 +54,7 @@ namespace ApnaBazaar.Web.Controllers
 			
 			model.Pager = new Pager(totalRecords, pageNo, pageSize);
 
-			model.Status = status;
-
-			model.Orders = OrderService.Instance.SearchOrder(model.SearchUserID, model.Status, model.PageNo.Value, pageSize);
+			model.Orders = OrderService.Instance.SearchOrder(model.SearchUserID, model.PageNo.Value, pageSize);
 
 
 			return View(model);
@@ -79,7 +77,7 @@ namespace ApnaBazaar.Web.Controllers
 			model.Pager = new Pager(totalRecords, pageNo, pageSize);
 
 
-			model.Orders = OrderService.Instance.ShowUserOrder(model.SearchTerm, model.PageNo.Value, pageSize);
+			model.Orders = OrderService.Instance.ShowUserOrder(model.User.Id, model.SearchTerm,model.PageNo.Value, pageSize);
 
 			return View(model);
 		}

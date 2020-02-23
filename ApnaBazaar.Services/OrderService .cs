@@ -31,7 +31,7 @@ namespace ApnaBazaar.Services
 		}
 		#endregion
 
-		public List<Order> SearchOrder(string searchUserId, string status, int? pageNo, int pageSize)
+		public List<Order> SearchOrder(string searchUserId, int? pageNo, int pageSize)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
@@ -39,12 +39,7 @@ namespace ApnaBazaar.Services
 
 				if (!string.IsNullOrEmpty(searchUserId))
 				{
-					orders = orders.Where(o => o.UserId.ToUpper().Contains(searchUserId.ToUpper()) || o.Status.Contains(searchUserId.ToUpper())).ToList();
-				}
-
-				if (!string.IsNullOrEmpty(status))
-				{
-					orders = orders.Where(o => o.Status.ToLower().Contains(status.ToLower())).ToList();
+					orders = orders.Where(o => o.UserId.ToUpper().Contains(searchUserId.ToUpper()) || o.Status.ToLower().Contains(searchUserId.ToLower())).ToList();
 				}
 
 				return orders.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
@@ -52,7 +47,7 @@ namespace ApnaBazaar.Services
 			}
 		}
 
-		public int SearchOrderCount(string searchUserId, string status)
+		public int SearchOrderCount(string searchUserId)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
@@ -60,13 +55,9 @@ namespace ApnaBazaar.Services
 
 				if (!string.IsNullOrEmpty(searchUserId))
 				{
-					orders = orders.Where(o => o.UserId.ToUpper().Contains(searchUserId.ToUpper()) || o.Status.Contains(searchUserId.ToUpper())).ToList();
+					orders = orders.Where(o => o.UserId.ToUpper().Contains(searchUserId.ToUpper()) || o.Status.ToLower().Contains(searchUserId.ToLower())).ToList();
 				}
 
-				if (!string.IsNullOrEmpty(status))
-				{
-					orders = orders.Where(o => o.Status.ToLower().Contains(status.ToLower())).ToList();
-				}
 
 				return orders.Count;
 
@@ -81,7 +72,7 @@ namespace ApnaBazaar.Services
 
 				if (!string.IsNullOrEmpty(SearchTerm))
 				{
-					orders = orders.Where(o => o.UserId.ToUpper().Contains(SearchTerm.ToUpper()) || o.Status.ToLower().Contains(SearchTerm.ToLower())).ToList();
+					orders = orders.Where(o => o.Status.ToLower().Contains(SearchTerm.ToLower())).ToList();
 				}
 
 				return orders.Count;
@@ -100,7 +91,7 @@ namespace ApnaBazaar.Services
 			}
 		}
 
-		public List<Order> ShowUserOrder(string SearchTerm, int? pageNo, int pageSize)
+		public List<Order> ShowUserOrder(string SearchTerm, string status,int? pageNo, int pageSize)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
@@ -108,12 +99,17 @@ namespace ApnaBazaar.Services
 
 				if (!string.IsNullOrEmpty(SearchTerm))
 				{
-					orders = orders.Where(o => o.UserId.ToUpper().Contains(SearchTerm.ToUpper()) || o.Status.ToLower().Contains(SearchTerm.ToLower())).ToList();
+					orders = orders.Where(o => o.UserId.ToUpper().Contains(SearchTerm.ToUpper())).ToList();
+				}
+				if (!string.IsNullOrEmpty(status))
+				{
+					orders = orders.Where(o => o.Status.ToUpper().Contains(status.ToUpper())).ToList();
 				}
 
-				return orders.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
 
+				return orders.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
 			}
+		
 		}
 
 		public bool UpdateStatus(string status, int orderID)

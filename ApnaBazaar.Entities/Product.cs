@@ -17,12 +17,7 @@ namespace ApnaBazaar.Entities
 		public int CategoryID { get; set; }
 		public virtual Category Category { get; set; }
 		public List<Review> Reviews { get; set; }
-
-
-
-
-
-
+		public List<Wishlist> Wishlist { get; set; }
 
 	}
 }

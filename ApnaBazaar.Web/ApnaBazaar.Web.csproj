@@ -209,6 +209,7 @@
     <Compile Include="ViewModels\SharedViewModels.cs" />
     <Compile Include="ViewModels\ShopViewModels.cs" />
     <Compile Include="ViewModels\WidgetViewModels.cs" />
+    <Compile Include="ViewModels\WishlistViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -642,6 +643,8 @@
     <Content Include="Views\Shop\_ResponseOfCart.cshtml" />
     <Content Include="Views\Order\ShowUserOrders.cshtml" />
     <Content Include="Views\Order\UserDetails.cshtml" />
+    <Content Include="Views\Shop\Wishlist.cshtml" />
+    <Content Include="Views\Shop\_ResponseOfWishlist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
