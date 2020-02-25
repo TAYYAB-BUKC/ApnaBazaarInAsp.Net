@@ -54,7 +54,17 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				var products = context.Products.ToList();
+
+
+				var products = context.Products.Include(p=>p.Wishlist).ToList();
+
+
+				//var products = context.Products.Include(p => p.Wishlist).ToList();
+
+				//var wishlist = context.Wishlists.Where(w => w.UserID == searchTerm).ToList();
+
+
+
 
 				if (categoryID.HasValue)
 				{
@@ -100,6 +110,8 @@ namespace ApnaBazaar.Services
 					}
 
 				}
+
+
 				return products.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
 
 			}
@@ -160,7 +172,7 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				var products = context.Products.ToList();
+				var products = context.Products.Include(p=>p.Wishlist).ToList();
 
 				if (categoryID.HasValue)
 				{

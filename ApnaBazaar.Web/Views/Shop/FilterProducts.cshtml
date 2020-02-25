@@ -1,6 +1,13 @@
 ﻿@model FilterProductViewModel
 
 @{ 
+	//var wishChecked = "false";
+	//var wishSource = "";
+	//int[] wishproductIds = new int[Model.Products.Count];
+	//int counter = 0;
+	//int counter1 = 0;
+
+	var wishproductIds = Model.WishedProductsIds;
 
 }
 
@@ -13,34 +20,172 @@
 <div id="productsDiv" class="product-content product-threecolumn product-slidebar clearfix">
 	<ul class="product style2 sd1">
 		@foreach (var product in Model.Products)
-		{
-			var image = product.Imagepath != null ? product.Imagepath : @"/Content/images/Default/DefaultImage.png";
+			{
 
-			<li class="product-item">
-				<div class="product-thumb clearfix">
-					<a href="#">
-						<img src="@image" alt="image">
-					</a>
-					<span class="new">New</span>
-				</div>
-				<div class="product-info clearfix">
-					<span class="product-title">
-						@product.Name
-					</span>
-					<div class="price">
-						<ins>
-							<span class="amount">
-								$ @product.Price
+				var image = product.Imagepath != null ? product.Imagepath : @"/Content/images/Default/DefaultImage.png";
+
+				//wishChecked = product.Wishlist.Count > 0 ? true : false;
+
+				//wishSource = wishChecked ? @"/Content/images/Default/heart fill.png" : @"/Content/images/Default/unfill heart.png";
+
+				//var wishProducts = product.Wishlist.Where(w => w.UserID == Model.UserId).ToList(); //firstorDefault karo
+
+				//var userWished = wishProducts.Where(w => w.UserID == Model.UserId).FirstOrDefault();
+
+				//var UserWishedProducts = Model.WishedProducts.ToList();
+
+					if(wishproductIds.Contains(product.ID))
+					{
+					<li class="product-item">
+						<div class="product-thumb clearfix">
+							<a href="#">
+								<img src="@image" alt="image">
+							</a>
+							<span class="new">New</span>
+						</div>
+						<div class="product-info clearfix">
+							<span class="product-title">
+								@product.Name
 							</span>
-						</ins>
+							<div class="price">
+								<ins>
+									<span class="amount">
+										$ @product.Price
+									</span>
+								</ins>
+							</div>
+						</div>
+						<div class="add-to-cart text-center">
+							<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
+						</div>
+						<a class="like">
+							<img src="/Content/images/Default/heart fill.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="true" />
+						</a>
+						@*<a class="like"><i class="removeFromWishlist" data-id="@product.ID">&#10084;&#65039;</i></a*@
+					</li>
+					
+
+				}
+				else
+				{
+					<li class="product-item">
+						<div class="product-thumb clearfix">
+							<a href="#">
+								<img src="@image" alt="image">
+							</a>
+							<span class="new">New</span>
+						</div>
+						<div class="product-info clearfix">
+							<span class="product-title">
+								@product.Name
+							</span>
+							<div class="price">
+								<ins>
+									<span class="amount">
+										$ @product.Price
+									</span>
+								</ins>
+							</div>
+						</div>
+						<div class="add-to-cart text-center">
+							<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
+						</div>
+						<a class="like">
+							<img src="/Content/images/Default/unfill heart.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="false" />
+						</a>
+						@*<a class="like"><i class="removeFromWishlist" data-id="@product.ID">&#10084;&#65039;</i></a*@
+					</li>
+				}
+			
+
+
+			//var wishProducts = product.Wishlist.FirstOrDefault(); //firstorDefault karo
+			//var wish = false;
+
+			//if (wishProducts == null)
+			//{
+			//	wish = false;
+			//}
+			//else
+			//{
+
+			//}
+			//var wish = userWished != null ? true : false;
+
+			//foreach (var wishItem in wish)
+			//{
+			@*if (wish)
+			{
+				//wishproductIds[counter] = wishItem.ProductId;
+				//wishSource = @"/Content/images/Default/heart fill.png";
+				//wishChecked = "true";
+				<li class="product-item">
+					<div class="product-thumb clearfix">
+						<a href="#">
+							<img src="@image" alt="image">
+						</a>
+						<span class="new">New</span>
 					</div>
-				</div>
-				<div class="add-to-cart text-center">
-					<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
-				</div>
-				<a class="like"><i id="addToWishlist" data-id="@product.ID">&#129293;</i></a>
-			</li>
+					<div class="product-info clearfix">
+						<span class="product-title">
+							@product.Name
+						</span>
+						<div class="price">
+							<ins>
+								<span class="amount">
+									$ @product.Price
+								</span>
+							</ins>
+						</div>
+					</div>
+					<div class="add-to-cart text-center">
+						<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
+					</div>
+					<a class="like">
+						<img src="/Content/images/Default/heart fill.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="true" />
+					</a>
+					@*<a class="like"><i class="removeFromWishlist" data-id="@product.ID">&#10084;&#65039;</i></a
+				</li>
+
+			}
+			else
+			{
+				//if (wishItem.ProductId != wishproductIds[counter1])
+				//{
+				//wishSource = @"/Content/images/Default/unfill heart.png";
+				//wishChecked = "false";
+				<li class="product-item">
+					<div class="product-thumb clearfix">
+						<a href="#">
+							<img src="@image" alt="image">
+						</a>
+						<span class="new">New</span>
+					</div>
+					<div class="product-info clearfix">
+						<span class="product-title">
+							@product.Name
+						</span>
+						<div class="price">
+							<ins>
+								<span class="amount">
+									$ @product.Price
+								</span>
+							</ins>
+						</div>
+					</div>
+					<div class="add-to-cart text-center">
+						<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
+					</div>
+					<a class="like">
+						<img src="/Content/images/Default/unfill heart.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="false" />
+					</a>
+					@*<a class="like"><i class="removeFromWishlist" data-id="@product.ID">&#10084;&#65039;</i></a
+				</li>
+			*@
+			//}
 		}
+		
+		
 	</ul><!-- /.product -->
 </div><!-- /.product-content -->
 @*@@if (Model.Pager != null && Model.Pager.TotalPages > 1)
@@ -171,30 +316,8 @@
 	});
 
 
-	$("#addToWishlist").click(function () {
-		console.log("addToWishlist() Called");
-		$.ajax({
-			url: '@Url.Action("SaveWishlist", "Shop")',
-			data: {
-				productID: $(this).attr("data-id")
-			}
-		})
-			.done(function (response) {
-				if (response.Success) {
-					swal("Done", "Added to your Wishlist.", "success");
-					@*@{
-	  unicode = "&#10084;&#65039";
-			}*@
-					$("#addToWishlist").val("&#10084;&#65039");
-				}
-			})
-			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
-				alert("Ajax Request Failed");
-			});
 
 
-
-	});	
 
 
 </script>

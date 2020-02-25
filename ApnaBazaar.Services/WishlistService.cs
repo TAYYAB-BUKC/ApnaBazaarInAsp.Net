@@ -31,11 +31,23 @@ namespace ApnaBazaar.Services
 		}
 		#endregion
 
-		public bool SaveWishlist(Wishlist wishlist)
+		public bool SaveToWishlist(Wishlist wishlist)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
 				context.Wishlists.Add(wishlist);
+				return context.SaveChanges() > 0;
+			}
+		}
+
+
+		public bool RemoveFromWishlist(int ProdcutId,string UserId)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				//context.Entry(category).State = System.Data.Entity.EntityState.Modified;
+				var wishlist = context.Wishlists.Where(w=>w.ProductId == ProdcutId && w.UserID == UserId).FirstOrDefault();
+				context.Wishlists.Remove(wishlist);
 				return context.SaveChanges() > 0;
 			}
 		}
@@ -76,6 +88,8 @@ namespace ApnaBazaar.Services
 			{
 				var wishlists = context.Wishlists.Include(x => x.Product).ToList();
 
+
+
 				if (!string.IsNullOrEmpty(userId))
 				{
 					wishlists = wishlists.Where(w => w.UserID.ToUpper().Contains(userId.ToUpper())).ToList();
@@ -87,6 +101,15 @@ namespace ApnaBazaar.Services
 				}
 
 				return wishlists.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
+			}
+		}
+
+		public List<int> GetWishlistProducts(string UserId)
+		{
+			using (var context = new ApnaBazaarContext())
+			{
+				var wishedProducts = context.Wishlists.Where(w => w.UserID == UserId).ToList();
+				return wishedProducts.Select(c => c.ProductId).ToList();
 			}
 		}
 	}

@@ -65,6 +65,7 @@ namespace ApnaBazaar.Web.Controllers
 
 			int totalShopRecords = ProductService.Instance.ShopProductsCount(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
 
+
 			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy, pageNo, pageSize);
 
 			model.SortBy = sortBy;
@@ -72,6 +73,8 @@ namespace ApnaBazaar.Web.Controllers
 			model.CategoryID = categoryID;
 
 			model.Pager = new Pager(totalShopRecords, pageNo, pageSize);
+
+			model.UserId = User.Identity.GetUserId();
 
 			return View(model);
 		}
@@ -96,8 +99,11 @@ namespace ApnaBazaar.Web.Controllers
 
 			model.Pager = new Pager(totalShopRecords, pageNo, pageSize);
 
+			model.UserId = User.Identity.GetUserId();
 
-			model.Products = ProductService.Instance.ShopProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy, pageNo, pageSize);
+			model.Products = ProductService.Instance.ShopProducts(searchTerm,minimumPrice, maximumPrice, categoryID, sortBy, pageNo, pageSize);
+
+			model.WishedProductsIds = WishlistService.Instance.GetWishlistProducts(model.UserId);
 
 			return PartialView(model);
 		}
@@ -282,17 +288,39 @@ namespace ApnaBazaar.Web.Controllers
 		}
 
 
-		public JsonResult SaveWishlist(int productID)
+		public JsonResult SaveToWishlist(int productID)
 		{
 
 			JsonResult result = new JsonResult { JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-			Wishlist wishlist = new Wishlist { ProductId = productID, UserID = User.Identity.GetUserId() }; 
+			Wishlist wishlist = new Wishlist { ProductId = productID, UserID = User.Identity.GetUserId() };
 
-			result.Data = new { Success = WishlistService.Instance.SaveWishlist(wishlist) };
+			result.Data = new { Success = WishlistService.Instance.SaveToWishlist(wishlist) };
+
 
 			return result;
 		}
+
+		public JsonResult RemoveFromWishlist(int productID)
+		{
+
+			JsonResult result = new JsonResult { JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+			var UserID = User.Identity.GetUserId();
+
+			result.Data = new { Success = WishlistService.Instance.RemoveFromWishlist(productID, UserID) };
+
+			
+
+			return result;
+		}
+
+
+		
+
+
+
+
 
 	}
 }

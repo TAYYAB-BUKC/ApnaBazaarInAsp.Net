@@ -138,7 +138,7 @@
 					@{
 						var filterproducts = new FilterProductViewModel { Products = Model.Products, Pager = Model.Pager, SortBy = Model.SortBy, CategoryID = Model.CategoryID };
 
-						Html.RenderPartial("FilterProducts", filterproducts);
+						Html.RenderAction("FilterProducts", filterproducts);
 					}
 				</div>
 				<!-- Call Partial View -->
@@ -293,5 +293,146 @@
 			scrollTop: $("#" + DivToFocus).offset().top - 100
 					}, 1000);
 				}
+
+	$(".addToWishlist").click(function () {
+
+		var currentElement = this;
+		//console.log("addToWishlist() Called");
+		//console.log($(this).text());
+		//$(this).text("&#10084;&#65039;");
+		//console.log($(this).text());
+
+
+		//alert($(this).attr("data-id"));
+
+
+		//alert($(this).attr("data-wish"));
+
+		//if ($(this).attr("data-wish") == "True") {
+		//	alert("Remove From wishlist");
+		//	$(this).attr("src", "/Content/images/Default/unfill heart.png");
+		//	$(this).attr("data-wish", "False");
+
+
+		//Works perfectly fine without Ajax
+
+		//if ($(this).attr("data-wish") == "true") {
+			
+		//				swal("Done", "Removed From your Wishlist.", "success");
+		//				$(this).attr("src", "/Content/images/Default/unfill heart.png");
+		//	$(this).attr("data-wish", "false");
+		//	alert(this);
+
+				
+		//}
+		//else {
+		//				swal("Done", "Add To Wishlist.", "success");
+		//				$(this).attr("src", "/Content/images/Default/heart fill.png");
+		//				$(this).attr("data-wish", "true");
+		//				console.log("updated");
+		//		alert(this);
+		//}
+
+
+		if ($(this).attr("data-wish") == "true") {
+			
+			$.ajax({
+				url: '@Url.Action("RemoveFromWishlist", "Shop")',
+				data: {
+					productID: $(this).attr("data-id")
+				}
+			})
+				.done(function (response) {
+					if (response.Success) {
+						swal("Done", "Removed From your Wishlist.", "success");
+						$(currentElement).attr("src", "/Content/images/Default/unfill heart.png");
+						$(currentElement).attr("data-wish", "false");
+					}
+					else {
+						swal("Error", "Unable to Add this product to your Wishlist.", "error");
+					}
+				})
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("Ajax Request Failed");
+				});
+
+		}
+		else {
+
+			$.ajax({
+				url: '@Url.Action("SaveToWishlist", "Shop")',
+				data: {
+					productID: $(this).attr("data-id")
+				}
+			})
+				.done(function (response) {
+					if (response.Success) {
+						swal("Done", "Add To Wishlist.", "success");
+						$(currentElement).attr("src", "/Content/images/Default/heart fill.png");
+						$(currentElement).attr("data-wish", "true");
+					}
+					else {
+						swal("Error", "Unable to Add this product to your Wishlist.", "error");
+					}
+				})
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("Ajax Request Failed");
+				});
+
+		}
+
+
+
+			@*$.ajax({
+				url: '@Url.Action("SaveWishlist", "Shop")',
+				data: {
+					productID: $(this).attr("data-id")
+				}
+			})
+				.done(function (response) {
+					if (response.Success) {
+						swal("Done", "Added to your Wishlist.", "success");
+					@{
+		//			  unicode = "&#10084;&#65039";
+			}
+						$(this).attr("src","/Content/images/Default/heart fill.png");
+					}
+				})
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("Ajax Request Failed");
+				});*@
+
+		//}
+		//else {
+		//	alert("Added To wishlist");
+		//	$(this).attr("src", "/Content/images/Default/heart fill.png");
+		//	$(this).attr("data-wish", "True");
+		//}
+
+
+
+			@*$.ajax({
+				url: '@Url.Action("SaveWishlist", "Shop")',
+				data: {
+					productID: $(this).attr("data-id")
+				}
+			})
+				.done(function (response) {
+					if (response.Success) {
+						swal("Done", "Added to your Wishlist.", "success");
+					@{
+		//			  unicode = "&#10084;&#65039";
+			}
+						$(this).attr("src","/Content/images/Default/heart fill.png");
+					}
+				})
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("Ajax Request Failed");
+				});*@
+
+
+
+	});
+
 
 </script>
