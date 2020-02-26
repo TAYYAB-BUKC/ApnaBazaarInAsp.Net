@@ -593,7 +593,187 @@
         activeLayout(); 
         activePattern();
     }; 
-    
+
+
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide();
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+
+	function updateCartProducts() {
+		var cartProducts;
+		var existingCookieData = $.cookie('CartProducts');
+
+		if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+			cartProducts = existingCookieData.split('-');
+		}
+		else {
+			cartProducts = [];
+		}
+
+		$("#NoOfCartProducts").html(cartProducts.length);
+	};
+
+
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
+
+
+	$(document).ready(function () {
+		$("#rateYo").rateYo({
+			rating: 0,
+			numStars: 5,
+			maxValue: 5,
+			halfStar: true,
+			ratedFill: "#f63440",
+			onChange: function (rating, rateYoInstance) {
+				$("#Rating").val(rating);
+			}
+		});
+	});
+
+
+	//$(".Pagedata-link").click(function myfunction() {
+	//	var url = $(this).attr("data-href");
+	//	if (url != "" || url != undefined) {
+	//		GetData(url);
+	//	}
+	//	else {
+	//		swal({
+	//			title: "Warning",
+	//			text: "Please click the page number correctly",
+	//			icon: "warning",
+	//			buttons: true,
+	//			dangerMode: true,
+	//		})
+	//	}
+	//});
+
+	$(".removeFromCart").click(function myfunction() {
+
+		var products;
+		var existingCartProducts = $.cookie('CartProducts');
+
+		if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+			products = existingCartProducts.split('-');
+		}
+		else {
+			products = [];
+		}
+
+		var productID = $(this).attr("data-id");
+		products.pop(productID);
+
+		$.cookie('CartProducts', products.join('-'), { path: '/' });
+		updateCartProducts();
+		swal({
+			title: "Done",
+			text: "Product Removed from Cart Successfully.",
+			icon: "success",
+		})
+			.then((willDelete) => {
+				if (willDelete) {
+					location.reload(true);
+				}
+			});
+
+
+	});
+
+	$(".productAddToCart").click(function myfunction() {
+
+		var products;
+		var existingCartProducts = $.cookie('CartProducts');
+
+		if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+			products = existingCartProducts.split('-');
+		}
+		else {
+			products = [];
+		}
+
+		var productID = $(this).attr("data-id");
+		products.push(productID);
+
+		$.cookie('CartProducts', products.join('-'), { path: '/' });
+		updateCartProducts();
+		swal("Done", "Product Added to Cart.", "success");
+
+
+	});
+
+
+	$(".data-link").click(function myfunction() {
+		var url = $(this).attr("data-href");
+		if (url != "" || url != undefined) {
+			GetData(url);
+		}
+		else {
+			swal({
+				title: "Warning",
+				text: "Please fill the valid data in fields",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+		}
+	});
+
+	function GetData(DUrl) {
+		console.log("getdata()");
+		$.ajax({
+			//url: '/Category/Create'
+			url: DUrl,
+			data: {
+				maximumPrice: priceSlider.slider("values", 1),
+				minimumPrice: priceSlider.slider("values", 0)
+			}
+		})
+			.done(function (response) {
+				$("#filterProducts").html(response);
+				focusAction("productsDiv");
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
+	}
+
+
+	function UpdateDetails(ActionURL) {
+
+		var x = $("#imageUpload").val();
+		if (x == "") {
+			var value = $("#image").attr("src");
+			$("#Image").val(value);
+		}
+		$.ajax({
+			type: 'post',
+			url: ActionURL, //'/Product/Edit',
+			data: $("#userForm").serialize()
+		})
+			.done(function (response) {
+				if (response.Success) {
+					swal("Done", "Details Updated Successfully.", "success");
+				}
+				else {
+					swal("warning", "Sorry for inconvenience. Please try again later.", "warning");
+				}
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("Ajax Request Failed");
+			});
+	}
+
+
+	
    	// Dom Ready
 	$(function() {
       removePreloader();
@@ -625,33 +805,3 @@
       updateCartProducts();
    	});
 })(jQuery);
-
-
-function hideLoader() {
-    $(".loader").hide();
-    $("#loading-overlay").hide();
-};
-
-function showLoader() {
-    $(".loader").show();
-    $("#loading-overlay").show();
-};
-
-function updateCartProducts() {
-    var cartProducts;
-    var existingCookieData = $.cookie('CartProducts');
-
-    if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
-        cartProducts = existingCookieData.split('-');
-    }
-    else {
-        cartProducts = [];
-    }
-
-	$("#NoOfCartProducts").html(cartProducts.length);
-};
-
-
-
-
-

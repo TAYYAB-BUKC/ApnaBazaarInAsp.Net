@@ -201,11 +201,11 @@
 			CallTimeout = setTimeout(GetPriceRangeData, 1000);
 
 		}
-		
+
 	});
 
-	
-	@*function GetPriceRangeData(){
+
+	function GetPriceRangeData(){
 		debugger;
 		$.ajax({
 			//url: '/Category/Create'
@@ -224,36 +224,9 @@
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
         });
-	}*@
-
-
-	function GetPriceRangeData() {
-		console.log("GetPriceRangeData");
-		debugger;
-		$.ajax({
-			url: '@Url.Action("FilterProducts", "Shop")',
-			data: {
-				searchTerm: $("#SearchTerm").val(),
-				sortBy: $("#SortBy").val(),
-				categoryID: $("#CategoryID").val(),
-				minimumPrice: priceSlider.slider("values", 0),
-				maximumPrice: priceSlider.slider("values", 1)
-			}
-		})
-			.done(function (response) {
-				$("#filterProducts").html(response);
-				console.log("GetPriceRangeData() response");
-				console.log(response);
-
-			})
-			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
-				alert("FAIL");
-			});
 	}
 
-
-
-	$(".data-link").click(function myfunction() {
+	@*$(".data-link").click(function myfunction() {
 		var url = $(this).attr("data-href");
 		if (url != "" || url != undefined) {
 			GetData(url);
@@ -288,18 +261,14 @@
         });
 	}
 
-	function focusAction(DivToFocus) {
-		$('html,body').animate({
-			scrollTop: $("#" + DivToFocus).offset().top - 100
-					}, 1000);
-				}
+
 
 	$(".addToWishlist").click(function () {
 
 		var currentElement = this;
 
 		if ($(this).attr("data-wish") == "true") {
-			
+
 			$.ajax({
 				url: '@Url.Action("RemoveFromWishlist", "Shop")',
 				data: {
@@ -344,62 +313,60 @@
 				});
 
 		}
+	});*@
 
 
 
-			@*$.ajax({
-				url: '@Url.Action("SaveWishlist", "Shop")',
+	$(".addToWishlist").click(function () {
+
+		var currentElement = this;
+
+		if ($(this).attr("data-wish") == "true") {
+			//console.log("AddToWihslist() Called");
+			$.ajax({
+				url: '@Url.Action("RemoveFromWishlist", "Shop")',
 				data: {
 					productID: $(this).attr("data-id")
 				}
 			})
 				.done(function (response) {
 					if (response.Success) {
-						swal("Done", "Added to your Wishlist.", "success");
-					@{
-		//			  unicode = "&#10084;&#65039";
-			}
-						$(this).attr("src","/Content/images/Default/heart fill.png");
+						swal("Done", "Removed From your Wishlist.", "success");
+						$(currentElement).attr("src", "/Content/images/Default/unfill heart.png");
+						$(currentElement).attr("data-wish", "false");
+					}
+					else {
+						swal("Error", "Unable to Add this product to your Wishlist.", "error");
 					}
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
-				});*@
+				});
 
-		//}
-		//else {
-		//	alert("Added To wishlist");
-		//	$(this).attr("src", "/Content/images/Default/heart fill.png");
-		//	$(this).attr("data-wish", "True");
-		//}
+		}
+		else {
 
-
-
-			@*$.ajax({
-				url: '@Url.Action("SaveWishlist", "Shop")',
+			$.ajax({
+				url: '@Url.Action("SaveToWishlist", "Shop")',
 				data: {
 					productID: $(this).attr("data-id")
 				}
 			})
 				.done(function (response) {
 					if (response.Success) {
-						swal("Done", "Added to your Wishlist.", "success");
-					@{
-		//			  unicode = "&#10084;&#65039";
-			}
-						$(this).attr("src","/Content/images/Default/heart fill.png");
+						swal("Done", "Add To Wishlist.", "success");
+						$(currentElement).attr("src", "/Content/images/Default/heart fill.png");
+						$(currentElement).attr("data-wish", "true");
+					}
+					else {
+						swal("Error", "Unable to Add this product to your Wishlist.", "error");
 					}
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
-				});*@
+				});
 
-
-
+		}
 	});
-
-	
-	
-
 
 </script>

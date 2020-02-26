@@ -13,6 +13,8 @@
 	<!-- Bootstrap  -->
 	<script src="~/Content/javascript/jquery.min.js"></script>
 	<script src="~/Content/javascript/jquery-ui.js"></script>
+	<script src="~/Content/javascript/main.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="~/Content/stylesheets/jquery.rateyo.min.css">
 
 	<script src="~/Content/javascript/jquery.rateyo.min.js"></script>
@@ -173,10 +175,10 @@
 												<a href="@Url.Action("UserProfile","Shared")">Profile</a>
 											</li>
 											<li>
-												<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+												<a href="@Url.Action("ChangePassword","Account")">Change Password</a>
 											</li>
 											<li>
-												<a href="@Url.Action("LogOff","Account")">LogOut</a>
+												<a href="@Url.Action("LogOff","Account")">Log Out</a>
 											</li>
 
 
@@ -258,8 +260,8 @@
 						<div class="widget widget-link link-login">
 							<ul>
 								<li><a href="@Url.Action("Login","Account")">Login/ Register</a></li>
-								<li><a href="@Url.Action("Checkout","Shop")">Your Cart</a></li>
-								<li><a href="#">Wishlist items</a></li>
+								<li><a href="@Url.Action("YourCart","Shop")">Your Cart</a></li>
+								<li><a href="@Url.Action("Wishlist","Shop")">Wishlist items</a></li>
 								<li><a href="@Url.Action("Checkout","Shop")">Your checkout</a></li>
 							</ul>
 						</div><!-- /.widget -->
@@ -267,7 +269,7 @@
 					<div class="col-md-3">
 						<div class="widget widget-link link-faq">
 							<ul>
-								<li><a href="@Url.Action("UserProfile","FAQ")">FAQs</a></li>
+								<li><a href="@Url.Action("FAQ","Shared")">FAQs</a></li>
 								<li><a href="@Url.Action("ComingSoon","Shared")">Term of service</a></li>
 								<li><a href="@Url.Action("ComingSoon","Shared")">Privacy Policy</a></li>
 								<li><a href="@Url.Action("ComingSoon","Shared")">Returns</a></li>
