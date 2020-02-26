@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+@{var CartProducts = new List<Product>(); }
 <head>
 	<!-- Basic Page Needs -->
 	<meta charset="utf-8">
@@ -13,7 +14,7 @@
 	<script src="~/Content/javascript/jquery.min.js"></script>
 	<script src="~/Content/javascript/jquery-ui.js"></script>
 	<link rel="stylesheet" type="text/css" href="~/Content/stylesheets/jquery.rateyo.min.css">
-	
+
 	<script src="~/Content/javascript/jquery.rateyo.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="~/Content/stylesheets/bootstrap.css">
@@ -65,110 +66,137 @@
 						</li>
 						@*
 
-					@if (User.Identity.IsAuthenticated)
-					{
+										@if (User.Identity.IsAuthenticated)
+										{
 
-						<div class=" nav-shop-cart">
-			<div class="widget_shopping_cart_content">
-				<div class="woocommerce-min-cart-wrap">
-					<ul class="woocommerce-mini-cart cart_list product_list_widget ">
-						<li class="woocommerce-mini-cart-item mini_cart_item">
-							<a href="@Url.Action("UserProfile","Shared")">Profile</a>
-						</li>
-						<li class="woocommerce-mini-cart-item mini_cart_item">
-							<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
-						</li>
-						<li class="woocommerce-mini-cart-item mini_cart_item">
-							<a href="@Url.Action("LogOff","Account")">LogOut</a>
-						</li>
-					</ul>
-				</div><!-- /.widget_shopping_cart_content -->
-			</div>
-		</div><!-- /.nav-shop-cart -->*@
-
-						@*<li class="box-login">
-			<a class="icon_login" href="#"></a>
-			<div class="nav-wrap">
-				<nav id="mainnav" class="mainnav">
-					<ul class="menu">
-						<li>
-							<a class="icon_login" href="#"></a>
-							<ul class="submenu">
-								<li>
-									<a href="@Url.Action("UserProfile","Shared")">Profile</a>
-								</li>
-								<li>
-									<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
-								</li>
-								<li>
-									<a href="@Url.Action("LogOff","Account")">LogOut</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</nav><!-- /.mainnav -->
-			</div><!-- /.nav-wrap -->
-		</li>
-
-						}
-							*@
-						<li class="box-cart nav-top-cart-wrapper">
-							<a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="NoOfCartProducts">0</span></a>
-							<div class="nav-shop-cart">
+											<div class=" nav-shop-cart">
 								<div class="widget_shopping_cart_content">
 									<div class="woocommerce-min-cart-wrap">
 										<ul class="woocommerce-mini-cart cart_list product_list_widget ">
 											<li class="woocommerce-mini-cart-item mini_cart_item">
-												<span>No Items in Shopping Cart</span>
+												<a href="@Url.Action("UserProfile","Shared")">Profile</a>
+											</li>
+											<li class="woocommerce-mini-cart-item mini_cart_item">
+												<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+											</li>
+											<li class="woocommerce-mini-cart-item mini_cart_item">
+												<a href="@Url.Action("LogOff","Account")">LogOut</a>
 											</li>
 										</ul>
 									</div><!-- /.widget_shopping_cart_content -->
 								</div>
-							</div><!-- /.nav-shop-cart -->
+							</div><!-- /.nav-shop-cart -->*@
+
+						@*<li class="box-login">
+								<a class="icon_login" href="#"></a>
+								<div class="nav-wrap">
+									<nav id="mainnav" class="mainnav">
+										<ul class="menu">
+											<li>
+												<a class="icon_login" href="#"></a>
+												<ul class="submenu">
+													<li>
+														<a href="@Url.Action("UserProfile","Shared")">Profile</a>
+													</li>
+													<li>
+														<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+													</li>
+													<li>
+														<a href="@Url.Action("LogOff","Account")">LogOut</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</nav><!-- /.mainnav -->
+								</div><!-- /.nav-wrap -->
+							</li>
+
+											}
+						*@
+						<li class="box-cart nav-top-cart-wrapper">
+							<a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="NoOfCartProducts">0</span></a>
+
+
+							@{
+
+								var cartProductCookoies = Request.Cookies["CartProducts"];
+
+								if (cartProductCookoies != null && !string.IsNullOrEmpty(cartProductCookoies.Value))
+								{
+
+									var CartProductIds = cartProductCookoies.Value.Split('-').Select(x => int.Parse(x)).ToList();
+
+
+									CartProducts = ProductService.Instance.GetListOfProduct(CartProductIds);
+
+
+
+								}
+							}
+
+
+							@foreach (var product in CartProducts)
+							{
+								<div class="nav-shop-cart">
+									<div class="widget_shopping_cart_content">
+										<div class="woocommerce-min-cart-wrap">
+											<ul class="woocommerce-mini-cart cart_list product_list_widget ">
+												<li class="woocommerce-mini-cart-item mini_cart_item">
+													<a href="@Url.Action("Details","Product", new { Id = product.ID })">@product.Name</a>
+												</li>
+											</ul>
+										</div><!-- /.widget_shopping_cart_content -->
+									</div>
+								</div><!-- /.nav-shop-cart -->
+							}
 						</li>
 					</ul>
 
-									<div class="nav-wrap">
-										<nav id="mainnav" class="mainnav">
-											<ul class="menu">
-												<li>@Html.ActionLink("Home", "Index", "Home")</li>
+					<div class="nav-wrap">
+						<nav id="mainnav" class="mainnav">
+							<ul class="menu">
+								<li>@Html.ActionLink("Home", "Index", "Home")</li>
 
-												@if (User.Identity.IsAuthenticated)
-												{
-													<li>
-														<a href="@Url.Action("Index", "Home")">Account</a>
+								@if (User.Identity.IsAuthenticated)
+								{
+									<li>
+										<a href="@Url.Action("Index", "Home")">Manage Account</a>
 
-														<ul class="submenu">
-															<li>
-																<a href="@Url.Action("UserProfile","Shared")">Profile</a>
-															</li>
-															<li>
-																<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
-															</li>
-															<li>
-																<a href="@Url.Action("LogOff","Account")">LogOut</a>
-															</li>
-														</ul>
-													</li>
-												}
+										<ul class="submenu">
+											<li>
+												@Html.ActionLink("Orders", "ShowUserOrders", "Order")
+											</li>
+											<li>
+												@Html.ActionLink("Wishlist", "Wishlist", "Shop")
+											</li>
+											<li>
+												<a href="@Url.Action("UserProfile","Shared")">Profile</a>
+											</li>
+											<li>
+												<a href="@Url.Action("ChangePassword","Account")">ChangePassword</a>
+											</li>
+											<li>
+												<a href="@Url.Action("LogOff","Account")">LogOut</a>
+											</li>
 
-												<li>@Html.ActionLink("Shop", "Index", "Shop")</li>
-												<li>@Html.ActionLink("Checkout", "Checkout", "Shop")</li>
-												<li>@Html.ActionLink("YourCart", "YourCart", "Shop")</li>
-												@if (!User.Identity.IsAuthenticated)
-												{
-													<li>@Html.ActionLink("Login", "Login", "Account")</li>
-												}
-												@if (User.Identity.IsAuthenticated)
-												{
-													<li>@Html.ActionLink("Orders", "ShowUserOrders", "Order")</li>
-													<li>@Html.ActionLink("Wishlist", "Wishlist", "Shop")</li>
-												}
-											</ul>
-										</nav><!-- /.mainnav -->
-									</div><!-- /.nav-wrap -->
-							</div><!-- /.container-fluid -->
-</header><!-- /header -->
+
+										</ul>
+									</li>
+								}
+
+								<li>@Html.ActionLink("Shop", "Index", "Shop")</li>
+								<li>@Html.ActionLink("Checkout", "Checkout", "Shop")</li>
+								<li>@Html.ActionLink("YourCart", "YourCart", "Shop")</li>
+								@if (!User.Identity.IsAuthenticated)
+								{
+									<li>@Html.ActionLink("Login", "Login", "Account")</li>
+								}
+
+							</ul>
+						</nav><!-- /.mainnav -->
+					</div><!-- /.nav-wrap -->
+				</div><!-- /.container-fluid -->
+			</header><!-- /header -->
 		</div><!-- /.site-header-wrap -->
 
 		@RenderBody()
@@ -267,7 +295,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<p class="copyright text-center"><a href="@Url.Action("Index","Home")"><strong>Apna</strong><strong style="color:#f63440">Bazaar</strong> </a><strong> - Copyright © 2020</strong></p>				
+						<p class="copyright text-center"><a href="@Url.Action("Index","Home")"><strong>Apna</strong><strong style="color:#f63440">Bazaar</strong> </a><strong> - Copyright © 2020</strong></p>
 					</div>
 				</div>
 			</div>
@@ -296,7 +324,7 @@
 	<script src="~/Content/javascript/owl.carousel.min.js"></script>
 	<script src="~/Content/javascript/equalize.min.js"></script>
 	<script src="~/Content/javascript/gmap3.min.js"></script>
-	
+
 	<script src="~/Content/javascript/jquery.cookie.js"></script>
 	<script src="~/Content/javascript/main.js"></script>
 

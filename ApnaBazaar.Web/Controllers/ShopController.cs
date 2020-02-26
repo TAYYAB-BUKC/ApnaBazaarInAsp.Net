@@ -189,6 +189,10 @@ namespace ApnaBazaar.Web.Controllers
 				//GetListOfProduct
 				model.CartProducts = ProductService.Instance.GetListOfProduct(model.CartProductIds, model.SearchTerm, pageNo, pageSize);
 
+				model.UserId = User.Identity.GetUserId();
+
+				model.WishedProductsIds = WishlistService.Instance.GetWishlistProducts(model.UserId);
+
 				return PartialView("_ResponseOfCart", model);
 			}
 			else

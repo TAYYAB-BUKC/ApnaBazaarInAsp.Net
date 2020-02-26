@@ -56,7 +56,6 @@ namespace ApnaBazaar.Web.Controllers
 
 			model.Orders = OrderService.Instance.SearchOrder(model.SearchUserID, model.PageNo.Value, pageSize);
 
-
 			return View(model);
         }
 

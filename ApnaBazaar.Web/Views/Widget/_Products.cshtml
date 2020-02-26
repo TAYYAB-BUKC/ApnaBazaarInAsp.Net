@@ -3,6 +3,7 @@
 
 @{
 	var defaultImageURL = @"/Content/images/Default/DefaultImage.png";
+	var wishproductIds = Model.WishedProductsIds;
 }
 
 @if (Model != null && Model.LatestProducts != null)
@@ -27,34 +28,74 @@
 			<ul class="product style2 isotope-product clearfix">
 				@foreach (var product in Model.LatestProducts)
 				{
-					var name = product.Category.Name;
-					<li data-id="Name" class="product-item @name">
-						<div class="product-thumb clearfix">
-							<a href="@Url.Action("Details","Product", new { Id = product.ID })" class="product-thumb">
-								@{var image = product.Imagepath != null ? product.Imagepath : defaultImageURL;
+						var name = product.Category.Name;
+					
+					if (wishproductIds != null && wishproductIds.Contains(product.ID))
+					{
+						<li data-id="Name" class="product-item @name">
+							<div class="product-thumb clearfix">
+								<a href="@Url.Action("Details","Product", new { Id = product.ID })" class="product-thumb">
+									@{var image = product.Imagepath != null ? product.Imagepath : defaultImageURL;
+									}
+									<img src="@image" alt="image">
+								</a>
+								@if (Model.isLatestProducts)
+								{
+									<span class="new">New</span>
 								}
-								<img src="@image" alt="image">
-							</a>
-							@if (Model.isLatestProducts)
-							{
-								<span class="new">New</span>
-							}
 
-						</div>
-
-						<div class="product-info text-center clearfix">
-							<span class="product-title">@product.Name</span>
-							<div class="price">
-								<ins>
-									<span class="amount">$ @product.Price</span>
-								</ins>
 							</div>
-						</div>
-						<div class="add-to-cart text-center">
-							<a href="#">ADD TO CART</a>
-						</div>
-						<a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-					</li>
+
+							<div class="product-info text-center clearfix">
+								<span class="product-title">@product.Name</span>
+								<div class="price">
+									<ins>
+										<span class="amount">$ @product.Price</span>
+									</ins>
+								</div>
+							</div>
+							<div class="add-to-cart text-center">
+								<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
+							</div>
+							<a class="like">
+								<img src="/Content/images/Default/heart fill.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="true" />
+							</a>
+
+						</li>
+					}
+					else
+					{
+			<li data-id="Name" class="product-item @name">
+				<div class="product-thumb clearfix">
+					<a href="@Url.Action("Details","Product", new { Id = product.ID })" class="product-thumb">
+						@{var image = product.Imagepath != null ? product.Imagepath : defaultImageURL;
+						}
+						<img src="@image" alt="image">
+					</a>
+					@if (Model.isLatestProducts)
+					{
+						<span class="new">New</span>
+					}
+
+				</div>
+
+				<div class="product-info text-center clearfix">
+					<span class="product-title">@product.Name</span>
+					<div class="price">
+						<ins>
+							<span class="amount">$ @product.Price</span>
+						</ins>
+					</div>
+				</div>
+				<div class="add-to-cart text-center">
+					<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
+				</div>
+				<a class="like">
+					<img src="/Content/images/Default/unfill heart.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="false" />
+				</a>
+
+			</li>
+					}
 				}
 			</ul>
 		</div>

@@ -189,6 +189,8 @@ namespace ApnaBazaar.Web.Controllers
 			model.ReviewBy = names;
 			model.ReviewByImage = ImagePaths;
 
+			model.isWished = model.product.Wishlist.Count > 0 ? true : false;
+
 			return View(model);
 		}
 	}

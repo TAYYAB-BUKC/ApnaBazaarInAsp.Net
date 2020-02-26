@@ -11,5 +11,7 @@ namespace ApnaBazaar.Web.ViewModels
 		public List<Product> LatestProducts { get; set; }
 		public bool isLatestProducts { get; set; }
 		public int? categoryID { get; set; }
+		public string UserId { get; set; }
+		public List<int> WishedProductsIds { get; set; }
 	}
 }

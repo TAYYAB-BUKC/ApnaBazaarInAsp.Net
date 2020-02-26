@@ -248,18 +248,20 @@
     }; 
 
     var quantityNumber = function(){
-        $('.quantity-button').on('click', function(){
-            var numberValue= $(this).parent().find('.quantity-number').val();
+		$('.quantity-button').on('click', function () {
+			var numberValue= $(this).parent().find('.quantity-number').val();
 
             if($(this).text()=="+") {
                 var newVal=parseFloat(numberValue) + 1;
-            }else{
-                if(numberValue > 0){
-                    var newVal = parseFloat(numberValue) -1;
-                }else{
-                    newVal = 0;
+			} else if ($(this).text() == "-") {
+				if (numberValue == 1){
+					newVal = 1;
+				} else if (numberValue > 1) {
+					var newVal = parseFloat(numberValue) - 1;
                 }
-            }
+			}
+
+			console.log(newVal);
 
             $(this).parent().find('.quantity-number').val(newVal);
         });
@@ -648,3 +650,8 @@ function updateCartProducts() {
 
 	$("#NoOfCartProducts").html(cartProducts.length);
 };
+
+
+
+
+

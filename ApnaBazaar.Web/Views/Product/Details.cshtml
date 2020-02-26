@@ -74,13 +74,13 @@
 							<div class="content-detail">
 								<h2 class="product-title">@Model.product.Name</h2>
 								@*<div class="flat-star style-1">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-										<i class="fa fa-star-half-o"></i>
-										<span>(1)</span>
-									</div>*@
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star-half-o"></i>
+			<i class="fa fa-star-half-o"></i>
+			<span>(1)</span>
+		</div>*@
 								<p>
 									@Model.product.Description
 								</p>
@@ -88,51 +88,67 @@
 									<ins><span class="amount">$ @Model.product.Price </span></ins>
 								</div>
 								@*<div class="size">
-										<span>Size:</span>
-										<ul>
-											<li><a href="#">L</a></li>
-											<li><a href="#">M</a></li>
-											<li><a href="#">S</a></li>
-											<li><a href="#">XL</a></li>
-											<li><a href="#">XXL</a></li>
-											<li><a href="#">Over Size</a></li>
-										</ul>
-									</div>
-									<div class="product-color">
-										<span>Colors:</span>
-										<ul class="flat-color-list">
-											<li><a href="#" class="yellow"></a></li>
-											<li><a href="#" class="pink"> </a></li>
-											<li><a href="#" class="red"></a></li>
-											<li><a href="#" class="black"></a></li>
-											<li><a href="#" class="blue"></a></li>
-											<li><a href="#" class="khaki"></a></li>
-										</ul>
-									</div>
-									<ul class="product-infor style-1">
-										<li><span>100% cotton</span></li>
-										<li><span>6 months warranty</span></li>
-										<li><span>High Quality</span></li>
-									</ul>*@
+			<span>Size:</span>
+			<ul>
+				<li><a href="#">L</a></li>
+				<li><a href="#">M</a></li>
+				<li><a href="#">S</a></li>
+				<li><a href="#">XL</a></li>
+				<li><a href="#">XXL</a></li>
+				<li><a href="#">Over Size</a></li>
+			</ul>
+		</div>
+		<div class="product-color">
+			<span>Colors:</span>
+			<ul class="flat-color-list">
+				<li><a href="#" class="yellow"></a></li>
+				<li><a href="#" class="pink"> </a></li>
+				<li><a href="#" class="red"></a></li>
+				<li><a href="#" class="black"></a></li>
+				<li><a href="#" class="blue"></a></li>
+				<li><a href="#" class="khaki"></a></li>
+			</ul>
+		</div>
+		<ul class="product-infor style-1">
+			<li><span>100% cotton</span></li>
+			<li><span>6 months warranty</span></li>
+			<li><span>High Quality</span></li>
+		</ul>*@
 								<div class="product-quantity">
 									<div class="quantity">
-										<input type="text" value="1" name="quantity-number" class="quantity-number">
+										<input type="text" value="1" name="quantity-number" class="quantity-number" id="quantity" disabled>
 										<span class="inc quantity-button">+</span>
 										<span class="dec quantity-button">-</span>
 									</div>
-									<div class="add-to-cart">
-										<a href="#">ADD TO CART</a>
+
+									<div class="add-to-cart text-center">
+										<a class="productAddToCart" data-id="@Model.product.ID">ADD TO CART</a>
 									</div>
-									<div class="box-like">
-										<a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-									</div>
+
+
 								</div>
+
+								<br />
+								@if (Model.isWished)
+								{
+
+									<a class="like">
+										<img src="/Content/images/Default/heart fill.png" height="30" width="30" class="addToWishlist" data-id="@Model.product.ID" data-wish="true" />
+									</a>
+
+								}
+								else
+								{
+									<a class="like">
+										<img src="/Content/images/Default/unfill heart.png" height="30" width="30" class="addToWishlist" data-id="@Model.product.ID" data-wish="false" />
+									</a>
+								}
 								<div class="product-categories">
 									<span>Categories: </span><a href="#">@Model.product.Category.Name</a>
 								</div>
 								@*<div class="product-tags">
-										<span>Tags: </span><a href="#">Dress,</a> <a href="#">Fashion,</a> <a href="#">Furniture,</a> <a href="#">Lookbok</a>
-									</div>*@
+			<span>Tags: </span><a href="#">Dress,</a> <a href="#">Fashion,</a> <a href="#">Furniture,</a> <a href="#">Lookbok</a>
+		</div>*@
 								<ul class="flat-socials">
 									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -304,24 +320,32 @@
 
 
 
+	var products;
+	$(".productAddToCart").click(function myfunction() {
+
+		var existingCartProducts = $.cookie('CartProducts');
+		var quantity = $("#quantity").val();
+
+		if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+			products = existingCartProducts.split('-');
+		}
+		else {
+			products = [];
+		}
+
+		var productID = $(this).attr("data-id");
+		for (var i = 0; i < quantity; i++) {
+			products.push(productID);
+		}
+		
+		$.cookie('CartProducts', products.join('-'), { path: '/' });
+		updateCartProducts();
+		swal("Done", quantity, "success");
 
 
-
-//	$(function () {
-
-//  $("#rateYo").rateYo({
-
-//    rating    : 1.6,
-//    spacing   : "5px",
-//    multiColor: {
-
-//      "startColor": "#FF0000", //RED
-//      "endColor"  : "#00FF00"  //GREEN
-//    }
-//  });
-
-//});
-
-
+	});
 
 </script>
+
+
+

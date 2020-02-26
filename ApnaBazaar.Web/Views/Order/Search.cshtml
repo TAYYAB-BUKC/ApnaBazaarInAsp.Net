@@ -5,105 +5,119 @@
 }
 
 
-<section class="flat-row flat-iconbox">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="title-section">
-				<h1 class="title">Orders</h1>
-			</div><!-- /.page-title-heading -->
-		</div><!-- /.col-md-12 -->
-	</div>
-	<div id="tableContainer">
-		<form method="post">
-			<div class="row">
-				<div class="col-md-8">
-					<div class="form-group">
-						<label>Search</label>
-						<input class="form-control" name="searchUserId" value="@Model.SearchUserID" />
+	<section class="flat-row flat-iconbox">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title-section">
+					<h1 class="title">Orders</h1>
+				</div><!-- /.page-title-heading -->
+			</div><!-- /.col-md-12 -->
+		</div>
+		<div id="tableContainer">
+			<form method="post">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Search</label>
+							<input class="form-control" name="searchUserId" value="@Model.SearchUserID" />
+						</div>
 					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label>Action</label>
-						<div class="row">
-							<div class="col-md-5 pr-0">
-								<button class="btn btn-primary form-control" type="submit">Search</button>
-							</div>
-							<div class="col-md-5 pr-0">
-								<a class="btn btn-primary form-control"  id="resetBtn" href="@Url.Action("Search","Order")">Reset</a>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Action</label>
+							<div class="row">
+								<div class="col-md-5 pr-0">
+									<button class="btn btn-primary form-control" type="submit">Search</button>
+								</div>
+								<div class="col-md-5 pr-0">
+									<a class="btn btn-primary form-control" id="resetBtn" href="@Url.Action("Search","Order")">Reset</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</form>
+			</form>
 
 
 
-		<table id="OrdersTable" class="table table-striped">
-			<thead>
-				<tr>
-					<th class="font-weight-bold">UserID</th>
-					<th class="font-weight-bold">Total Price</th>
-					<th class="font-weight-bold">Status</th>
-					<th class="font-weight-bold">Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				@if (Model.Orders != null && Model.Orders.Count > 0)
-				{
-					foreach (var order in Model.Orders)
+			<table id="OrdersTable" class="table table-striped">
+				<thead>
+					<tr>
+						<th class="font-weight-bold">UserID</th>
+						<th class="font-weight-bold">Total Price</th>
+						<th class="font-weight-bold">Status</th>
+						<th class="font-weight-bold">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.Orders != null && Model.Orders.Count > 0)
+					{
+						foreach (var order in Model.Orders)
+						{
+							<tr>
+								<td>@order.UserId</td>
+								<td>
+									@order.TotalAmount
+								</td>
+								<td>@order.Status</td>
+								<td>
+									<a class="btn btn-primary" href="@Url.Action("Details","Order", new { orderID = order.Id })">Details</a>
+								</td>
+
+							</tr>
+						}
+					}
+					else
 					{
 						<tr>
-							<td>@order.UserId</td>
-							<td>
-								@order.TotalAmount
-							</td>
-							<td>@order.Status</td>
-							<td>
-								<a class="btn btn-primary" href="@Url.Action("Details","Order", new { orderID = order.Id })">Details</a>
-							</td>
-
+							<td class="text-danger" colspan="4">No Orders Found.</td>
 						</tr>
 					}
-				}
-				else
-				{
-					<tr>
-						<td class="text-danger" colspan="4">No Orders Found.</td>
-					</tr>
-				}
-			</tbody>
+				</tbody>
 
-		</table>
-		<div class="col-md-4">
+			</table>
 
-			@if (Model.Pager != null && Model.Pager.TotalPages > 1)
-			{
-				if (Model.Pager.CurrentPage > 1)
-				{
-					<a class="PageRecords" data-pageNo="1" href="@Url.Action("Search","Order",new { searchUserId = Model.SearchUserID, status = Model.Status, pageNo  = 1 })">First</a>
-					<a class="PageRecords" data-pageNo="@Model.Pager.CurrentPage - 1" href="@Url.Action("Search","Order",new { searchUserId = Model.SearchUserID, status = Model.Status, pageNo  = @Model.Pager.CurrentPage - 1 })">Previous</a>
-				}
 
-				for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
-				{
-					string activeClass = Model.Pager.CurrentPage == page ? "bg-info" : string.Empty;
+			<div class="row">
+				<div class="col-md-24 text-center" style="margin:auto">
 
-					<a class="@activeClass PageRecords" data-pageNo="@page" href="@Url.Action("Search","Order",new { searchUserId = Model.SearchUserID, status = Model.Status, pageNo  = page })">@page</a>
-				}
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
 
-				if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
-				{
-					<a class="PageRecords" data-pageNo="@Model.Pager.CurrentPage + 1" href="@Url.Action("Search","Order",new { searchUserId = Model.SearchUserID, status = Model.Status, pageNo  = @Model.Pager.CurrentPage + 1 })">Next</a>
-					<a class="PageRecords" data-pageNo="@Model.Pager.EndPage" href="@Url.Action("Search","Order",new { searchUserId = Model.SearchUserID, status = Model.Status, pageNo  = @Model.Pager.EndPage })">Last</a>
-				}
-			}
+							@if (Model.Pager.CurrentPage > 1)
+							{
+								<li class="page-item">
+									<a class="page-link PageRecords" data-href="@Url.Action("Search","Order",new { searchUserId = Model.SearchUserID, status = Model.Status, pageNo  = @Model.Pager.CurrentPage - 1 })" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</li>
+							}
 
+							@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+							{
+								string activeStyle = Model.Pager.CurrentPage == page ? "background-color: #f63440; color: #fff" : string.Empty;
+								<li class="page-item"><a style="@activeStyle" class="PageRecords page-link" data-href="@Url.Action("Search","Order",new { searchUserId = Model.SearchUserID, status = Model.Status, pageNo  = page })">@page</a></li>
+
+							}
+
+							@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+							{
+								<li class="page-item">
+									<a class="page-link PageRecords" data-href="@Url.Action("Search","Order",new { searchUserId = Model.SearchUserID, status = Model.Status, pageNo  = @Model.Pager.CurrentPage + 1 })" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</li>
+							}
+
+
+						</ul>
+					</nav>
+				</div>
+			</div>
 		</div>
-	</div>
-	
-</section>
+
+		
+	</section>
 
 @*<script>
 		$("#searchBtn").click(function myfunction(){

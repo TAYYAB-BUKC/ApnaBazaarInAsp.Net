@@ -34,67 +34,148 @@
 
 				//var UserWishedProducts = Model.WishedProducts.ToList();
 
-					if(wishproductIds.Contains(product.ID))
+					if(wishproductIds != null && wishproductIds.Contains(product.ID))
 					{
-					<li class="product-item">
-						<div class="product-thumb clearfix">
-							<a href="#">
-								<img src="@image" alt="image">
-							</a>
-							<span class="new">New</span>
-						</div>
-						<div class="product-info clearfix">
-							<span class="product-title">
-								@product.Name
-							</span>
-							<div class="price">
-								<ins>
-									<span class="amount">
-										$ @product.Price
-									</span>
-								</ins>
-							</div>
-						</div>
-						<div class="add-to-cart text-center">
-							<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
-						</div>
-						<a class="like">
-							<img src="/Content/images/Default/heart fill.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="true" />
-						</a>
-						@*<a class="like"><i class="removeFromWishlist" data-id="@product.ID">&#10084;&#65039;</i></a*@
-					</li>
+		<li class="product-item">
+			<div class="product-thumb clearfix">
+				<a href="@Url.Action("Details","Product", new { Id = product.ID })">
+					<img src="@image" alt="image">
+				</a>
+				<span class="new">New</span>
+			</div>
+			<div class="product-info clearfix">
+				<span class="product-title">
+					@product.Name
+				</span>
+				<div class="price">
+					<ins>
+						<span class="amount">
+							$ @product.Price
+						</span>
+					</ins>
+				</div>
+			</div>
+			<div class="add-to-cart text-center">
+				<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
+			</div>
+
+			@*for displaying Remove From Cart if Prodct is in the Cart
+		<script>
+		$(function () {
+			debugger;
+			console.log(this);
+			var productId =  @product.ID; //$(".productAddToCart").attr("data-id");
+
+			var products;
+
+			var existingCartProducts = $.cookie('CartProducts');
+
+			if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+				products = existingCartProducts.split('-');
+			}
+			else {
+				products = [];
+			}
+			var element = $(".productAddToCart");
+			for (var i = 0; i < products.length; i++) {
+
+				if (productId == products[i]) {
+					console.log(element.attr("data-id"));
+					var isCart = true;
+					if (productId == element.attr("data-id")) {
+						 $(element).text("Remove From Cart");
+					$(element).attr("data-cart", "true");
+					console.log("Id found and work done");
+					}
+				}
+			}
+			if (isCart == undefined) {
+				if (productId == element.attr("data-id")) {
+					$(element).attr("data-cart", "false");
+					}
+			}
+
+
+
+		});
+		</script>*@
+
+			<a class="like">
+				<img src="/Content/images/Default/heart fill.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="true" />
+			</a>
+			@*<a class="like"><i class="removeFromWishlist" data-id="@product.ID">&#10084;&#65039;</i></a*@
+		</li>
 					
 
 				}
 				else
 				{
-					<li class="product-item">
-						<div class="product-thumb clearfix">
-							<a href="#">
-								<img src="@image" alt="image">
-							</a>
-							<span class="new">New</span>
-						</div>
-						<div class="product-info clearfix">
-							<span class="product-title">
-								@product.Name
-							</span>
-							<div class="price">
-								<ins>
-									<span class="amount">
-										$ @product.Price
-									</span>
-								</ins>
-							</div>
-						</div>
-						<div class="add-to-cart text-center">
-							<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
-						</div>
-						<a class="like">
-							<img src="/Content/images/Default/unfill heart.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="false" />
-						</a>
-						@*<a class="like"><i class="removeFromWishlist" data-id="@product.ID">&#10084;&#65039;</i></a*@
-					</li>
+	<li class="product-item">
+		<div class="product-thumb clearfix">
+			<a href="@Url.Action("Details","Product", new { Id = product.ID })">
+				<img src="@image" alt="image">
+			</a>
+			<span class="new">New</span>
+		</div>
+		<div class="product-info clearfix">
+			<span class="product-title">
+				@product.Name
+			</span>
+			<div class="price">
+				<ins>
+					<span class="amount">
+						$ @product.Price
+					</span>
+				</ins>
+			</div>
+		</div>
+		<div class="add-to-cart text-center">
+			<a class="productAddToCart" data-id="@product.ID">ADD TO CART</a>
+		</div>
+		@*for displaying Remove From Cart if Prodct is in the Cart
+		<script>
+			$(function () {
+				debugger;
+				console.log(this);
+				var productId =  @product.ID; //$(".productAddToCart").attr("data-id");
+
+				var products;
+
+				var existingCartProducts = $.cookie('CartProducts');
+
+				if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+					products = existingCartProducts.split('-');
+				}
+				else {
+					products = [];
+				}
+				var element = $(".productAddToCart");
+				for (var i = 0; i < products.length; i++) {
+
+					if (productId == products[i]) {
+						var isCart = true;
+						if (productId == element.attr("data-id")) {
+							 $(element).text("Remove From Cart");
+						$(element).attr("data-cart", "true");
+						console.log("Id found and work done");
+						}
+					}
+				}
+				if (isCart == undefined) {
+					if (productId == element.attr("data-id")) {
+						$(element).attr("data-cart", "false");
+						}
+				}
+
+
+
+			});
+		</script>*@
+		<a class="like">
+			<img src="/Content/images/Default/unfill heart.png" height="30" width="30" class="addToWishlist" data-id="@product.ID" data-wish="false" />
+		</a>
+		@*<a class="like"><i class="removeFromWishlist" data-id="@product.ID">&#10084;&#65039;</i></a*@
+	</li>
 				}
 			
 
@@ -217,107 +298,112 @@
 	</ul><!-- /.flat-pagination -->
 </div>*@
 
-<nav aria-label="Page navigation example">
-	<ul class="pagination">
+<div class="row">
+	<div class="col-md-24 text-center" style="margin:auto">
 
-		@if (Model.Pager.CurrentPage > 1)
-		{
-			<li class="page-item">
-				<a class="page-link Pagedata-link" data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = Model.Pager.CurrentPage - 1, sortBy = Model.SortBy, categoryID = Model.CategoryID })" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-		}
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
 
-		@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
-		{
-			string activeStyle = Model.Pager.CurrentPage == page ? "background-color: #f63440; color: #fff" : string.Empty;
+				@if (Model.Pager.CurrentPage > 1)
+				{
+					<li class="page-item">
+						<a class="page-link Pagedata-link" data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = Model.Pager.CurrentPage - 1, sortBy = Model.SortBy, categoryID = Model.CategoryID })" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+				}
 
-			<li class="page-item"><a style="@activeStyle" class="Pagedata-link page-link" data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = page, sortBy = Model.SortBy, categoryID = Model.CategoryID })">@page</a></li>
+				@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+				{
+					string activeStyle = Model.Pager.CurrentPage == page ? "background-color: #f63440; color: #fff" : string.Empty;
 
-		}
+					<li class="page-item"><a style="@activeStyle" class="Pagedata-link page-link" data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = page, sortBy = Model.SortBy, categoryID = Model.CategoryID })">@page</a></li>
 
-		@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
-		{
-			<li class="page-item">
-				<a class="page-link Pagedata-link" data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = Model.Pager.CurrentPage + 1, sortBy = Model.SortBy, categoryID = Model.CategoryID })" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		}
-	</ul>
-</nav>
+				}
 
+				@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+				{
+					<li class="page-item">
+						<a class="page-link Pagedata-link" data-href="@Url.Action("FilterProducts", "Shop", new { pageNo = Model.Pager.CurrentPage + 1, sortBy = Model.SortBy, categoryID = Model.CategoryID })" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				}
+			</ul>
+		</nav>
 
-
-<input type="hidden" id="SortBy" value="@Model.SortBy" />
-
-<input type="hidden" id="CategoryID" value="@Model.CategoryID" />
-
-<input type="hidden" id="SearchTerm" value="@Model.SearchTerm" />
+	</div>
+</div>
 
 
+		<input type="hidden" id="SortBy" value="@Model.SortBy" />
 
-<script>
-	//$(".Pagedata-link").click(function myfunction() {
-	//	var url = $(this).attr("data-href");
-	//	if (url != "" || url != undefined) {
-	//		GetData(url);
-	//	}
-	//	else {
-	//		swal({
-	//			title: "Warning",
-	//			text: "Please fill the valid data in fields",
-	//			icon: "warning",
-	//			buttons: true,
-	//			dangerMode: true,
-	//		})
-	//	}
-	//});
+		<input type="hidden" id="CategoryID" value="@Model.CategoryID" />
 
-
-	$(".Pagedata-link").click(function myfunction() {
-		var url = $(this).attr("data-href");
-		if (url != "" || url != undefined) {
-			GetData(url);
-		}
-		else {
-			swal({
-				title: "Warning",
-				text: "Please click the page number correctly",
-				icon: "warning",
-				buttons: true,
-				dangerMode: true,
-			})
-		}
-	});
-
-
-	var products;
-	$(".productAddToCart").click(function myfunction() {
-
-		var existingCartProducts = $.cookie('CartProducts');
-
-		if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
-			products = existingCartProducts.split('-');
-		}
-		else {
-			products = [];
-		}
-
-		var productID = $(this).attr("data-id");
-		products.push(productID);
-
-		$.cookie('CartProducts', products.join('-'), { path: '/' });
-		updateCartProducts();
-		swal("Done", "Product Added to Cart.", "success");
-
-
-	});
+		<input type="hidden" id="SearchTerm" value="@Model.SearchTerm" />
 
 
 
+		<script>
+			//$(".Pagedata-link").click(function myfunction() {
+			//	var url = $(this).attr("data-href");
+			//	if (url != "" || url != undefined) {
+			//		GetData(url);
+			//	}
+			//	else {
+			//		swal({
+			//			title: "Warning",
+			//			text: "Please fill the valid data in fields",
+			//			icon: "warning",
+			//			buttons: true,
+			//			dangerMode: true,
+			//		})
+			//	}
+			//});
+
+
+			$(".Pagedata-link").click(function myfunction() {
+				var url = $(this).attr("data-href");
+				if (url != "" || url != undefined) {
+					GetData(url);
+				}
+				else {
+					swal({
+						title: "Warning",
+						text: "Please click the page number correctly",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					})
+				}
+			});
+
+
+			var products;
+			$(".productAddToCart").click(function myfunction() {
+
+				var existingCartProducts = $.cookie('CartProducts');
+
+				if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+					products = existingCartProducts.split('-');
+				}
+				else {
+					products = [];
+				}
+
+				var productID = $(this).attr("data-id");
+				products.push(productID);
+
+				$.cookie('CartProducts', products.join('-'), { path: '/' });
+				updateCartProducts();
+				swal("Done", "Product Added to Cart.", "success");
+
+
+			});
 
 
 
-</script>
+
+
+
+		</script>

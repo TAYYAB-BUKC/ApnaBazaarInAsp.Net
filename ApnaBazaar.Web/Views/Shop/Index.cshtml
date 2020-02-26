@@ -43,10 +43,10 @@
 							Sort By
 						</h5>
 						<ul>
-							<li><a data-href="@Url.Action("FilterProducts", "Shop", new { sortBy = (int)SortByEnum.Default , CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.Popularity, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.LowToHighPrices, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.LowToHighPrices ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
-							<li><a data-href="@Url.Action("FilterProducts","Shop",new { sortBy = (int)SortByEnum.HighToLowPrices, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.HighToLowPrices ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
+							<li><a data-href="@Url.Action("FilterProducts", "Shop", new { SearchTerm = Model.SearchTerm, sortBy = (int)SortByEnum.Default , CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { SearchTerm = Model.SearchTerm, sortBy = (int)SortByEnum.Popularity, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { SearchTerm = Model.SearchTerm,sortBy = (int)SortByEnum.LowToHighPrices, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.LowToHighPrices ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
+							<li><a data-href="@Url.Action("FilterProducts","Shop",new { SearchTerm = Model.SearchTerm,sortBy = (int)SortByEnum.HighToLowPrices, CategoryID = Model.CategoryID})" class="data-link @(Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.HighToLowPrices ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
 						</ul>
 					</div><!-- /.widget-sort-by -->
 					<!--<div class="widget widget-color">
@@ -122,7 +122,7 @@
 						<div class="tag-list">
 							@foreach (var category in Model.FeaturedCategories)
 							{
-								<a data-href="@Url.Action("FilterProducts","Shop",new { categoryID = category.ID, sortBy= Model.SortBy})" class="data-link @(Model.CategoryID.HasValue && Model.CategoryID.Value == category.ID ? "active" : string.Empty)">@category.Name</a>
+								<a data-href="@Url.Action("FilterProducts","Shop",new { SearchTerm = Model.SearchTerm, categoryID = category.ID, sortBy= Model.SortBy, })" class="data-link @(Model.CategoryID.HasValue && Model.CategoryID.Value == category.ID ? "active" : string.Empty)">@category.Name</a>
 							}
 
 						</div>
@@ -136,7 +136,7 @@
 			<div class="col-md-9">
 				<div id="filterProducts">
 					@{
-						var filterproducts = new FilterProductViewModel { Products = Model.Products, Pager = Model.Pager, SortBy = Model.SortBy, CategoryID = Model.CategoryID };
+						var filterproducts = new FilterProductViewModel { SearchTerm = Model.SearchTerm, Products = Model.Products, Pager = Model.Pager, SortBy = Model.SortBy, CategoryID = Model.CategoryID };
 
 						Html.RenderAction("FilterProducts", filterproducts);
 					}
@@ -297,42 +297,6 @@
 	$(".addToWishlist").click(function () {
 
 		var currentElement = this;
-		//console.log("addToWishlist() Called");
-		//console.log($(this).text());
-		//$(this).text("&#10084;&#65039;");
-		//console.log($(this).text());
-
-
-		//alert($(this).attr("data-id"));
-
-
-		//alert($(this).attr("data-wish"));
-
-		//if ($(this).attr("data-wish") == "True") {
-		//	alert("Remove From wishlist");
-		//	$(this).attr("src", "/Content/images/Default/unfill heart.png");
-		//	$(this).attr("data-wish", "False");
-
-
-		//Works perfectly fine without Ajax
-
-		//if ($(this).attr("data-wish") == "true") {
-			
-		//				swal("Done", "Removed From your Wishlist.", "success");
-		//				$(this).attr("src", "/Content/images/Default/unfill heart.png");
-		//	$(this).attr("data-wish", "false");
-		//	alert(this);
-
-				
-		//}
-		//else {
-		//				swal("Done", "Add To Wishlist.", "success");
-		//				$(this).attr("src", "/Content/images/Default/heart fill.png");
-		//				$(this).attr("data-wish", "true");
-		//				console.log("updated");
-		//		alert(this);
-		//}
-
 
 		if ($(this).attr("data-wish") == "true") {
 			
@@ -433,6 +397,9 @@
 
 
 	});
+
+	
+	
 
 
 </script>

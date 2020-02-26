@@ -46,7 +46,7 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				return context.Products.Where(product => product.ID == Id).Include(p => p.Category).Include(p=>p.Reviews).FirstOrDefault();
+				return context.Products.Where(product => product.ID == Id).Include(p => p.Category).Include(p=>p.Reviews).Include(p => p.Wishlist).FirstOrDefault();
 			}
 		}
 
@@ -261,7 +261,7 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				var products = context.Products.ToList();
+				var products = context.Products.Include(p => p.Wishlist).ToList();
 
 
 				if (Ids != null && Ids.Count > 0)
@@ -291,7 +291,7 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				var products = context.Products.ToList();
+				var products = context.Products.Include(p=>p.Wishlist).ToList();
 
 
 				if (Ids != null && Ids.Count > 0)
@@ -325,7 +325,7 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				var products = context.Products.OrderBy(product => product.Name).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
+				var products = context.Products.OrderBy(product => product.Name).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).Include(x => x.Wishlist).ToList();
 				foreach (var product in products)
 				{
 					var newname = product.Category.Name.Replace(" ", string.Empty);
@@ -340,7 +340,7 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				var products = context.Products.OrderByDescending(product => product.ID).Take(numberOfProducts).Include(x => x.Category).ToList();
+				var products = context.Products.OrderByDescending(product => product.ID).Take(numberOfProducts).Include(x => x.Category).Include(x => x.Wishlist).ToList();
 
 				foreach (var product in products)
 				{
@@ -408,12 +408,6 @@ namespace ApnaBazaar.Services
 				return context.SaveChanges();
 			}
 		}
-
-
-
-
-
-
 
 	}
 }

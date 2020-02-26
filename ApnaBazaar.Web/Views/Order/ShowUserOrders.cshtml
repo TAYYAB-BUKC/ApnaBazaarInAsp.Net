@@ -53,17 +53,17 @@
 				{
 					foreach (var order in Model.Orders)
 					{
-				<tr>
-					<td>@order.UserId</td>
-					<td>
-						@order.TotalAmount
-					</td>
-					<td>@order.Status</td>
-					<td>
-						<a class="btn btn-primary" href="@Url.Action("UserDetails","Order", new { orderID = order.Id })">Details</a>
-					</td>
+						<tr>
+							<td>@order.UserId</td>
+							<td>
+								@order.TotalAmount
+							</td>
+							<td>@order.Status</td>
+							<td>
+								<a class="btn btn-primary" href="@Url.Action("UserDetails","Order", new { orderID = order.Id })">Details</a>
+							</td>
 
-				</tr>
+						</tr>
 					}
 				}
 				else
@@ -75,30 +75,43 @@
 			</tbody>
 
 		</table>
-		<div class="col-md-4">
+		
 
-			@if (Model.Pager != null && Model.Pager.TotalPages > 1)
-			{
-				if (Model.Pager.CurrentPage > 1)
-				{
-					<a class="PageRecords" data-pageNo="1" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = 1 })">First</a>
-					<a class="PageRecords" data-pageNo="@Model.Pager.CurrentPage - 1" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = @Model.Pager.CurrentPage - 1 })">Previous</a>
-				}
+		<div class="row">
+			<div class="col-md-24 text-center" style="margin:auto">
 
-				for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
-				{
-					string activeClass = Model.Pager.CurrentPage == page ? "bg-info" : string.Empty;
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
 
-					<a class="@activeClass PageRecords" data-pageNo="@page" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = page })">@page</a>
-				}
+						@if (Model.Pager.CurrentPage > 1)
+						{
+							<li class="page-item">
+								<a class="page-link PageRecords" data-href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = @Model.Pager.CurrentPage - 1 })" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+						}
 
-				if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
-				{
-					<a class="PageRecords" data-pageNo="@Model.Pager.CurrentPage + 1" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = @Model.Pager.CurrentPage + 1 })">Next</a>
-					<a class="PageRecords" data-pageNo="@Model.Pager.EndPage" href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = @Model.Pager.EndPage })">Last</a>
-				}
-			}
+						@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+						{
+							string activeStyle = Model.Pager.CurrentPage == page ? "background-color: #f63440; color: #fff" : string.Empty;
+							<li class="page-item"><a style="@activeStyle" class="PageRecords page-link" data-href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = page })">@page</a></li>
 
+						}
+
+						@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+						{
+							<li class="page-item">
+								<a class="page-link PageRecords" data-href="@Url.Action("ShowUserOrders","Order",new { status = Model.Status, pageNo  = @Model.Pager.CurrentPage + 1 })" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						}
+
+
+					</ul>
+				</nav>
+			</div>
 		</div>
 	</div>
 
