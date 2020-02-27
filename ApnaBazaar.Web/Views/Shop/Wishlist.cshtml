@@ -33,7 +33,7 @@
 					</p>*@
 
 					<div>
-						<form role="search" method="get" class="search-form" action="#">
+						<form role="search" method="get" class="search-form">
 							<label>
 								<input type="search" class="search-field" placeholder="Searching …" value="@Model.SearchTerm" name="searchTerm">
 							</label>
@@ -90,7 +90,7 @@
 	});
 
 
-	$(".addToWishlist").click(function () {
+	@*$(".addToWishlist").click(function () {
 
 		var currentElement = this;
 
@@ -107,6 +107,17 @@
 						swal("Done", "Removed From your Wishlist.", "success");
 						$(currentElement).attr("src", "/Content/images/Default/unfill heart.png");
 						$(currentElement).attr("data-wish", "false");
+						$.ajax({
+							url: '@Url.Action("ResponseOfWishlist","Shop")'
+			})
+				.done(function (response) {
+					//console.log(response);
+					$("#tableContainer").html(response);
+					focusAction("tableContainer");
+				})
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("Ajax Request Failed");
+				});
 					}
 					else {
 						swal("Error", "Unable to Add this product to your Wishlist.", "error");
@@ -130,6 +141,17 @@
 						swal("Done", "Add To Wishlist.", "success");
 						$(currentElement).attr("src", "/Content/images/Default/heart fill.png");
 						$(currentElement).attr("data-wish", "true");
+						$.ajax({
+							url: '@Url.Action("ResponseOfWishlist","Shop")'
+			})
+				.done(function (response) {
+					//console.log(response);
+					$("#tableContainer").html(response);
+					focusAction("tableContainer");
+				})
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("Ajax Request Failed");
+				});
 					}
 					else {
 						swal("Error", "Unable to Add this product to your Wishlist.", "error");
@@ -140,6 +162,21 @@
 				});
 
 		}
-	});
+	});*@
+
+	
+	function updateCartProducts() {
+		var cartProducts;
+		var existingCookieData = $.cookie('CartProducts');
+
+		if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+			cartProducts = existingCookieData.split('-');
+		}
+		else {
+			cartProducts = [];
+		}
+
+		$("#NoOfCartProducts").html(cartProducts.length);
+	};
 
 </script>

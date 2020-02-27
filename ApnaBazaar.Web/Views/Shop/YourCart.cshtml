@@ -56,6 +56,20 @@
 
 <script>
 
+	
+	function updateCartProducts() {
+		var cartProducts;
+		var existingCookieData = $.cookie('CartProducts');
+
+		if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+			cartProducts = existingCookieData.split('-');
+		}
+		else {
+			cartProducts = [];
+		}
+
+		$("#NoOfCartProducts").html(cartProducts.length);
+	};
 
 	$(".Pagedata-link").click(function myfunction() {
 		var url = $(this).attr("data-href");
@@ -120,7 +134,7 @@
 
 
 
-	$(".addToWishlist").click(function () {
+	@*$(".addToWishlist").click(function () {
 
 		var currentElement = this;
 
@@ -170,7 +184,7 @@
 				});
 
 		}
-	});
+	});*@
 
 
 

@@ -398,8 +398,11 @@
         });
 	});
 
-
-
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
 
 	$(".DeleteBtn").click(function myfunction() {
 
@@ -408,10 +411,12 @@
 
 	});
 
+	
+	$(".EditBtn").click(function myfunction() {
 
+		$("#Editkey").attr("value", $(this).attr("data-key"));
+		$("#EditValue").attr("value", $(this).attr("data-value"));
 
-
-
-
+	});
 
 </script>

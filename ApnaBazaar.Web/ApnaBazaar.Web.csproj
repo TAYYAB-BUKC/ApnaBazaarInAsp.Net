@@ -645,6 +645,10 @@
     <Content Include="Views\Order\UserDetails.cshtml" />
     <Content Include="Views\Shop\Wishlist.cshtml" />
     <Content Include="Views\Shop\_ResponseOfWishlist.cshtml" />
+    <Content Include="Views\Order\_OrderTable.cshtml" />
+    <Content Include="Views\Order\_ShowUserOrdersPartial.cshtml" />
+    <Content Include="Views\Shared\ShowAllUsers.cshtml" />
+    <Content Include="Views\Shared\_ShowAllUsersPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

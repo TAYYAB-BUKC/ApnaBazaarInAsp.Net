@@ -379,27 +379,27 @@
 			});
 
 
-			//var products;
-			//$(".productAddToCart").click(function myfunction() {
+			var products;
+			$(".productAddToCart").click(function myfunction() {
 
-			//	var existingCartProducts = $.cookie('CartProducts');
+				var existingCartProducts = $.cookie('CartProducts');
 
-			//	if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
-			//		products = existingCartProducts.split('-');
-			//	}
-			//	else {
-			//		products = [];
-			//	}
+				if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+					products = existingCartProducts.split('-');
+				}
+				else {
+					products = [];
+				}
 
-			//	var productID = $(this).attr("data-id");
-			//	products.push(productID);
+				var productID = $(this).attr("data-id");
+				products.push(productID);
 
-			//	$.cookie('CartProducts', products.join('-'), { path: '/' });
-			//	updateCartProducts();
-			//	swal("Done", "Product Added to Cart.", "success");
+				$.cookie('CartProducts', products.join('-'), { path: '/' });
+				updateCartProducts();
+				swal("Done", "Product Added to Cart.", "success");
 
 
-			//});
+			});
 
 
 

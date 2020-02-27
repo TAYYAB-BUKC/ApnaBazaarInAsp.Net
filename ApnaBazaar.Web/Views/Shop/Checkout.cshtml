@@ -284,15 +284,8 @@
 		</div>
 
 	</div>
-}
-else
-{
-	<div>
-		No Products Found in the Cart.
-	</div>
-}
 
-<script>
+	<script>
 
 
 	$("#placeOrder").click(function myfunction() {
@@ -336,8 +329,32 @@ else
 			 dangerMode: true,
 			})
 			});
-		});
-</script>
+	});
+
+	function updateCartProducts() {
+		var cartProducts;
+		var existingCookieData = $.cookie('CartProducts');
+
+		if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+			cartProducts = existingCookieData.split('-');
+		}
+		else {
+			cartProducts = [];
+		}
+
+		$("#NoOfCartProducts").html(cartProducts.length);
+	};
+
+	</script>
+}
+else
+{
+	<div>
+		No Products Found in the Cart.
+	</div>
+}
+
+
 
 
 

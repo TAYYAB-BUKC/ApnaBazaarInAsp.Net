@@ -64,11 +64,11 @@ namespace ApnaBazaar.Services
 			}
 		}
 
-		public int ShowUserOrderCount(string SearchTerm)
+		public int ShowUserOrderCount(string UserId, string SearchTerm)
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				var orders = context.Orders.ToList();
+				var orders = context.Orders.Where(o=>o.UserId == UserId).ToList();
 
 				if (!string.IsNullOrEmpty(SearchTerm))
 				{

@@ -151,5 +151,42 @@ namespace ApnaBazaar.Web.Controllers
 
 			return new MvcHtmlString(reviewBy.Name);
 		}
+
+		public ActionResult ShowAllUsers()
+		{
+			return View();
+		}
+
+		public ActionResult ShowAllUsersPartial(string SearchTerm, int? pageNo)
+		{
+			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
+
+			pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			UserViewModel model = new UserViewModel();
+
+			var totalRecords = 0;
+			using (var context = new ApplicationDbContext())
+			{
+				var Users = context.Users.ToList();
+
+				if (!string.IsNullOrEmpty(SearchTerm))
+				{
+					Users = Users.Where(u => u.Name.ToUpper().Contains(SearchTerm.ToUpper())).ToList();
+				}
+
+				totalRecords = Users.Count;
+				//return orders.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
+	             model.Users =  Users.Skip((pageNo.Value - 1) * pageSize).Take(pageSize).ToList();
+			}
+
+			model.SearchTerm = SearchTerm;
+
+			model.Pager = new Pager(totalRecords, pageNo, pageSize);
+
+			return PartialView("_ShowAllUsersPartial", model);
+		}
+
+
 	}
 }

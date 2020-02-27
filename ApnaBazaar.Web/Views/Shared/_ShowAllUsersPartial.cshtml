@@ -1,0 +1,143 @@
+﻿@model UserViewModel
+
+@{ 
+	var defaultImage = @"/Content/images/Default/DefaultImage.png";
+}
+
+<div>
+	<form method="post">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="form-group">
+					<label>Search</label>
+					<input class="form-control" id="searchText" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search any User here...." />
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>Action</label>
+					<div class="row">
+						<div class="col-md-4 pr-0">
+							<button class="btn btn-primary form-control" >Search</button>
+						</div>
+						<div class="col-md-4 pr-0">
+							<button class="btn btn-primary form-control" >Reset</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th class="font-weight-bold">Name</th>
+			<th class="font-weight-bold">Email</th>
+			<th class="font-weight-bold">Address</th>
+			<th class="font-weight-bold">Profile</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.Users != null && Model.Users.Count > 0)
+		{
+			foreach (var user in Model.Users)
+			{
+				var image = user.ProfileImage != null ? user.ProfileImage : defaultImage;
+				<tr>
+					<td>@user.Name</td>
+
+
+					<td>@user.Email</td>
+
+					@*<td><img src="@category.Imagepath" alt="Cateogory Image" /></td>*@
+
+					<td>@user.Address</td>
+
+					<td><img src="@image" alt="Profile Image" height="50" width="50" /></td>
+
+				</tr>
+			}
+		}
+		else
+		{
+			<tr><td colspan="3" class="text-danger">No Users found.</td></tr>
+		}
+	</tbody>
+
+</table>
+
+
+<div class="row">
+	<div class="col-md-24 text-center" style="margin:auto">
+
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+
+				@if (Model.Pager.CurrentPage > 1)
+				{
+					<li class="page-item">
+						<a class="page-link Pagedata-link" data-href="@Url.Action("ShowAllUsersPartial", "Shared", new { pageNo = Model.Pager.CurrentPage - 1, SearchTerm = Model.SearchTerm })" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+				}
+
+				@for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+				{
+					string activeStyle = Model.Pager.CurrentPage == page ? "background-color: #f63440; color: #fff" : string.Empty;
+
+					<li class="page-item"><a style="@activeStyle" class="Pagedata-link page-link" data-href="@Url.Action("ShowAllUsersPartial", "Shared", new { pageNo = page, SearchTerm = Model.SearchTerm })">@page</a></li>
+
+				}
+
+				@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+				{
+					<li class="page-item">
+						<a class="page-link Pagedata-link" data-href="@Url.Action("ShowAllUsersPartial", "Shared", new { pageNo = Model.Pager.CurrentPage + 1, SearchTerm = Model.SearchTerm })" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				}
+			</ul>
+		</nav>
+
+	</div>
+</div>
+
+
+<script>
+	$(".Pagedata-link").click(function myfunction() {
+				var url = $(this).attr("data-href");
+				if (url != "" || url != undefined) {
+					$.ajax({
+			//url: '/Category/Create'
+			url: url
+		})
+			.done(function (response) {
+				$("#tableContainer").html(response);
+				focusAction("tableContainer");
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Ajax Request Failed");
+        });
+				}
+				else {
+					swal({
+						title: "Warning",
+						text: "Please click the page number correctly",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					})
+				}
+	});
+
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
+</script>		

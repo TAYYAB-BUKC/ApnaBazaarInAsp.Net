@@ -9,7 +9,14 @@ namespace ApnaBazaar.Web.ViewModels
 	public class UserProfileViewModel
 	{
 		public ApplicationUser User { get; set; }
+	}
 
+	public class UserViewModel
+	{
+		public List<ApplicationUser> Users { get; set; }
+
+		public string SearchTerm { get; set; }
+		public Pager Pager { get; set; }
 	}
 
 	public class UserUpdateViewModel

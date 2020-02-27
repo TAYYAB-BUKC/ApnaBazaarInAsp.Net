@@ -247,25 +247,25 @@
         });
     }; 
 
-    var quantityNumber = function(){
+	var quantityNumber = function () {
 		$('.quantity-button').on('click', function () {
-			var numberValue= $(this).parent().find('.quantity-number').val();
+			var numberValue = $(this).parent().find('.quantity-number').val();
 
-            if($(this).text()=="+") {
-                var newVal=parseFloat(numberValue) + 1;
+			if ($(this).text() == "+") {
+				var newVal = parseFloat(numberValue) + 1;
 			} else if ($(this).text() == "-") {
-				if (numberValue == 1){
+				if (numberValue == 1) {
 					newVal = 1;
 				} else if (numberValue > 1) {
 					var newVal = parseFloat(numberValue) - 1;
-                }
+				}
 			}
 
 			console.log(newVal);
 
-            $(this).parent().find('.quantity-number').val(newVal);
-        });
-    };
+			$(this).parent().find('.quantity-number').val(newVal);
+		});
+	};
 
     var flatTabs=function(){
         $('.flat-tabs').each(function(){
@@ -605,26 +605,12 @@
 		$("#loading-overlay").show();
 	};
 
-	function updateCartProducts() {
-		var cartProducts;
-		var existingCookieData = $.cookie('CartProducts');
 
-		if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
-			cartProducts = existingCookieData.split('-');
-		}
-		else {
-			cartProducts = [];
-		}
-
-		$("#NoOfCartProducts").html(cartProducts.length);
-	};
-
-
-	function focusAction(DivToFocus) {
-		$('html,body').animate({
-			scrollTop: $("#" + DivToFocus).offset().top - 100
-		}, 1000);
-	}
+	//function focusAction(DivToFocus) {
+	//	$('html,body').animate({
+	//		scrollTop: $("#" + DivToFocus).offset().top - 100
+	//	}, 1000);
+	//}
 
 
 	$(document).ready(function () {
@@ -657,94 +643,107 @@
 	//	}
 	//});
 
-	$(".removeFromCart").click(function myfunction() {
+	//$(".removeFromCart").click(function myfunction() {
 
-		var products;
-		var existingCartProducts = $.cookie('CartProducts');
+	//	var products;
+	//	var existingCartProducts = $.cookie('CartProducts');
 
-		if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
-			products = existingCartProducts.split('-');
-		}
-		else {
-			products = [];
-		}
+	//	if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+	//		products = existingCartProducts.split('-');
+	//	}
+	//	else {
+	//		products = [];
+	//	}
 
-		var productID = $(this).attr("data-id");
-		products.pop(productID);
+	//	var productID = $(this).attr("data-id");
+	//	products.pop(productID);
 
-		$.cookie('CartProducts', products.join('-'), { path: '/' });
-		updateCartProducts();
-		swal({
-			title: "Done",
-			text: "Product Removed from Cart Successfully.",
-			icon: "success",
-		})
-			.then((willDelete) => {
-				if (willDelete) {
-					location.reload(true);
-				}
-			});
+	//	$.cookie('CartProducts', products.join('-'), { path: '/' });
+	//	updateCartProducts();
+	//	swal({
+	//		title: "Done",
+	//		text: "Product Removed from Cart Successfully.",
+	//		icon: "success",
+	//	})
+	//		.then((willDelete) => {
+	//			if (willDelete) {
+	//				$.ajax({
+	//					url: '@Url.Action("ResponseOfWishlist","Shop")'
+	//				})
+	//					.done(function (response) {
+	//						//console.log(response);
+	//						$("#tableContainer").html(response);
+	//						focusAction("tableContainer");
+	//					})
+	//					.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+	//						alert("Ajax Request Failed");
+	//					});
+	//			}
+	//			else {
 
-
-	});
-
-	$(".productAddToCart").click(function myfunction() {
-
-		var products;
-		var existingCartProducts = $.cookie('CartProducts');
-
-		if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
-			products = existingCartProducts.split('-');
-		}
-		else {
-			products = [];
-		}
-
-		var productID = $(this).attr("data-id");
-		products.push(productID);
-
-		$.cookie('CartProducts', products.join('-'), { path: '/' });
-		updateCartProducts();
-		swal("Done", "Product Added to Cart.", "success");
+	//			}
+	//		});
 
 
-	});
+	//});
+
+	//$(".productAddToCart").click(function myfunction() {
+
+	//	var products;
+	//	var existingCartProducts = $.cookie('CartProducts');
+
+	//	if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+	//		products = existingCartProducts.split('-');
+	//	}
+	//	else {
+	//		products = [];
+	//	}
+
+	//	var productID = $(this).attr("data-id");
+	//	products.push(productID);
+
+	//	$.cookie('CartProducts', products.join('-'), { path: '/' });
+	//	updateCartProducts();
+	//	swal("Done", "Product Added to Cart.", "success");
 
 
-	$(".data-link").click(function myfunction() {
-		var url = $(this).attr("data-href");
-		if (url != "" || url != undefined) {
-			GetData(url);
-		}
-		else {
-			swal({
-				title: "Warning",
-				text: "Please fill the valid data in fields",
-				icon: "warning",
-				buttons: true,
-				dangerMode: true,
-			})
-		}
-	});
+	//});
 
-	function GetData(DUrl) {
-		console.log("getdata()");
-		$.ajax({
-			//url: '/Category/Create'
-			url: DUrl,
-			data: {
-				maximumPrice: priceSlider.slider("values", 1),
-				minimumPrice: priceSlider.slider("values", 0)
-			}
-		})
-			.done(function (response) {
-				$("#filterProducts").html(response);
-				focusAction("productsDiv");
-			})
-			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
-				alert("Ajax Request Failed");
-			});
-	}
+
+	//$(".data-link").click(function myfunction() {
+	//	var url = $(this).attr("data-href");
+	//	if (url != "" || url != undefined) {
+	//		GetData(url);
+	//	}
+	//	else {
+	//		swal({
+	//			title: "Warning",
+	//			text: "Please fill the valid data in fields",
+	//			icon: "warning",
+	//			buttons: true,
+	//			dangerMode: true,
+	//		})
+	//	}
+	//});
+
+	//function GetData(DUrl) {
+	//	console.log("getdata()");
+	//	$.ajax({
+	//		//url: '/Category/Create'
+	//		url: DUrl,
+	//		data: {
+	//			maximumPrice: priceSlider.slider("values", 1),
+	//			minimumPrice: priceSlider.slider("values", 0)
+	//		}
+	//	})
+	//		.done(function (response) {
+	//			$("#filterProducts").html(response);
+	//			focusAction("productsDiv");
+	//		})
+	//		.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+	//			alert("Ajax Request Failed");
+	//		});
+	//}
 
 
 	function UpdateDetails(ActionURL) {
@@ -773,7 +772,19 @@
 	}
 
 
-	
+	function updateCartProducts() {
+		var cartProducts;
+		var existingCookieData = $.cookie('CartProducts');
+
+		if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+			cartProducts = existingCookieData.split('-');
+		}
+		else {
+			cartProducts = [];
+		}
+
+		$("#NoOfCartProducts").html(cartProducts.length);
+	};
    	// Dom Ready
 	$(function() {
       removePreloader();

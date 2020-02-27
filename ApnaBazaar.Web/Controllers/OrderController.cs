@@ -40,10 +40,29 @@ namespace ApnaBazaar.Web.Controllers
 			}
 		}
 		// GET: Order
-		public ActionResult Search(string searchUserId, int? pageNo)
+		public ActionResult Search()
         {
-			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
+			//int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
 			
+			//SearchOrderViewModel model = new SearchOrderViewModel();
+
+			//var totalRecords = OrderService.Instance.SearchOrderCount(searchUserId);
+
+			//model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			//model.SearchUserID = searchUserId;
+			
+			//model.Pager = new Pager(totalRecords, pageNo, pageSize);
+
+			//model.Orders = OrderService.Instance.SearchOrder(model.SearchUserID, model.PageNo.Value, pageSize);
+
+			return View();
+        }
+
+		public ActionResult OrderTable(string searchUserId, int? pageNo)
+		{
+			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
+
 			SearchOrderViewModel model = new SearchOrderViewModel();
 
 			var totalRecords = OrderService.Instance.SearchOrderCount(searchUserId);
@@ -51,15 +70,40 @@ namespace ApnaBazaar.Web.Controllers
 			model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
 			model.SearchUserID = searchUserId;
-			
+
 			model.Pager = new Pager(totalRecords, pageNo, pageSize);
 
 			model.Orders = OrderService.Instance.SearchOrder(model.SearchUserID, model.PageNo.Value, pageSize);
 
-			return View(model);
-        }
+			return PartialView("_OrderTable", model);
+		}
 
-		public ActionResult ShowUserOrders(string SearchTerm, int? pageNo)
+
+
+
+		public ActionResult ShowUserOrders()
+		{
+			//int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
+
+			//ShowUserOrderViewModel model = new ShowUserOrderViewModel();
+
+			//model.User = UserManager.FindById(User.Identity.GetUserId());
+
+			//model.SearchTerm = SearchTerm;
+			
+			//var totalRecords = OrderService.Instance.ShowUserOrderCount(model.User.Id, model.SearchTerm);
+
+			//model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+			//model.Pager = new Pager(totalRecords, pageNo, pageSize);
+
+
+			//model.Orders = OrderService.Instance.ShowUserOrder(model.User.Id, model.SearchTerm,model.PageNo.Value, pageSize);
+
+			return View();
+		}
+
+		public ActionResult ShowUserOrdersPartial(string SearchTerm, int? pageNo)
 		{
 			int pageSize = ConfigurationService.Instance.GetNormalPageSizeConfiguration();
 
@@ -68,20 +112,18 @@ namespace ApnaBazaar.Web.Controllers
 			model.User = UserManager.FindById(User.Identity.GetUserId());
 
 			model.SearchTerm = SearchTerm;
-			
-			var totalRecords = OrderService.Instance.ShowUserOrderCount(model.SearchTerm);
+
+			var totalRecords = OrderService.Instance.ShowUserOrderCount(model.User.Id, model.SearchTerm);
 
 			model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
 			model.Pager = new Pager(totalRecords, pageNo, pageSize);
 
 
-			model.Orders = OrderService.Instance.ShowUserOrder(model.User.Id, model.SearchTerm,model.PageNo.Value, pageSize);
+			model.Orders = OrderService.Instance.ShowUserOrder(model.User.Id, model.SearchTerm, model.PageNo.Value, pageSize);
 
-			return View(model);
+			return PartialView("_ShowUserOrdersPartial", model);
 		}
-
-
 
 
 		public ActionResult Details(int orderID)

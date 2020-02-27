@@ -185,6 +185,22 @@
 
 <script>
 
+	function updateCartProducts() {
+		var cartProducts;
+		var existingCookieData = $.cookie('CartProducts');
+
+		if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+			cartProducts = existingCookieData.split('-');
+		}
+		else {
+			cartProducts = [];
+		}
+
+		$("#NoOfCartProducts").html(cartProducts.length);
+	};
+
+
+
 	var CallTimeout;
 	var priceSlider = $("#slide-range").slider({
 		range: true,
@@ -203,6 +219,7 @@
 		}
 
 	});
+
 
 
 	function GetPriceRangeData(){
@@ -226,7 +243,7 @@
         });
 	}
 
-	@*$(".data-link").click(function myfunction() {
+	$(".data-link").click(function myfunction() {
 		var url = $(this).attr("data-href");
 		if (url != "" || url != undefined) {
 			GetData(url);
@@ -263,7 +280,7 @@
 
 
 
-	$(".addToWishlist").click(function () {
+	@*$(".addToWishlist").click(function () {
 
 		var currentElement = this;
 
@@ -367,6 +384,14 @@
 				});
 
 		}
-	});
+});
 
+
+	
+
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
 </script>
