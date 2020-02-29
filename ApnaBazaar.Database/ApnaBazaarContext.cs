@@ -37,6 +37,8 @@ namespace ApnaBazaar.Database
 
 		public DbSet<Wishlist> Wishlists { get; set; }
 
+
+
 	}
 
 }

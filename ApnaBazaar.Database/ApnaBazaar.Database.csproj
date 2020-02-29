@@ -111,6 +111,10 @@
     <Compile Include="Migrations\202002231625276_FixOfModelBacking.Designer.cs">
       <DependentUpon>202002231625276_FixOfModelBacking.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002271435013_AspNetUserAdded.cs" />
+    <Compile Include="Migrations\202002271435013_AspNetUserAdded.Designer.cs">
+      <DependentUpon>202002271435013_AspNetUserAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -169,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002231625276_FixOfModelBacking.resx">
       <DependentUpon>202002231625276_FixOfModelBacking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002271435013_AspNetUserAdded.resx">
+      <DependentUpon>202002271435013_AspNetUserAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

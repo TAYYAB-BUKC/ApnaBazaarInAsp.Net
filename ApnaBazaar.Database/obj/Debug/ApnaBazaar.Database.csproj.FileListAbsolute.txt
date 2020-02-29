@@ -28,3 +28,4 @@ C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaB
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.NameAndImageFieldAddedToReview.resources
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.WishlistAdded.resources
 C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.FixOfModelBacking.resources
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Database\obj\Debug\ApnaBazaar.Database.Migrations.AspNetUserAdded.resources
