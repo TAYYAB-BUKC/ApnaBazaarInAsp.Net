@@ -174,7 +174,21 @@
 
 	<script>
 
-	$(".PageRecords").click(function myfunction() {
+		
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
+
+		$(".PageRecords").click(function myfunction() {
+
 		var url = $(this).attr("data-href");
 		if (url != "" || url != undefined) {
 			GetPaginationData(url);
@@ -191,7 +205,8 @@
 	});
 
 
-	function GetPaginationData(DUrl) {
+		function GetPaginationData(DUrl) {
+		showLoader();
 		$.ajax({
 			url: DUrl,
 			data: {
@@ -204,7 +219,10 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-		});
+		})
+		.always(function () {
+				hideLoader();
+			});
 	}
 
 
@@ -224,7 +242,8 @@
         });
 		});*@
 
-	$("#searchBtn").click(function myfunction() {
+		$("#searchBtn").click(function myfunction() {
+		showLoader();
 		var searchvalue = $("#searchText").val();
 		$.ajax({
 			//url: '/Category/CategoriesTable',
@@ -239,10 +258,14 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-        });
+		})
+		.always(function () {
+				hideLoader();
+			});
 	});
 
-	$("#resetBtn").click(function myfunction(){
+		$("#resetBtn").click(function myfunction() {
+		showLoader();
 		var searchvalue = '';
 		$.ajax({
 			url: '@Url.Action("CategoriesTable","Category")', // '/Category/CategoriesTable',
@@ -256,11 +279,15 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-        });
+		})
+		.always(function () {
+				hideLoader();
+			});
 	});
 
 
-	$("#newBtn").click(function myfunction(){
+		$("#newBtn").click(function myfunction() {
+		showLoader();
 		$.ajax({
 			//url: '/Category/Create'
 			url:'@Url.Action("Create","Category")',
@@ -272,10 +299,14 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-        });
+		})
+		.always(function () {
+				hideLoader();
+			});
 	});
 
-	$(".EditBtn").click(function myfunction() {
+		$(".EditBtn").click(function myfunction() {
+		showLoader();
 		$.ajax({
 			//url: '/Category/Edit',
 			url: '@Url.Action("Edit","Category")',
@@ -291,10 +322,14 @@
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
+			})
+		.always(function () {
+				hideLoader();
 			});
 	});
 
-	$(".DeleteBtn").click(function myfunction() {
+		$(".DeleteBtn").click(function myfunction() {
+		showLoader();
 
 		@*var confirmDelete = confirm("Are you sure you want to delete this category?");
 		if (confirmDelete) {
@@ -344,10 +379,18 @@
 					})
 					.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 						alert("Ajax Request Failed");
-					});
+					})
+				.always(function () {
+				hideLoader();
+			});
 
 			}
 	});
 
-	});
+		});
+		function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
 	</script>

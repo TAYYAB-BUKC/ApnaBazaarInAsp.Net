@@ -1,0 +1,5 @@
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\bin\Release\ApnaBazaar.Entities.dll.config
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\bin\Release\ApnaBazaar.Entities.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\bin\Release\ApnaBazaar.Entities.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\obj\Release\ApnaBazaar.Entities.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Entities\obj\Release\ApnaBazaar.Entities.pdb

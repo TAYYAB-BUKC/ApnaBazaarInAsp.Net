@@ -106,8 +106,26 @@
 	}
 	})
 
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
 
 	$("#imageUpload").change(function () {
+		showLoader();
 		var element = this;
 
 		var formData = new FormData();
@@ -135,13 +153,17 @@
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
-			});
+			})
+			.always(function () {
+					hideLoader();
+				});
 	});
 
 
 	$("#SaveBtn").click(function myfunction() {
 
 		if ($("#createProductForm").valid()) {
+			showLoader();
 			$.ajax({
 				type: "Post",
 				url: '@Url.Action("Create","Product")', //'/Product/Create',
@@ -155,6 +177,9 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+				.always(function () {
+					hideLoader();
 				});
 		}
 		else {

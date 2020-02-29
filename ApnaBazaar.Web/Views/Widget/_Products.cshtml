@@ -2,16 +2,16 @@
 
 
 @{
-	var defaultImageURL = @"/Content/images/Default/DefaultImage.png";
-	var wishproductIds = Model.WishedProductsIds;
-}
+		var defaultImageURL = @"/Content/images/Default/DefaultImage.png";
+		var wishproductIds = Model.WishedProductsIds;
+	}
 
-@if (Model != null && Model.LatestProducts != null)
-{
-	if (!Model.isLatestProducts)
+	@if (Model != null && Model.LatestProducts != null)
 	{
-		if (!Model.categoryID.HasValue)
+		if (!Model.isLatestProducts)
 		{
+			if (!Model.categoryID.HasValue)
+			{
 		<ul class="flat-filter style-1 text-center max-width-682 clearfix">
 			<li class="active"><a href="#" data-filter="*">All Product</a></li>
 			@foreach (var product in Model.LatestProducts.Select(c=>c.Category).ToList().Distinct())

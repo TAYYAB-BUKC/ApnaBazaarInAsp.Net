@@ -277,6 +277,23 @@
 
 <script>
 
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
+
 
 	function updateCartProducts() {
 		var cartProducts;
@@ -292,7 +309,8 @@
 		$("#NoOfCartProducts").html(cartProducts.length);
 	};
 
-	$("#saveReview").click(function myfunction(){
+	$("#saveReview").click(function myfunction() {
+		showLoader();
 		$.ajax({
 			url: '@Url.Action("AddReview","Shared")', // '/Product/ProductTable',
 			data: $("#reviewForm").serialize()
@@ -314,7 +332,10 @@
 			})
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-        });
+		})
+			.always(function () {
+					hideLoader();
+				});
 	});
 
 
@@ -347,6 +368,7 @@
 		var currentElement = this;
 
 		if ($(this).attr("data-wish") == "true") {
+			showLoader();
 			//console.log("AddToWihslist() Called");
 			$.ajax({
 				url: '@Url.Action("RemoveFromWishlist", "Shop")',
@@ -366,11 +388,14 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+			.always(function () {
+					hideLoader();
 				});
 
 		}
 		else {
-
+			showLoader();
 			$.ajax({
 				url: '@Url.Action("SaveToWishlist", "Shop")',
 				data: {
@@ -389,6 +414,9 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+			.always(function () {
+					hideLoader();
 				});
 
 		}

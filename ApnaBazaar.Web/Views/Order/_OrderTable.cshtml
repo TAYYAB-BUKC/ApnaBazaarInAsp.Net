@@ -101,9 +101,23 @@
 
 
 <script>
+
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
 	$(".Pagedata-link").click(function myfunction() {
 		var url = $(this).attr("data-href");
 		if (url != "" || url != undefined) {
+			showLoader();
 			$.ajax({
 				//url: '/Category/Create'
 				url: url
@@ -114,6 +128,9 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+				.always(function () {
+					hideLoader();
 				});
 		}
 		else {

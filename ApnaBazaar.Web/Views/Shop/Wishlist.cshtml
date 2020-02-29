@@ -57,6 +57,18 @@
 
 <script>
 
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
 	function focusAction(DivToFocus) {
 		$('html,body').animate({
 			scrollTop: $("#" + DivToFocus).offset().top - 100
@@ -66,6 +78,7 @@
 	$(".Pagedata-link").click(function myfunction() {
 		var url = $(this).attr("data-href");
 		if (url != "" || url != undefined) {
+				showLoader();
 			$.ajax({
 				url: url
 			})
@@ -76,6 +89,9 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+				.always(function () {
+					hideLoader();
 				});
 		}
 		else {

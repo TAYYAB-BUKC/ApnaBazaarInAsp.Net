@@ -326,11 +326,24 @@
 
 <script>
 
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
 	$(".addToWishlist").click(function () {
 
 		var currentElement = this;
 
 		if ($(this).attr("data-wish") == "true") {
+			showLoader();
 			//console.log("AddToWihslist() Called");
 			$.ajax({
 				url: '@Url.Action("RemoveFromWishlist", "Shop")',
@@ -350,11 +363,13 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
-				});
+				})
+			.always(function () {
+				hideLoader();
 
 		}
 		else {
-
+			showLoader();
 			$.ajax({
 				url: '@Url.Action("SaveToWishlist", "Shop")',
 				data: {
@@ -373,7 +388,9 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
-				});
+				})
+			.always(function () {
+				hideLoader();
 
 		}
 	});

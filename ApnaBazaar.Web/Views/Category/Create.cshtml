@@ -51,6 +51,11 @@
 
 <script>
 
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
 
 	$("#createCategoryForm").validate({
 		rules: {
@@ -76,7 +81,21 @@
 	})
 
 
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
+
 	$("#imageUpload").change(function () {
+		showLoader();
 		var element = this;
 
 		var formData = new FormData();
@@ -104,10 +123,14 @@
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
+			})
+		.always(function () {
+				hideLoader();
 			});
 	});
 	$("#SaveBtn").click(function myfunction() {
 		if ($("#createCategoryForm").valid()) {
+			showLoader();
 			$.ajax({
 			type: "Post",
 			url: '@Url.Action("Create","Category")',   // '/Category/Create',
@@ -127,6 +150,9 @@
 			 buttons: true,
 			 dangerMode: true,
 			})
+			})
+			.always(function () {
+				hideLoader();
 			});
 		}
 		else {
@@ -142,8 +168,10 @@
 		
 
 	$("#CancelBtn").click(function myfunction() {
+		showLoader();
 		$("#createCategory").html("");
 		focusAction("tableContainer");
+		hideLoader();
 
 	});
 

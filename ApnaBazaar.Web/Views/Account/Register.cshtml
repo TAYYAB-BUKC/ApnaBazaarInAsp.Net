@@ -85,7 +85,22 @@
 
 <script>
 
+
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
 	$("#imageUpload").change(function () {
+
+		showLoader();
 		var element = this;
 
 		var formData = new FormData();
@@ -113,6 +128,9 @@
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
+			})
+			.always(function () {
+				hideLoader();
 			});
 	});
 

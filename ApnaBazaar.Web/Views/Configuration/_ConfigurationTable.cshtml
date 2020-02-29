@@ -209,6 +209,16 @@
 <script>
 
 	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
 
 
 	//$("#exampleModal").on("show.bs.modal", function (event) {
@@ -223,6 +233,7 @@
 	//});
 
 	$("#Save").click(function myfunction() {
+		showLoader();
 		var key = $("#key").val();
 		var value = $("#Value").val();
 
@@ -245,13 +256,17 @@
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				//console.log(errorThrown);
         	    //alert("Ajax Request Failed");
-        });
+			})
+		.always(function () {
+				hideLoader();
+			});
 
 	});
 
 
 	
 	$("#Edit").click(function myfunction() {
+		showLoader();
 		var key = $("#Editkey").val();
 		var value = $("#EditValue").val();
 
@@ -274,7 +289,10 @@
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				//console.log(errorThrown);
         		//alert("Ajax Request Failed");
-        });
+			})
+		.always(function () {
+				hideLoader();
+			});
 
 	});
 
@@ -293,6 +311,7 @@
 			})
 		.then((willDelete) => {
 			if (willDelete) {
+				showLoader();
 				$.ajax({
 					type: 'Post',
 					url: '@Url.Action("Delete","Configuration")',//'/Product/Delete',
@@ -312,7 +331,10 @@
 					})
 					.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 						alert("Ajax Request Failed");
-					});
+					})
+				.always(function () {
+				hideLoader();
+			});
 
 			}
 	});
@@ -345,6 +367,7 @@
 
 
 	function GetPaginationData(DUrl) {
+		showLoader();
 		$.ajax({
 			url: DUrl,
 			data: {
@@ -357,13 +380,17 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-		});
+		})
+		.always(function () {
+				hideLoader();
+			});
 	}
 
 
 
 
-	$("#searchBtn").click(function myfunction(){
+	$("#searchBtn").click(function myfunction() {
+		showLoader();
 		var searchvalue = $("#searchText").val();
 		$.ajax({
 			url: '@Url.Action("ProductTable","Product")', // '/Product/ProductTable',
@@ -377,11 +404,15 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-        });
+		})
+		.always(function () {
+				hideLoader();
+			});
 	});
 
 
-	$("#resetBtn").click(function myfunction(){
+	$("#resetBtn").click(function myfunction() {
+		showLoader();
 		var searchvalue = '';
 		$.ajax({
 			url: '@Url.Action("ProductTable","Product")', //'/Product/ProductTable',
@@ -395,7 +426,10 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-        });
+		})
+		.always(function () {
+				hideLoader();
+			});
 	});
 
 	function focusAction(DivToFocus) {

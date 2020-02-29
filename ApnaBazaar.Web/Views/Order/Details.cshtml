@@ -257,8 +257,21 @@
 	</div>
 
 <script>
+
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
 		$("#changeStatus").change(function myfunction() {
-			debugger;
+		 showLoader();
 		$.ajax({
 			type: "Post",
 			url: '@Url.Action("UpdateStatus","Order")',   // '/Category/Create',
@@ -289,7 +302,10 @@
 			 buttons: true,
 			 dangerMode: true,
 			})
-			});
+			})
+			.always(function () {
+					hideLoader();
+				});
 		});
 </script>
 

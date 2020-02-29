@@ -287,9 +287,21 @@
 
 	<script>
 
+		
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
 
 	$("#placeOrder").click(function myfunction() {
-
+		showLoader();
 		$.ajax({
 			type: "Post",
 			url: '@Url.Action("PlaceOrder","Shop")',   // '/Category/Create',
@@ -328,7 +340,10 @@
 			 buttons: true,
 			 dangerMode: true,
 			})
-			});
+			})
+			.always(function () {
+					hideLoader();
+				});
 	});
 
 	function updateCartProducts() {

@@ -50,6 +50,18 @@
 
 <script>
 
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
 	$("#editProductForm").validate({
 		rules: {
 			Name: {
@@ -84,6 +96,7 @@
 
 
 	$("#imageUpload").change(function () {
+				showLoader();
 		var element = this;
 
 		var formData = new FormData();
@@ -111,7 +124,10 @@
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
-			});
+			})
+			.always(function () {
+					hideLoader();
+				});
 	});
 
 
@@ -119,6 +135,7 @@
 	$("#EditBtn").click(function myfunction() {
 
 		if ($("#editProductForm").valid()) {
+					showLoader();
 		var x = $("#imageUpload").val();
 		if (x == "") {
 			var value = $("#image").attr("src");
@@ -137,7 +154,10 @@
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
-			});
+			})		
+			.always(function () {
+					hideLoader();
+				});
 		}
 		else {
 	        swal({
@@ -151,6 +171,7 @@
 	});
 
 	$(document).ready(function () {
+		showLoader();
 		$.ajax({
 			url: '@Url.Action("ForEdit","Product")', //'/Product/ForEdit',
 			contentType: "application/json; charset=utf-8",
@@ -179,7 +200,10 @@
 				})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
-			});
+			})
+			.always(function () {
+					hideLoader();
+				});
 	});
 
 	$("#CancelBtn").click(function myfunction() {
@@ -187,4 +211,10 @@
 		focusAction("tableContainer");
 			
 	});
+
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
 </script>

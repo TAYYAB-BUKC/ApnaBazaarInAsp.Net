@@ -1,0 +1,17 @@
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Services.dll.config
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Services.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Services.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Database.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Entities.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\EntityFramework.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Database.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Database.dll.config
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Entities.pdb
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\ApnaBazaar.Entities.dll.config
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\EntityFramework.xml
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\obj\Release\ApnaBazaar.Services.csprojAssemblyReference.cache
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\obj\Release\ApnaBazaar.Services.csproj.CopyComplete
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\obj\Release\ApnaBazaar.Services.dll
+C:\Users\TAYYAB DOST\source\repos\ApnaBazaar\ApnaBazaar.Services\obj\Release\ApnaBazaar.Services.pdb

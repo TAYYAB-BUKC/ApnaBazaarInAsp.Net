@@ -155,15 +155,7 @@
       });
     };
 
-    function hideLoader() {
-        $(".loader").hide();
-        $("#loading-overlay").hide('slow');
-    };
-
-    function showLoader() {
-        $(".loader").show();
-        $("#loading-overlay").show();
-    };
+   
 
     //var flatPrice = function() {
     //    if( $().slider ) {
@@ -595,18 +587,7 @@
     }; 
 
 
-	function hideLoader() {
-		$(".loader").hide();
-		$("#loading-overlay").hide();
-	};
-
-	function showLoader() {
-		$(".loader").show();
-		$("#loading-overlay").show();
-	};
-
-
-	//function focusAction(DivToFocus) {
+//function focusAction(DivToFocus) {
 	//	$('html,body').animate({
 	//		scrollTop: $("#" + DivToFocus).offset().top - 100
 	//	}, 1000);

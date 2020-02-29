@@ -53,6 +53,24 @@
 
 <script>
 
+
+	function focusAction(DivToFocus) {
+		$('html,body').animate({
+			scrollTop: $("#" + DivToFocus).offset().top - 100
+		}, 1000);
+	}
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
+
 	$("#editCategoryForm").validate({
 		rules: {
 			Name: {
@@ -77,6 +95,7 @@
 	})
 
 	$("#imageUpload").change(function () {
+		showLoader();
 		var element = this;
 
 		var formData = new FormData();
@@ -104,12 +123,16 @@
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
+			})
+		.always(function () {
+				hideLoader();
 			});
 	});
 
 	$("#EditBtn").click(function myfunction() {
 
 		if ($("#editCategoryForm").valid()) {
+			showLoader();
 		var x = $("#imageUpload").val();
 		if (x == "") {
 			var value = $("#image").attr("src");
@@ -128,6 +151,9 @@
 			})
 			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 				alert("Ajax Request Failed");
+			})
+			.always(function () {
+				hideLoader();
 			});
 			
 		}
@@ -143,8 +169,10 @@
 	});
 
 	$("#CancelBtn").click(function myfunction() {
+		showLoader();
 		$("#editCategoryForm").html("");
-		focusAction("tableContainer");			
+		focusAction("tableContainer");	
+		hideLoader();
 	});
 
 </script>

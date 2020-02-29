@@ -90,12 +90,24 @@ else
 
 <script>
 
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
 
 		$(".addToWishlist").click(function () {
 
 		var currentElement = this;
 
-		if ($(this).attr("data-wish") == "true") {
+			if ($(this).attr("data-wish") == "true") {
+				showLoader();
 			//console.log("AddToWihslist() Called");
 			$.ajax({
 				url: '@Url.Action("RemoveFromWishlist", "Shop")',
@@ -126,11 +138,14 @@ else
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+				.always(function () {
+					hideLoader();
 				});
 
 		}
 		else {
-
+			showLoader();
 			$.ajax({
 				url: '@Url.Action("SaveToWishlist", "Shop")',
 				data: {
@@ -160,30 +175,31 @@ else
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+				.always(function () {
+					hideLoader();
 				});
 
 		}
 	});
 
-	//$(".productAddToCart").click(function myfunction() {
+	$(".productAddToCart").click(function myfunction() {
 
-	//	var products;
-	//	var existingCartProducts = $.cookie('CartProducts');
+		var products;
+		var existingCartProducts = $.cookie('CartProducts');
 
-	//	if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
-	//		products = existingCartProducts.split('-');
-	//	}
-	//	else {
-	//		products = [];
-	//	}
+		if (existingCartProducts != null && existingCartProducts != "" && existingCartProducts != undefined) {
+			products = existingCartProducts.split('-');
+		}
+		else {
+			products = [];
+		}
 
-	//	var productID = $(this).attr("data-id");
-	//	products.push(productID);
+		var productID = $(this).attr("data-id");
+		products.push(productID);
 
-	//	$.cookie('CartProducts', products.join('-'), { path: '/' });
-	//	updateCartProducts();
-	//	swal("Done", "Product Added to Cart.", "success");
-
-
-	//});
+		$.cookie('CartProducts', products.join('-'), { path: '/' });
+		updateCartProducts();
+		swal("Done", "Product Added to Cart.", "success");
+	});
 </script>

@@ -34,7 +34,8 @@ namespace ApnaBazaar.Services
 		{
 			using (var context = new ApnaBazaarContext())
 			{
-				return context.Configurations.Where(configuration => configuration.Key == key).FirstOrDefault();
+				var config = context.Configurations.Where(configuration => configuration.Key == key).FirstOrDefault();
+				return config != null ? config : new ApnaBazaarConfiguration();
 				return context.Configurations.FirstOrDefault(configuration => configuration.Key == key);
 				return context.Configurations.Find(key);
 

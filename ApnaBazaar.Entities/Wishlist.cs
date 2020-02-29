@@ -12,6 +12,5 @@ namespace ApnaBazaar.Entities
 		public string UserID { get; set; }
 		public int ProductId { get; set; }
 		public virtual Product Product { get; set; }
-
 	}
 }

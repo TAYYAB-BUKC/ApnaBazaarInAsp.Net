@@ -199,6 +199,17 @@
 		$("#NoOfCartProducts").html(cartProducts.length);
 	};
 
+	
+	function hideLoader() {
+		$(".loader").hide();
+		$("#loading-overlay").hide('slow');
+	};
+
+	function showLoader() {
+		$(".loader").show();
+		$("#loading-overlay").show();
+	};
+	//
 
 
 	var CallTimeout;
@@ -223,7 +234,7 @@
 
 
 	function GetPriceRangeData(){
-		debugger;
+		showLoader();
 		$.ajax({
 			//url: '/Category/Create'
 			url: '@Url.Action("FilterProducts","Shop")',
@@ -240,7 +251,10 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-        });
+		})
+		.always(function () {
+					hideLoader();
+				});
 	}
 
 	$(".data-link").click(function myfunction() {
@@ -260,7 +274,7 @@
 	});
 
 	function GetData(DUrl) {
-		console.log("getdata()");
+		showLoader();
 		$.ajax({
 			//url: '/Category/Create'
 			url: DUrl,
@@ -275,7 +289,10 @@
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("Ajax Request Failed");
-        });
+		})
+		.always(function () {
+					hideLoader();
+				});
 	}
 
 
@@ -339,6 +356,7 @@
 		var currentElement = this;
 
 		if ($(this).attr("data-wish") == "true") {
+			showLoader();
 			//console.log("AddToWihslist() Called");
 			$.ajax({
 				url: '@Url.Action("RemoveFromWishlist", "Shop")',
@@ -358,11 +376,14 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+				.always(function () {
+					hideLoader();
 				});
 
 		}
 		else {
-
+			showLoader();
 			$.ajax({
 				url: '@Url.Action("SaveToWishlist", "Shop")',
 				data: {
@@ -381,6 +402,9 @@
 				})
 				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Ajax Request Failed");
+				})
+				.always(function () {
+					hideLoader();
 				});
 
 		}
